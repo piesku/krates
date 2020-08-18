@@ -8,6 +8,7 @@ import {Named} from "./components/com_named.js";
 import {Render} from "./components/com_render.js";
 import {RigidBody} from "./components/com_rigid_body.js";
 import {Transform} from "./components/com_transform.js";
+import {Walk} from "./components/com_walk.js";
 
 const enum Component {
     Camera,
@@ -20,6 +21,7 @@ const enum Component {
     Render,
     RigidBody,
     Transform,
+    Walk,
 }
 
 export const enum Has {
@@ -33,6 +35,7 @@ export const enum Has {
     Render = 1 << Component.Render,
     RigidBody = 1 << Component.RigidBody,
     Transform = 1 << Component.Transform,
+    Walk = 1 << Component.Walk,
 }
 
 export class World {
@@ -49,4 +52,5 @@ export class World {
     Render: Array<Render> = [];
     RigidBody: Array<RigidBody> = [];
     Transform: Array<Transform> = [];
+    Walk: Array<Walk> = [];
 }
