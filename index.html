@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <meta charset="utf8" />
 <meta name="viewport" content="width=device-width, user-scalable=0" />
-<title>ThirdPerson</title>
+<title>Krates</title>
 <style>
     html,
     body {
@@ -50,8 +50,8 @@
         <div><button onclick="toggle(this)">pause</button></div>
     </div>
     <script type="module">
-        import {loop_start, loop_stop} from "./core.js";
-        import "./index.js";
+        import {loop_start, loop_stop} from "./src/core.js";
+        import "./src/index.js";
 
         let running = true;
         window.toggle = function toggle(button) {
