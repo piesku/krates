@@ -10,27 +10,24 @@ import {Game, Layer} from "../game.js";
 
 export function blueprint_player(game: Game): Blueprint {
     return {
-        Rotation: [0, 1, 0, 0],
         Using: [
-            control_player(true, 0.2, 0),
+            control_player(true, false),
             move(10, 3),
             collide(true, Layer.Player, Layer.Terrain),
             rigid_body(true),
+            named("camera anchor"),
         ],
         Children: [
             {
                 // Body.
                 Using: [
+                    control_player(false, true),
                     render_textured(
                         game.MaterialTextured,
                         game.MeshCube,
                         game.Textures["checker1.png"]
                     ),
                 ],
-            },
-            {
-                // Camera rig anchor.
-                Using: [named("camera anchor"), move(0, 3), control_player(false, 0, 0.2)],
             },
             {
                 Translation: [0, 5, 0],

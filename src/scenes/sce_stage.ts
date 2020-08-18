@@ -1,3 +1,5 @@
+import {from_euler} from "../../common/quat.js";
+import {float, set_seed} from "../../common/random.js";
 import {generate_texture} from "../../common/texture.js";
 import {blueprint_box} from "../blueprints/blu_box.js";
 import {blueprint_camera_follow} from "../blueprints/blu_camera_follow.js";
@@ -17,7 +19,9 @@ export function scene_stage(game: Game) {
     game.ViewportResized = true;
     game.Gl.clearColor(0.9, 0.9, 0.9, 1);
 
-    let map_size = 20;
+    set_seed(Date.now());
+
+    let map_size = 10;
     let tile_size = 2;
 
     // Ground base.
@@ -62,11 +66,16 @@ export function scene_stage(game: Game) {
     // Player.
     instantiate(game, {
         ...blueprint_player(game),
-        Translation: [0, 1, 0],
+        Translation: [0, 5, 0],
+        Rotation: [0, 1, 0, 0],
     });
 
     // Camera.
-    instantiate(game, blueprint_camera_follow(game));
+    instantiate(game, {
+        ...blueprint_camera_follow(game),
+        Translation: [float(-50, 50), float(20, 50), float(20, 50)],
+        Rotation: from_euler([0, 0, 0, 0], 0, float(-135, -225), 0),
+    });
 
     // Boxes.
 
