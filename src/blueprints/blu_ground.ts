@@ -4,7 +4,7 @@ import {rigid_body} from "../components/com_rigid_body.js";
 import {Blueprint} from "../core.js";
 import {Game, Layer} from "../game.js";
 
-export function blueprint_ground(game: Game, size: number, texture: WebGLTexture): Blueprint {
+export function blueprint_ground(game: Game, size: number): Blueprint {
     return {
         Scale: [size, size, size],
         Using: [

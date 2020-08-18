@@ -1,6 +1,5 @@
 import {from_euler} from "../../common/quat.js";
 import {float, set_seed} from "../../common/random.js";
-import {generate_texture} from "../../common/texture.js";
 import {blueprint_box} from "../blueprints/blu_box.js";
 import {blueprint_camera_follow} from "../blueprints/blu_camera_follow.js";
 import {blueprint_ground} from "../blueprints/blu_ground.js";
@@ -25,32 +24,43 @@ export function scene_stage(game: Game) {
     // Ground with holes.
     for (let z = 0; z < map_size; z++) {
         for (let x = 0; x < map_size; x++) {
-            if (Math.random() < 0.05) {
-                // Lava
-                generate_texture(game, [255, 15, 40]).then((texture) => {
-                    instantiate(game, {
-                        Translation: [
-                            tile_size * (x - map_size / 2 + 0.5),
-                            -tile_size,
-                            tile_size * (z - map_size / 2 + 0.5),
-                        ],
-                        ...blueprint_ground(game, tile_size, texture),
-                    });
+            let ground = blueprint_ground(game, tile_size);
+            if (x === 0 || z === 0 || x === map_size - 1 || z === map_size - 1) {
+                ground.Using?.push(
+                    render_textured(
+                        game.MaterialTextured,
+                        game.MeshCube,
+                        game.Textures["krates.gif"]
+                    )
+                );
+                instantiate(game, {
+                    Translation: [
+                        tile_size * (x - map_size / 2 + 0.5),
+                        tile_size,
+                        tile_size * (z - map_size / 2 + 0.5),
+                    ],
+                    ...ground,
                 });
-
-                continue;
-            }
-
-            generate_texture(game, [110, 215, 40]).then((texture) => {
+            } else if (Math.random() < 0.05) {
+                // Lava
+                instantiate(game, {
+                    Translation: [
+                        tile_size * (x - map_size / 2 + 0.5),
+                        -tile_size,
+                        tile_size * (z - map_size / 2 + 0.5),
+                    ],
+                    ...blueprint_ground(game, tile_size),
+                });
+            } else {
                 instantiate(game, {
                     Translation: [
                         tile_size * (x - map_size / 2 + 0.5),
                         0,
                         tile_size * (z - map_size / 2 + 0.5),
                     ],
-                    ...blueprint_ground(game, tile_size, texture),
+                    ...blueprint_ground(game, tile_size),
                 });
-            });
+            }
         }
     }
 
