@@ -1,9 +1,11 @@
+import {Game} from "../src/game.js";
 import {
     GL_DATA_UNSIGNED_BYTE,
     GL_DATA_UNSIGNED_INT,
     GL_DEPTH_COMPONENT,
     GL_DEPTH_COMPONENT16,
     GL_LINEAR,
+    GL_NEAREST,
     GL_NEAREST_MIPMAP_LINEAR,
     GL_PIXEL_UNSIGNED_BYTE,
     GL_REPEAT,
@@ -39,8 +41,8 @@ export function create_texture_from(gl: WebGLRenderingContext, image: HTMLImageE
         gl.texParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     } else {
         // GL_LINEAR is the default; make it explicit.
-        gl.texParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        gl.texParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        gl.texParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        gl.texParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     }
 
     // GL_REPEAT is the default; make it explicit.
@@ -103,4 +105,36 @@ export function create_texture_depth(gl: WebGL2RenderingContext, width: number, 
 
 function is_power_of_2(value: number) {
     return (value & (value - 1)) == 0;
+}
+
+export function generate_texture(
+    game: Game,
+    color: [number, number, number]
+): Promise<WebGLTexture> {
+    return new Promise((resolve) => {
+        let size = 32;
+        let canvas_size = size;
+        let canvas = document.createElement("canvas");
+        canvas.width = canvas.height = canvas_size;
+
+        let ctx = canvas.getContext("2d");
+        let imageData = ctx!.getImageData(0, 0, size, size);
+        for (let i = 0; i < imageData.data.length; i += 4) {
+            let percent = Math.random();
+            // console.log(temp_color);
+            imageData.data[i] = color[0] * percent;
+            imageData.data[i + 1] = color[1] * percent;
+            imageData.data[i + 2] = color[2] * percent;
+            imageData.data[i + 3] = 255;
+        }
+
+        ctx!.putImageData(imageData, 0, 0);
+
+        let img = new Image();
+        img.onload = () => {
+            resolve(create_texture_from(game.Gl, img));
+        };
+        img.width = img.height = canvas_size;
+        img.src = canvas.toDataURL();
+    });
 }

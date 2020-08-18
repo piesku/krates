@@ -15,6 +15,5 @@ Promise.all([load_texture(game, "checker1.png"), load_texture(game, "grass.png")
 
 async function load_texture(game: Game, name: string) {
     let image = await fetch_image("../textures/" + name);
-    console.log(image);
     game.Textures[name] = create_texture_from(game.Gl, image);
 }
