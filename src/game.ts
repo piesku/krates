@@ -47,6 +47,8 @@ export class Game {
 
     Textures: Record<string, WebGLTexture> = {};
 
+    MapSize = 11;
+
     constructor() {
         document.addEventListener("visibilitychange", () =>
             document.hidden ? loop_stop() : loop_start(this)

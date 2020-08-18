@@ -14,7 +14,7 @@ export function blueprint_camera_follow(game: Game): Blueprint {
                 Children: [
                     {
                         // camera
-                        Translation: [0, 0, 10],
+                        Translation: [0, 0, 5],
                         Using: [camera(1, 0.1, 1000)],
                     },
                 ],

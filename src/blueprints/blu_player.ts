@@ -8,11 +8,11 @@ import {walk} from "../components/com_walk.js";
 import {Blueprint} from "../core.js";
 import {Game, Layer} from "../game.js";
 
-export function blueprint_player(game: Game): Blueprint {
+export function blueprint_player(game: Game, grid_x: number, grid_z: number): Blueprint {
     return {
         Using: [
             control_player(true, false),
-            walk(4, 4),
+            walk(grid_x, grid_z),
             move(10, 3),
             collide(true, Layer.Player, Layer.Terrain),
             rigid_body(true),
@@ -21,6 +21,7 @@ export function blueprint_player(game: Game): Blueprint {
         Children: [
             {
                 // Body.
+                Scale: [1, 1.5, 1],
                 Using: [
                     control_player(false, true),
                     render_textured(

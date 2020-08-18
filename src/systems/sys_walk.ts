@@ -14,9 +14,6 @@ export function sys_walk(game: Game, delta: number) {
     }
 }
 
-const map_size = 9;
-const tile_size = 2;
-
 let world_pos: Vec3 = [0, 0, 0];
 let diff: Vec3 = [0, 0, 0];
 
@@ -26,14 +23,17 @@ function update(game: Game, entity: Entity) {
     let move = game.World.Move[entity];
 
     if (walk.IsWalking) {
-        let target_world_x = tile_size * (walk.X - map_size / 2 + 0.5);
-        let world_z = tile_size * (walk.Z - map_size / 2 + 0.5);
+        let target_world_x = walk.X - game.MapSize / 2 + 0.5;
+        let target_world_z = walk.Z - game.MapSize / 2 + 0.5;
 
         get_translation(world_pos, transform.World);
-        subtract(diff, world_pos, [target_world_x, world_pos[1], world_z]);
+        subtract(diff, world_pos, [target_world_x, world_pos[1], target_world_z]);
 
         if (length(diff) < 0.1) {
             walk.IsWalking = false;
+            transform.Translation[0] = target_world_x;
+            transform.Translation[2] = target_world_z;
+            transform.Dirty = true;
         } else {
             normalize(diff, diff);
             move.Directions.push(diff);

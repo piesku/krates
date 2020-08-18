@@ -15,23 +15,17 @@ export function scene_stage(game: Game) {
     game.Camera = undefined;
     game.ViewportResized = true;
     game.Gl.clearColor(0.2, 0.5, 0.9, 1);
+    game.MapSize = 11;
 
     set_seed(Date.now());
 
-    let map_size = 11;
-    let tile_size = 2;
-
     // Ground with holes.
-    for (let z = 0; z < map_size; z++) {
-        for (let x = 0; x < map_size; x++) {
-            let ground = blueprint_ground(game, tile_size);
-            if (x === 0 || z === 0 || x === map_size - 1 || z === map_size - 1) {
+    for (let z = 0; z < game.MapSize; z++) {
+        for (let x = 0; x < game.MapSize; x++) {
+            let ground = blueprint_ground(game);
+            if (x === 0 || z === 0 || x === game.MapSize - 1 || z === game.MapSize - 1) {
                 instantiate(game, {
-                    Translation: [
-                        tile_size * (x - map_size / 2 + 0.5),
-                        0,
-                        tile_size * (z - map_size / 2 + 0.5),
-                    ],
+                    Translation: [x - game.MapSize / 2 + 0.5, 0, z - game.MapSize / 2 + 0.5],
                     ...ground,
                 });
                 ground.Using?.push(
@@ -42,31 +36,19 @@ export function scene_stage(game: Game) {
                     )
                 );
                 instantiate(game, {
-                    Translation: [
-                        tile_size * (x - map_size / 2 + 0.5),
-                        tile_size,
-                        tile_size * (z - map_size / 2 + 0.5),
-                    ],
+                    Translation: [x - game.MapSize / 2 + 0.5, 1, z - game.MapSize / 2 + 0.5],
                     ...ground,
                 });
             } else if (Math.random() < 0.05) {
                 // Lava
                 instantiate(game, {
-                    Translation: [
-                        tile_size * (x - map_size / 2 + 0.5),
-                        -tile_size,
-                        tile_size * (z - map_size / 2 + 0.5),
-                    ],
-                    ...blueprint_ground(game, tile_size),
+                    Translation: [x - game.MapSize / 2 + 0.5, -1, z - game.MapSize / 2 + 0.5],
+                    ...blueprint_ground(game),
                 });
             } else {
                 instantiate(game, {
-                    Translation: [
-                        tile_size * (x - map_size / 2 + 0.5),
-                        0,
-                        tile_size * (z - map_size / 2 + 0.5),
-                    ],
-                    ...blueprint_ground(game, tile_size),
+                    Translation: [x - game.MapSize / 2 + 0.5, 0, z - game.MapSize / 2 + 0.5],
+                    ...blueprint_ground(game),
                 });
             }
         }
@@ -84,7 +66,7 @@ export function scene_stage(game: Game) {
 
     // Player.
     instantiate(game, {
-        ...blueprint_player(game),
+        ...blueprint_player(game, 5, 5),
         Translation: [0, 5, 0],
         Rotation: [0, 1, 0, 0],
     });
@@ -92,7 +74,7 @@ export function scene_stage(game: Game) {
     // Camera.
     instantiate(game, {
         ...blueprint_camera_follow(game),
-        Translation: [float(-50, 50), float(20, 50), float(20, 50)],
+        Translation: [float(-20, 20), float(10, 20), float(10, 20)],
         Rotation: from_euler([0, 0, 0, 0], 0, float(-135, -225), 0),
     });
 
@@ -115,8 +97,8 @@ export function scene_stage(game: Game) {
             }
 
             instantiate(game, {
-                Scale: [map_size * tile_size, 1, map_size * tile_size],
-                Translation: [x * map_size * tile_size, 1, z * map_size * tile_size],
+                Scale: [game.MapSize, 1, game.MapSize],
+                Translation: [x * game.MapSize, 1, z * game.MapSize],
                 Rotation: from_euler([0, 0, 0, 1], 0, 90, 0),
                 Using: [
                     // collide(false, Layer.Terrain, Layer.None),
@@ -125,7 +107,7 @@ export function scene_stage(game: Game) {
                         game.MaterialTextured,
                         game.MeshPlane,
                         game.Textures["grass.png"],
-                        map_size
+                        game.MapSize
                     ),
                 ],
             });

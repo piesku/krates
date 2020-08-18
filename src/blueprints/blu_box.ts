@@ -6,9 +6,8 @@ import {Game, Layer} from "../game.js";
 
 export function blueprint_box(game: Game): Blueprint {
     return {
-        Scale: [2, 2, 2],
         Using: [
-            collide(true, Layer.Terrain, Layer.Terrain | Layer.Player),
+            collide(true, Layer.Terrain, Layer.Terrain | Layer.Player, [0.9, 0.9, 0.9]),
             rigid_body(true),
             render_textured(game.MaterialTextured, game.MeshCube, game.Textures["krates.gif"]),
         ],
