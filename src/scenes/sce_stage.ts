@@ -26,6 +26,14 @@ export function scene_stage(game: Game) {
         for (let x = 0; x < map_size; x++) {
             let ground = blueprint_ground(game, tile_size);
             if (x === 0 || z === 0 || x === map_size - 1 || z === map_size - 1) {
+                instantiate(game, {
+                    Translation: [
+                        tile_size * (x - map_size / 2 + 0.5),
+                        0,
+                        tile_size * (z - map_size / 2 + 0.5),
+                    ],
+                    ...ground,
+                });
                 ground.Using?.push(
                     render_textured(
                         game.MaterialTextured,
