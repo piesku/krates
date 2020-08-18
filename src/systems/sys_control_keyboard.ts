@@ -1,4 +1,3 @@
-import {set} from "../../common/quat.js";
 import {Entity, Game} from "../game.js";
 import {Has} from "../world.js";
 
@@ -29,27 +28,6 @@ function update(game: Game, entity: Entity) {
         } else if (game.InputState["ArrowRight"]) {
             walk.X += 1;
             game.World.Signature[entity] |= Has.Walk;
-        }
-    }
-
-    if (control.Yaw) {
-        let transform = game.World.Transform[entity];
-        if (game.InputState["ArrowUp"]) {
-            // Move forward
-            set(transform.Rotation, 0, 1, 0, 0);
-            transform.Dirty = true;
-        } else if (game.InputState["ArrowLeft"]) {
-            // Move left
-            set(transform.Rotation, 0, -0.707, 0, 0.707);
-            transform.Dirty = true;
-        } else if (game.InputState["ArrowDown"]) {
-            // Move backward
-            set(transform.Rotation, 0, 0, 0, 1);
-            transform.Dirty = true;
-        } else if (game.InputState["ArrowRight"]) {
-            // Move right
-            set(transform.Rotation, 0, 0.707, 0, 0.707);
-            transform.Dirty = true;
         }
     }
 }

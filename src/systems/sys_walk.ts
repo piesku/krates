@@ -1,5 +1,6 @@
 import {get_translation} from "../../common/mat4.js";
 import {Vec3} from "../../common/math.js";
+import {set} from "../../common/quat.js";
 import {length, normalize, subtract} from "../../common/vec3.js";
 import {Entity, Game} from "../game.js";
 import {Has} from "../world.js";
@@ -32,9 +33,23 @@ function update(game: Game, entity: Entity) {
         game.World.Signature[entity] &= ~Has.Walk;
         transform.Translation[0] = target_world_x;
         transform.Translation[2] = target_world_z;
-        transform.Dirty = true;
     } else {
         normalize(diff, diff);
         move.Directions.push(diff);
+
+        let child_entity = transform.Children[0];
+        let child = game.World.Transform[child_entity];
+
+        if (diff[2] === 1) {
+            set(child.Rotation, 0, 1, 0, 0);
+        } else if (diff[0] === 1) {
+            set(child.Rotation, 0, -0.707, 0, 0.707);
+        } else if (diff[2] === -1) {
+            set(child.Rotation, 0, 0, 0, 1);
+        } else if (diff[0] === -1) {
+            set(child.Rotation, 0, 0.707, 0, 0.707);
+        }
     }
+
+    transform.Dirty = true;
 }
