@@ -10,9 +10,8 @@ import {Game, Layer} from "../game.js";
 
 export function blueprint_player(game: Game): Blueprint {
     return {
-        Rotation: [0, 1, 0, 0],
         Using: [
-            control_player(true, 0, 0),
+            control_player(true, false),
             move(10, 3),
             collide(true, Layer.Player, Layer.Terrain),
             rigid_body(true),
@@ -22,6 +21,7 @@ export function blueprint_player(game: Game): Blueprint {
             {
                 // Body.
                 Using: [
+                    control_player(false, true),
                     render_textured(
                         game.MaterialTextured,
                         game.MeshCube,

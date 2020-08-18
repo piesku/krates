@@ -17,22 +17,34 @@ function update(game: Game, entity: Entity) {
 
     if (control.Move) {
         let move = game.World.Move[entity];
-        let transform = game.World.Transform[entity];
         if (game.InputState["ArrowUp"]) {
             // Move forward
             move.Directions.push([0, 0, 1]);
+        } else if (game.InputState["ArrowLeft"]) {
+            // Strafe left
+            move.Directions.push([1, 0, 0]);
+        } else if (game.InputState["ArrowDown"]) {
+            // Move backward
+            move.Directions.push([0, 0, -1]);
+        } else if (game.InputState["ArrowRight"]) {
+            // Strafe right
+            move.Directions.push([-1, 0, 0]);
+        }
+    }
+
+    if (control.Yaw) {
+        let transform = game.World.Transform[entity];
+        if (game.InputState["ArrowUp"]) {
+            // Move forward
             set(transform.Rotation, 0, 1, 0, 0);
         } else if (game.InputState["ArrowLeft"]) {
             // Move left
-            move.Directions.push([0, 0, 1]);
             set(transform.Rotation, 0, -0.707, 0, 0.707);
         } else if (game.InputState["ArrowDown"]) {
             // Move backward
-            move.Directions.push([0, 0, 1]);
             set(transform.Rotation, 0, 0, 0, 1);
         } else if (game.InputState["ArrowRight"]) {
             // Move right
-            move.Directions.push([0, 0, 1]);
             set(transform.Rotation, 0, 0.707, 0, 0.707);
         }
     }
