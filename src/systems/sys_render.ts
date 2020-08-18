@@ -1,8 +1,16 @@
 import {Material} from "../../common/material.js";
-import {GL_COLOR_BUFFER_BIT, GL_DEPTH_BUFFER_BIT, GL_UNSIGNED_SHORT} from "../../common/webgl.js";
+import {
+    GL_COLOR_BUFFER_BIT,
+    GL_DEPTH_BUFFER_BIT,
+    GL_TEXTURE0,
+    GL_TEXTURE_2D,
+    GL_UNSIGNED_SHORT,
+} from "../../common/webgl.js";
 import {DiffuseLayout} from "../../materials/layout_diffuse.js";
+import {TexturedLayout} from "../../materials/layout_textured.js";
 import {RenderKind} from "../components/com_render.js";
 import {RenderDiffuse} from "../components/com_render_diffuse.js";
+import {RenderTextured} from "../components/com_render_textured.js";
 import {Transform} from "../components/com_transform.js";
 import {Game} from "../game.js";
 import {Has} from "../world.js";
@@ -30,6 +38,9 @@ export function sys_render(game: Game, delta: number) {
                     case RenderKind.Diffuse:
                         use_diffuse(game, render.Material);
                         break;
+                    case RenderKind.Textured:
+                        use_textured(game, render.Material);
+                        break;
                 }
             }
 
@@ -41,6 +52,9 @@ export function sys_render(game: Game, delta: number) {
             switch (render.Kind) {
                 case RenderKind.Diffuse:
                     draw_diffuse(game, transform, render);
+                    break;
+                case RenderKind.Textured:
+                    draw_textured(game, transform, render);
                     break;
             }
         }
@@ -58,6 +72,23 @@ function draw_diffuse(game: Game, transform: Transform, render: RenderDiffuse) {
     game.Gl.uniformMatrix4fv(render.Material.Locations.World, false, transform.World);
     game.Gl.uniformMatrix4fv(render.Material.Locations.Self, false, transform.Self);
     game.Gl.uniform4fv(render.Material.Locations.Color, render.Color);
+    game.ExtVao.bindVertexArrayOES(render.Vao);
+    game.Gl.drawElements(render.Material.Mode, render.Mesh.IndexCount, GL_UNSIGNED_SHORT, 0);
+    game.ExtVao.bindVertexArrayOES(null);
+}
+
+function use_textured(game: Game, material: Material<TexturedLayout>) {
+    game.Gl.useProgram(material.Program);
+    game.Gl.uniformMatrix4fv(material.Locations.Pv, false, game.Camera!.Pv);
+}
+
+function draw_textured(game: Game, transform: Transform, render: RenderTextured) {
+    game.Gl.uniformMatrix4fv(render.Material.Locations.World, false, transform.World);
+
+    game.Gl.activeTexture(GL_TEXTURE0);
+    game.Gl.bindTexture(GL_TEXTURE_2D, render.Texture);
+    game.Gl.uniform1i(render.Material.Locations.Sampler, 0);
+
     game.ExtVao.bindVertexArrayOES(render.Vao);
     game.Gl.drawElements(render.Material.Mode, render.Mesh.IndexCount, GL_UNSIGNED_SHORT, 0);
     game.ExtVao.bindVertexArrayOES(null);
