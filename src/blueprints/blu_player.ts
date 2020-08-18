@@ -4,6 +4,7 @@ import {move} from "../components/com_move.js";
 import {named} from "../components/com_named.js";
 import {render_textured} from "../components/com_render_textured.js";
 import {rigid_body} from "../components/com_rigid_body.js";
+import {walk} from "../components/com_walk.js";
 import {Blueprint} from "../core.js";
 import {Game, Layer} from "../game.js";
 
@@ -11,6 +12,7 @@ export function blueprint_player(game: Game): Blueprint {
     return {
         Using: [
             control_player(true, false),
+            walk(4, 4),
             move(10, 3),
             collide(true, Layer.Player, Layer.Terrain),
             rigid_body(true),

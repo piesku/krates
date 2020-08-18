@@ -15,6 +15,7 @@ import {sys_move} from "./systems/sys_move.js";
 import {sys_physics} from "./systems/sys_physics.js";
 import {sys_render} from "./systems/sys_render.js";
 import {sys_transform} from "./systems/sys_transform.js";
+import {sys_walk} from "./systems/sys_walk.js";
 import {World} from "./world.js";
 
 export type Entity = number;
@@ -100,6 +101,7 @@ export class Game {
         sys_control_keyboard(this, delta);
 
         // Game logic.
+        sys_walk(this, delta);
         sys_move(this, delta);
         sys_mimic(this, delta);
         sys_transform(this, delta);

@@ -2,7 +2,7 @@ import {set} from "../../common/quat.js";
 import {Entity, Game} from "../game.js";
 import {Has} from "../world.js";
 
-const QUERY = Has.ControlPlayer | Has.Move | Has.Transform;
+const QUERY = Has.ControlPlayer | Has.Walk | Has.Transform;
 
 export function sys_control_keyboard(game: Game, delta: number) {
     for (let i = 0; i < game.World.Signature.length; i++) {
@@ -14,21 +14,21 @@ export function sys_control_keyboard(game: Game, delta: number) {
 
 function update(game: Game, entity: Entity) {
     let control = game.World.ControlPlayer[entity];
+    let walk = game.World.Walk[entity];
 
-    if (control.Move) {
-        let move = game.World.Move[entity];
+    if (control.Move && !walk.IsWalking) {
         if (game.InputState["ArrowUp"]) {
-            // Move forward
-            move.Directions.push([0, 0, 1]);
+            walk.Z -= 1;
+            walk.IsWalking = true;
         } else if (game.InputState["ArrowLeft"]) {
-            // Strafe left
-            move.Directions.push([1, 0, 0]);
+            walk.X -= 1;
+            walk.IsWalking = true;
         } else if (game.InputState["ArrowDown"]) {
-            // Move backward
-            move.Directions.push([0, 0, -1]);
+            walk.Z += 1;
+            walk.IsWalking = true;
         } else if (game.InputState["ArrowRight"]) {
-            // Strafe right
-            move.Directions.push([-1, 0, 0]);
+            walk.X += 1;
+            walk.IsWalking = true;
         }
     }
 
