@@ -112,7 +112,7 @@ export function generate_texture(
     color: [number, number, number]
 ): Promise<WebGLTexture> {
     return new Promise((resolve) => {
-        let size = 32;
+        let size = 16;
         let canvas_size = size;
         let canvas = document.createElement("canvas");
         canvas.width = canvas.height = canvas_size;

@@ -10,7 +10,7 @@ export function blueprint_ground(game: Game, size: number, texture: WebGLTexture
         Using: [
             collide(false, Layer.Terrain, Layer.None),
             rigid_body(false),
-            render_textured(game.MaterialTextured, game.MeshCube, texture),
+            render_textured(game.MaterialTextured, game.MeshCube, game.Textures["floor.gif"]),
         ],
     };
 }
