@@ -12,6 +12,7 @@ export interface RenderTextured {
     readonly FrontFace: GLenum;
     readonly Vao: WebGLVertexArrayObject;
     Texture: WebGLTexture;
+    TexScale: number;
 }
 
 let vaos: WeakMap<Mesh, WebGLVertexArrayObject> = new WeakMap();
@@ -19,7 +20,8 @@ let vaos: WeakMap<Mesh, WebGLVertexArrayObject> = new WeakMap();
 export function render_textured(
     material: Material<TexturedLayout>,
     mesh: Mesh,
-    texture: WebGLTexture
+    texture: WebGLTexture,
+    texture_scale: number = 1
 ) {
     return (game: Game, entity: Entity) => {
         if (!vaos.has(mesh)) {
@@ -67,6 +69,7 @@ export function render_textured(
             FrontFace: GL_CW,
             Vao: vaos.get(mesh)!,
             Texture: texture,
+            TexScale: texture_scale,
         };
     };
 }

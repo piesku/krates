@@ -6,6 +6,7 @@ export interface TexturedLayout {
     Sampler: WebGLUniformLocation;
     LightPositions: WebGLUniformLocation;
     LightDetails: WebGLUniformLocation;
+    TexScale: WebGLUniformLocation;
     // Attributes
     VertexPosition: GLint;
     VertexTexCoord: GLint;

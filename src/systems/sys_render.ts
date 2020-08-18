@@ -85,6 +85,8 @@ function use_textured(game: Game, material: Material<TexturedLayout>) {
 }
 
 function draw_textured(game: Game, transform: Transform, render: RenderTextured) {
+    game.Gl.uniform1f(render.Material.Locations.TexScale, render.TexScale);
+
     game.Gl.uniformMatrix4fv(render.Material.Locations.World, false, transform.World);
     game.Gl.uniformMatrix4fv(render.Material.Locations.Self, false, transform.Self);
     game.Gl.activeTexture(GL_TEXTURE0);

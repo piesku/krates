@@ -14,16 +14,15 @@ let vertex = `
     attribute vec3 position;
     attribute vec2 texcoord;
     attribute vec3 normal;
-
     varying vec2 vert_texcoord;
     varying vec3 rgb;
+    varying float f_texscale;
 
     void main() {
         vec4 vert_pos = world * vec4(position, 1.0);
         vec3 vert_normal = normalize((vec4(normal, 1.0) * self).xyz);
         gl_Position = pv * vert_pos;
         vert_texcoord = texcoord;
-
         rgb = vec3(0.1, 0.1, 0.1);
 
         for (int i = 0; i < MAX_LIGHTS; i++) {
@@ -48,10 +47,12 @@ let vertex = `
 let fragment = `
     precision mediump float;
     uniform sampler2D sampler;
+    uniform float texscale;
     varying vec2 vert_texcoord;
     varying vec3 rgb;
+    varying float f_texscale;
     void main() {
-        gl_FragColor = vec4(rgb, 1.0) * texture2D(sampler, vert_texcoord);
+        gl_FragColor = vec4(rgb, 1.0) * texture2D(sampler, vert_texcoord * texscale);
     }
 `;
 
@@ -68,6 +69,7 @@ export function mat1_textured(gl: WebGLRenderingContext): Material<TexturedLayou
             VertexPosition: gl.getAttribLocation(program, "position")!,
             VertexTexCoord: gl.getAttribLocation(program, "texcoord")!,
             VertexNormal: gl.getAttribLocation(program, "normal")!,
+            TexScale: gl.getUniformLocation(program, "texscale")!,
             LightPositions: gl.getUniformLocation(program, "light_positions")!,
             LightDetails: gl.getUniformLocation(program, "light_details")!,
         },
