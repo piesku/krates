@@ -1,6 +1,5 @@
 import {Camera} from "./components/com_camera.js";
 import {Collide} from "./components/com_collide.js";
-import {ControlPlayer} from "./components/com_control_player.js";
 import {Light} from "./components/com_light.js";
 import {Mimic} from "./components/com_mimic.js";
 import {Move} from "./components/com_move.js";
@@ -44,7 +43,6 @@ export class World {
     // Component data
     Camera: Array<Camera> = [];
     Collide: Array<Collide> = [];
-    ControlPlayer: Array<ControlPlayer> = [];
     Light: Array<Light> = [];
     Mimic: Array<Mimic> = [];
     Move: Array<Move> = [];

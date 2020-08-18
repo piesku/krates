@@ -11,7 +11,7 @@ import {Game, Layer} from "../game.js";
 export function blueprint_player(game: Game, grid_x: number, grid_z: number): Blueprint {
     return {
         Using: [
-            control_player(true, false),
+            control_player(),
             walk(grid_x, grid_z),
             move(10, 3),
             collide(true, Layer.Player, Layer.Terrain),
@@ -23,7 +23,6 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                 // Body.
                 Scale: [1, 1.5, 0.5],
                 Using: [
-                    control_player(false, true),
                     render_textured(
                         game.MaterialTextured,
                         game.MeshCube,

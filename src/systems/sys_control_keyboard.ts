@@ -12,9 +12,7 @@ export function sys_control_keyboard(game: Game, delta: number) {
 }
 
 function update(game: Game, entity: Entity) {
-    let control = game.World.ControlPlayer[entity];
-
-    if (control.Move && !(game.World.Signature[entity] & Has.Walk)) {
+    if (!(game.World.Signature[entity] & Has.Walk)) {
         let walk = game.World.Walk[entity];
         if (game.InputState["ArrowUp"]) {
             walk.Z -= 1;
