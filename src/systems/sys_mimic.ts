@@ -1,5 +1,4 @@
 import {get_rotation, get_translation} from "../../common/mat4.js";
-import {slerp} from "../../common/quat.js";
 import {lerp} from "../../common/vec3.js";
 import {Game} from "../game.js";
 import {Has} from "../world.js";
@@ -19,12 +18,6 @@ export function sys_mimic(game: Game, delta: number) {
                 follower_transform.Translation,
                 follower_transform.Translation,
                 target_world_position,
-                follower_mimic.Stiffness
-            );
-            slerp(
-                follower_transform.Rotation,
-                follower_transform.Rotation,
-                target_world_rotation,
                 follower_mimic.Stiffness
             );
             follower_transform.Dirty = true;

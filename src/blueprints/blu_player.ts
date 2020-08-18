@@ -12,10 +12,11 @@ export function blueprint_player(game: Game): Blueprint {
     return {
         Rotation: [0, 1, 0, 0],
         Using: [
-            control_player(true, 0.2, 0),
+            control_player(true, 0, 0),
             move(10, 3),
             collide(true, Layer.Player, Layer.Terrain),
             rigid_body(true),
+            named("camera anchor"),
         ],
         Children: [
             {
@@ -27,10 +28,6 @@ export function blueprint_player(game: Game): Blueprint {
                         game.Textures["checker1.png"]
                     ),
                 ],
-            },
-            {
-                // Camera rig anchor.
-                Using: [named("camera anchor"), move(0, 3), control_player(false, 0, 0.2)],
             },
             {
                 Translation: [0, 5, 0],
