@@ -6,7 +6,7 @@ import {Game, Layer} from "../game.js";
 
 export function blueprint_box(game: Game): Blueprint {
     return {
-        Scale: [0.9, 0.9, 0.9],
+        Scale: [1.5, 1.5, 1.5],
         Using: [
             collide(true, Layer.Terrain, Layer.Terrain | Layer.Player),
             rigid_body(true),
