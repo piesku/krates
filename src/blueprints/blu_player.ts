@@ -1,6 +1,5 @@
 import {collide} from "../components/com_collide.js";
 import {control_player} from "../components/com_control_player.js";
-import {light_point} from "../components/com_light.js";
 import {move} from "../components/com_move.js";
 import {named} from "../components/com_named.js";
 import {render_textured} from "../components/com_render_textured.js";
@@ -28,10 +27,6 @@ export function blueprint_player(game: Game): Blueprint {
                         game.Textures["checker1.png"]
                     ),
                 ],
-            },
-            {
-                Translation: [0, 5, 0],
-                Using: [light_point([1, 1, 1], 5)],
             },
         ],
     };

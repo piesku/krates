@@ -49,6 +49,10 @@ export function render_textured(
                 0
             );
 
+            game.Gl.bindBuffer(GL_ARRAY_BUFFER, mesh.NormalBuffer);
+            game.Gl.enableVertexAttribArray(material.Locations.VertexNormal);
+            game.Gl.vertexAttribPointer(material.Locations.VertexNormal, 3, GL_FLOAT, false, 0, 0);
+
             game.Gl.bindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.IndexBuffer);
 
             game.ExtVao.bindVertexArrayOES(null);

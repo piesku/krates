@@ -55,8 +55,12 @@ export function scene_stage(game: Game) {
 
     // Directional light.
     instantiate(game, {
+        Translation: [1, 1, -1],
+        Using: [light_directional([1, 1, 1], 0.8)],
+    });
+    instantiate(game, {
         Translation: [1, 1, 1],
-        Using: [light_directional([1, 1, 1], 0.2)],
+        Using: [light_directional([1, 1, 1], 0.5)],
     });
 
     // Player.

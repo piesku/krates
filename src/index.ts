@@ -11,7 +11,7 @@ window.game = game;
 Promise.all([
     load_texture(game, "checker1.png"),
     load_texture(game, "krates.gif"),
-    load_texture(game, "floor.gif"),
+    load_texture(game, "grass.png"),
 ]).then(() => {
     scene_stage(game);
     loop_start(game);
