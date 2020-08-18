@@ -18,33 +18,20 @@ export function scene_stage(game: Game) {
 
     set_seed(Date.now());
 
-    let map_size = 30;
+    let map_size = 9;
     let tile_size = 2;
-
-    // Ground base.
-    // generate_texture(game, [255, 15, 40]).then((texture) => {
-    //     instantiate(game, {
-    //         Translation: [-1, -1, -1],
-    //         Scale: [map_size * tile_size, 1, map_size * tile_size],
-    //         Using: [
-    //             collide(false, Layer.Terrain, Layer.None),
-    //             rigid_body(false),
-    //             render_textured(game.MaterialTextured, game.MeshCube, texture),
-    //         ],
-    //     });
-    // });
 
     // Ground with holes.
     for (let z = 0; z < map_size; z++) {
         for (let x = 0; x < map_size; x++) {
             if (Math.random() < 0.1) {
-                // continue;
+                // Lava
                 generate_texture(game, [255, 15, 40]).then((texture) => {
                     instantiate(game, {
                         Translation: [
-                            tile_size * (x - map_size / 2),
+                            tile_size * (x - map_size / 2 + 0.5),
                             -tile_size,
-                            tile_size * (z - map_size / 2),
+                            tile_size * (z - map_size / 2 + 0.5),
                         ],
                         ...blueprint_ground(game, tile_size, texture),
                     });
@@ -52,17 +39,17 @@ export function scene_stage(game: Game) {
 
                 continue;
             }
+
             generate_texture(game, [110, 215, 40]).then((texture) => {
                 instantiate(game, {
                     Translation: [
-                        tile_size * (x - map_size / 2),
+                        tile_size * (x - map_size / 2 + 0.5),
                         0,
-                        tile_size * (z - map_size / 2),
+                        tile_size * (z - map_size / 2 + 0.5),
                     ],
                     ...blueprint_ground(game, tile_size, texture),
                 });
             });
-            // Ground.
         }
     }
 
