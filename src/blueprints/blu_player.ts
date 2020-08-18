@@ -21,7 +21,7 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
         Children: [
             {
                 // Body.
-                Scale: [1, 1.5, 1],
+                Scale: [1, 1.5, 0.5],
                 Using: [
                     control_player(false, true),
                     render_textured(

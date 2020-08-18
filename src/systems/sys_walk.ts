@@ -22,21 +22,19 @@ function update(game: Game, entity: Entity) {
     let walk = game.World.Walk[entity];
     let move = game.World.Move[entity];
 
-    if (walk.IsWalking) {
-        let target_world_x = walk.X - game.MapSize / 2 + 0.5;
-        let target_world_z = walk.Z - game.MapSize / 2 + 0.5;
+    let target_world_x = walk.X - game.MapSize / 2 + 0.5;
+    let target_world_z = walk.Z - game.MapSize / 2 + 0.5;
 
-        get_translation(world_pos, transform.World);
-        subtract(diff, world_pos, [target_world_x, world_pos[1], target_world_z]);
+    get_translation(world_pos, transform.World);
+    subtract(diff, world_pos, [target_world_x, world_pos[1], target_world_z]);
 
-        if (length(diff) < 0.1) {
-            walk.IsWalking = false;
-            transform.Translation[0] = target_world_x;
-            transform.Translation[2] = target_world_z;
-            transform.Dirty = true;
-        } else {
-            normalize(diff, diff);
-            move.Directions.push(diff);
-        }
+    if (length(diff) < 0.1) {
+        game.World.Signature[entity] &= ~Has.Walk;
+        transform.Translation[0] = target_world_x;
+        transform.Translation[2] = target_world_z;
+        transform.Dirty = true;
+    } else {
+        normalize(diff, diff);
+        move.Directions.push(diff);
     }
 }
