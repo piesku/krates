@@ -1,6 +1,5 @@
 import {create_render_buffer, create_texture_rgba} from "../common/texture.js";
 import {GL_CULL_FACE, GL_DEPTH_TEST} from "../common/webgl.js";
-import {mat1_diffuse_gouraud} from "../materials/mat1_diffuse_gouraud.js";
 import {mat1_textured} from "../materials/mat1_textured.js";
 import {mat1_textured_unlit} from "../materials/mat1_textured_unlit.js";
 import {mesh_cube} from "../meshes/cube.js";
@@ -37,7 +36,6 @@ export class Game {
     Gl = this.Canvas.getContext("webgl")!;
     ExtVao = this.Gl.getExtension("OES_vertex_array_object")!;
 
-    MaterialDiffuseGouraud = mat1_diffuse_gouraud(this.Gl);
     MaterialTextured = mat1_textured(this.Gl);
     MaterialTexturedUnlit = mat1_textured_unlit(this.Gl);
     MeshCube = mesh_cube(this.Gl);
