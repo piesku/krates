@@ -98,7 +98,7 @@ export function scene_stage(game: Game) {
 
             instantiate(game, {
                 Scale: [game.MapSize, 1, game.MapSize],
-                Translation: [x * game.MapSize, 1, z * game.MapSize],
+                Translation: [x * game.MapSize, 0.5, z * game.MapSize],
                 Rotation: from_euler([0, 0, 0, 1], 0, 90, 0),
                 Using: [
                     // collide(false, Layer.Terrain, Layer.None),

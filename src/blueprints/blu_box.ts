@@ -11,5 +11,18 @@ export function blueprint_box(game: Game): Blueprint {
             rigid_body(true),
             render_textured(game.MaterialTextured, game.MeshCube, game.Textures["krates.gif"]),
         ],
+        Children: [
+            {
+                Scale: [2, 1, 2],
+                Translation: [0, -0.4, 0],
+                Using: [
+                    render_textured(
+                        game.MaterialTextured,
+                        game.MeshPlane,
+                        game.Textures["shadow.gif"]
+                    ),
+                ],
+            },
+        ],
     };
 }
