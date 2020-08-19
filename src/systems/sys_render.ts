@@ -10,12 +10,14 @@ import {
 } from "../../common/webgl.js";
 import {DiffuseLayout} from "../../materials/layout_diffuse.js";
 import {TexturedLayout} from "../../materials/layout_textured.js";
+import {TexturedUnlitLayout} from "../../materials/layout_textured_unlit.js";
 import {CameraKind} from "../components/com_camera.js";
 import {CameraDisplay} from "../components/com_camera_display.js";
 import {CameraFramebuffer} from "../components/com_camera_framebuffer.js";
 import {RenderKind} from "../components/com_render.js";
 import {RenderDiffuse} from "../components/com_render_diffuse.js";
 import {RenderTextured} from "../components/com_render_textured.js";
+import {RenderTexturedUnlit} from "../components/com_render_textured_unlit.js";
 import {Transform} from "../components/com_transform.js";
 import {Game} from "../game.js";
 import {Has} from "../world.js";
@@ -70,6 +72,9 @@ function render(game: Game, pv: Mat4, current_target?: WebGLTexture) {
                     case RenderKind.Textured:
                         use_textured(game, render.Material, pv);
                         break;
+                    case RenderKind.TexturedUnlit:
+                        use_textured_unlit(game, render.Material, pv);
+                        break;
                 }
             }
 
@@ -87,6 +92,11 @@ function render(game: Game, pv: Mat4, current_target?: WebGLTexture) {
                     // and the texture being rendered.
                     if (render.Texture !== current_target) {
                         draw_textured(game, transform, render);
+                    }
+                    break;
+                case RenderKind.TexturedUnlit:
+                    if (render.Texture !== current_target) {
+                        draw_textured_unlit(game, transform, render);
                     }
                     break;
             }
@@ -122,6 +132,24 @@ function draw_textured(game: Game, transform: Transform, render: RenderTextured)
 
     game.Gl.uniformMatrix4fv(render.Material.Locations.World, false, transform.World);
     game.Gl.uniformMatrix4fv(render.Material.Locations.Self, false, transform.Self);
+    game.Gl.activeTexture(GL_TEXTURE0);
+    game.Gl.bindTexture(GL_TEXTURE_2D, render.Texture);
+    game.Gl.uniform1i(render.Material.Locations.Sampler, 0);
+
+    game.ExtVao.bindVertexArrayOES(render.Vao);
+    game.Gl.drawElements(render.Material.Mode, render.Mesh.IndexCount, GL_UNSIGNED_SHORT, 0);
+    game.ExtVao.bindVertexArrayOES(null);
+}
+
+function use_textured_unlit(game: Game, material: Material<TexturedUnlitLayout>, pv: Mat4) {
+    game.Gl.useProgram(material.Program);
+    game.Gl.uniformMatrix4fv(material.Locations.Pv, false, pv);
+}
+
+function draw_textured_unlit(game: Game, transform: Transform, render: RenderTexturedUnlit) {
+    game.Gl.uniform1f(render.Material.Locations.TexScale, render.TexScale);
+
+    game.Gl.uniformMatrix4fv(render.Material.Locations.World, false, transform.World);
     game.Gl.activeTexture(GL_TEXTURE0);
     game.Gl.bindTexture(GL_TEXTURE_2D, render.Texture);
     game.Gl.uniform1i(render.Material.Locations.Sampler, 0);

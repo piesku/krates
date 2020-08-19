@@ -2,7 +2,7 @@ import {from_euler} from "../../common/quat.js";
 import {camera_display} from "../components/com_camera_display.js";
 import {mimic} from "../components/com_mimic.js";
 import {find_first} from "../components/com_named.js";
-import {render_textured} from "../components/com_render_textured.js";
+import {render_textured_unlit} from "../components/com_render_textured_unlit.js";
 import {Blueprint} from "../core.js";
 import {Game} from "../game.js";
 
@@ -23,8 +23,8 @@ export function blueprint_camera_follow(game: Game): Blueprint {
                         Translation: [0.5, -0.5, 3],
                         Rotation: [0.707, 0, 0, 0.707],
                         Using: [
-                            render_textured(
-                                game.MaterialTextured,
+                            render_textured_unlit(
+                                game.MaterialTexturedUnlit,
                                 game.MeshPlane,
                                 game.Textures.Minimap
                             ),
