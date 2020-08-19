@@ -29,6 +29,19 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                         game.Textures["checker1.png"]
                     ),
                 ],
+                Children: [
+                    {
+                        Scale: [1.6, 1, 1.6],
+                        Translation: [0, -0.31, 0],
+                        Using: [
+                            render_textured(
+                                game.MaterialTextured,
+                                game.MeshPlane,
+                                game.Textures["shadow.gif"]
+                            ),
+                        ],
+                    },
+                ],
             },
         ],
     };

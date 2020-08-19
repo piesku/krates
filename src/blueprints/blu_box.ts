@@ -13,7 +13,7 @@ export function blueprint_box(game: Game): Blueprint {
         ],
         Children: [
             {
-                Scale: [2, 1, 2],
+                Scale: [1.8, 1, 1.8],
                 Translation: [0, -0.4, 0],
                 Using: [
                     render_textured(
