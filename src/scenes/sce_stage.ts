@@ -6,7 +6,7 @@ import {blueprint_camera_minimap} from "../blueprints/blu_camera_minimap.js";
 import {blueprint_ground} from "../blueprints/blu_ground.js";
 import {blueprint_player} from "../blueprints/blu_player.js";
 import {light_directional} from "../components/com_light.js";
-import {render_textured} from "../components/com_render_textured.js";
+import {render_textured_diffuse} from "../components/com_render_textured_diffuse.js";
 import {instantiate} from "../core.js";
 import {Game} from "../game.js";
 import {World} from "../world.js";
@@ -29,8 +29,8 @@ export function scene_stage(game: Game) {
                     ...ground,
                 });
                 ground.Using?.push(
-                    render_textured(
-                        game.MaterialTextured,
+                    render_textured_diffuse(
+                        game.MaterialTexturedDiffuse,
                         game.MeshCube,
                         game.Textures["krates.gif"]
                     )
@@ -109,8 +109,8 @@ export function scene_stage(game: Game) {
                 Using: [
                     // collide(false, Layer.Terrain, Layer.None),
                     // rigid_body(false),
-                    render_textured(
-                        game.MaterialTextured,
+                    render_textured_diffuse(
+                        game.MaterialTexturedDiffuse,
                         game.MeshPlane,
                         game.Textures["grass.png"],
                         game.MapSize

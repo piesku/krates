@@ -1,4 +1,4 @@
-export interface TexturedLayout {
+export interface TexturedDiffuseLayout {
     // Uniforms
     Pv: WebGLUniformLocation;
     World: WebGLUniformLocation;

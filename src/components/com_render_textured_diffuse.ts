@@ -1,13 +1,13 @@
 import {Material, Mesh} from "../../common/material.js";
 import {GL_ARRAY_BUFFER, GL_CW, GL_ELEMENT_ARRAY_BUFFER, GL_FLOAT} from "../../common/webgl.js";
-import {TexturedLayout} from "../../materials/layout_textured.js";
+import {TexturedDiffuseLayout} from "../../materials/layout_textured_diffuse.js";
 import {Entity, Game} from "../game.js";
 import {Has} from "../world.js";
 import {RenderKind} from "./com_render.js";
 
-export interface RenderTextured {
-    readonly Kind: RenderKind.Textured;
-    readonly Material: Material<TexturedLayout>;
+export interface RenderTexturedDiffuse {
+    readonly Kind: RenderKind.TexturedDiffuse;
+    readonly Material: Material<TexturedDiffuseLayout>;
     readonly Mesh: Mesh;
     readonly FrontFace: GLenum;
     readonly Vao: WebGLVertexArrayObject;
@@ -17,8 +17,8 @@ export interface RenderTextured {
 
 let vaos: WeakMap<Mesh, WebGLVertexArrayObject> = new WeakMap();
 
-export function render_textured(
-    material: Material<TexturedLayout>,
+export function render_textured_diffuse(
+    material: Material<TexturedDiffuseLayout>,
     mesh: Mesh,
     texture: WebGLTexture,
     texture_scale: number = 1
@@ -63,7 +63,7 @@ export function render_textured(
 
         game.World.Signature[entity] |= Has.Render;
         game.World.Render[entity] = {
-            Kind: RenderKind.Textured,
+            Kind: RenderKind.TexturedDiffuse,
             Material: material,
             Mesh: mesh,
             FrontFace: GL_CW,
