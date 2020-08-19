@@ -12,7 +12,7 @@ export function blueprint_box(game: Game): Blueprint {
             render_textured_diffuse(
                 game.MaterialTexturedDiffuse,
                 game.MeshCube,
-                game.Textures["krates.gif"]
+                game.Textures["krates"]
             ),
         ],
         Children: [
@@ -23,7 +23,7 @@ export function blueprint_box(game: Game): Blueprint {
                     render_textured_diffuse(
                         game.MaterialTexturedDiffuse,
                         game.MeshPlane,
-                        game.Textures["shadow.gif"]
+                        game.Textures["shadow"]
                     ),
                 ],
             },

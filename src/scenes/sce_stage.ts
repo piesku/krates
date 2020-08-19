@@ -32,7 +32,7 @@ export function scene_stage(game: Game) {
                     render_textured_diffuse(
                         game.MaterialTexturedDiffuse,
                         game.MeshCube,
-                        game.Textures["krates.gif"]
+                        game.Textures["krates"]
                     )
                 );
                 instantiate(game, {
@@ -112,7 +112,7 @@ export function scene_stage(game: Game) {
                     render_textured_diffuse(
                         game.MaterialTexturedDiffuse,
                         game.MeshPlane,
-                        game.Textures["grass.png"],
+                        game.Textures["grass"],
                         game.MapSize
                     ),
                 ],

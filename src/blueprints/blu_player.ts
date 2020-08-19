@@ -26,7 +26,7 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                     render_textured_diffuse(
                         game.MaterialTexturedDiffuse,
                         game.MeshCube,
-                        game.Textures["checker1.png"]
+                        game.Textures["checker1"]
                     ),
                 ],
                 Children: [
@@ -37,7 +37,7 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                             render_textured_diffuse(
                                 game.MaterialTexturedDiffuse,
                                 game.MeshPlane,
-                                game.Textures["shadow.gif"]
+                                game.Textures["shadow"]
                             ),
                         ],
                     },
