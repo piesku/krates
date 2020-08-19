@@ -61,6 +61,12 @@ function render(game: Game, pv: Mat4, current_target?: WebGLTexture) {
             let transform = game.World.Transform[i];
             let render = game.World.Render[i];
 
+            // Prevent feedback loop between the active render target
+            // and the texture being rendered.
+            if (render.Texture === current_target) {
+                continue;
+            }
+
             if (render.Material !== current_material) {
                 current_material = render.Material;
                 switch (render.Kind) {
@@ -80,16 +86,10 @@ function render(game: Game, pv: Mat4, current_target?: WebGLTexture) {
 
             switch (render.Kind) {
                 case RenderKind.TexturedDiffuse:
-                    // Prevent feedback loop between the active render target
-                    // and the texture being rendered.
-                    if (render.Texture !== current_target) {
-                        draw_textured_diffuse(game, transform, render);
-                    }
+                    draw_textured_diffuse(game, transform, render);
                     break;
                 case RenderKind.TexturedUnlit:
-                    if (render.Texture !== current_target) {
-                        draw_textured_unlit(game, transform, render);
-                    }
+                    draw_textured_unlit(game, transform, render);
                     break;
             }
         }
