@@ -93,8 +93,6 @@ export class Game {
         this.Ui.addEventListener("wheel", (evt) => {
             this.InputDelta.WheelY = evt.deltaY;
         });
-        this.Ui.addEventListener("contextmenu", (evt) => evt.preventDefault());
-        this.Ui.addEventListener("click", () => this.Ui.requestPointerLock());
 
         this.Gl.enable(GL_DEPTH_TEST);
         this.Gl.enable(GL_CULL_FACE);
