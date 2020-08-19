@@ -1,5 +1,6 @@
 import {get_translation} from "../../common/mat4.js";
 import {Vec3} from "../../common/math.js";
+import {clamp} from "../../common/number.js";
 import {set} from "../../common/quat.js";
 import {length, normalize, subtract} from "../../common/vec3.js";
 import {Entity, Game} from "../game.js";
@@ -22,6 +23,11 @@ function update(game: Game, entity: Entity) {
     let transform = game.World.Transform[entity];
     let walk = game.World.Walk[entity];
     let move = game.World.Move[entity];
+
+    let min = 1;
+    let max = game.MapSize - 2;
+    walk.X = clamp(min, max, walk.X);
+    walk.Z = clamp(min, max, walk.Z);
 
     let target_world_x = walk.X - game.MapSize / 2 + 0.5;
     let target_world_z = walk.Z - game.MapSize / 2 + 0.5;
