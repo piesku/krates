@@ -6,10 +6,12 @@ import {
     GL_ONE,
     GL_ONE_MINUS_SRC_ALPHA,
 } from "../common/webgl.js";
+import {mat1_postprocess} from "../materials/mat1_postprocess.js";
 import {mat1_textured_diffuse} from "../materials/mat1_textured_diffuse.js";
 import {mat1_textured_unlit} from "../materials/mat1_textured_unlit.js";
 import {mesh_cube} from "../meshes/cube.js";
 import {mesh_plane} from "../meshes/plane.js";
+import {mesh_quad} from "../meshes/quad.js";
 import {Camera} from "./components/com_camera.js";
 import {loop_start, loop_stop} from "./core.js";
 import {sys_camera} from "./systems/sys_camera.js";
@@ -20,6 +22,7 @@ import {sys_light} from "./systems/sys_light.js";
 import {sys_mimic} from "./systems/sys_mimic.js";
 import {sys_move} from "./systems/sys_move.js";
 import {sys_physics} from "./systems/sys_physics.js";
+import {sys_postprocess} from "./systems/sys_postprocess.js";
 import {sys_render} from "./systems/sys_render.js";
 import {sys_transform} from "./systems/sys_transform.js";
 import {sys_walk} from "./systems/sys_walk.js";
@@ -44,8 +47,10 @@ export class Game {
 
     MaterialTexturedDiffuse = mat1_textured_diffuse(this.Gl);
     MaterialTexturedUnlit = mat1_textured_unlit(this.Gl);
+    MaterialPostprocess = mat1_postprocess(this.Gl);
     MeshCube = mesh_cube(this.Gl);
     MeshPlane = mesh_plane(this.Gl);
+    MeshQuad = mesh_quad(this.Gl);
 
     Cameras: Array<Camera> = [];
     // The rendering pipeline supports 8 lights.
@@ -53,10 +58,12 @@ export class Game {
     LightDetails = new Float32Array(4 * 8);
 
     Textures: Record<string, WebGLTexture> = {
-        Minimap: create_texture_rgba(this.Gl, 256, 256),
+        Minimap: create_texture_rgba(this.Gl, 512, 512),
+        Postprocess: create_texture_rgba(this.Gl, 128, 128),
     };
     RenderBuffers: Record<string, WebGLRenderbuffer> = {
-        Minimap: create_render_buffer(this.Gl, 256, 256),
+        Minimap: create_render_buffer(this.Gl, 512, 512),
+        Postprocess: create_render_buffer(this.Gl, 128, 128),
     };
 
     MapSize = 11;
@@ -128,6 +135,7 @@ export class Game {
         sys_camera(this, delta);
         sys_light(this, delta);
         sys_render(this, delta);
+        sys_postprocess(this, delta);
         sys_framerate(this, delta, performance.now() - now);
     }
 }
