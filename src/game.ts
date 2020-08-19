@@ -1,3 +1,4 @@
+import {create_render_buffer, create_texture_rgba} from "../common/texture.js";
 import {GL_CULL_FACE, GL_DEPTH_TEST} from "../common/webgl.js";
 import {mat1_diffuse_gouraud} from "../materials/mat1_diffuse_gouraud.js";
 import {mat1_textured} from "../materials/mat1_textured.js";
@@ -40,12 +41,17 @@ export class Game {
     MeshCube = mesh_cube(this.Gl);
     MeshPlane = mesh_plane(this.Gl);
 
-    Camera?: Camera;
+    Cameras: Array<Camera> = [];
     // The rendering pipeline supports 8 lights.
     LightPositions = new Float32Array(4 * 8);
     LightDetails = new Float32Array(4 * 8);
 
-    Textures: Record<string, WebGLTexture> = {};
+    Textures: Record<string, WebGLTexture> = {
+        Minimap: create_texture_rgba(this.Gl, 256, 256),
+    };
+    RenderBuffers: Record<string, WebGLRenderbuffer> = {
+        Minimap: create_render_buffer(this.Gl, 256, 256),
+    };
 
     MapSize = 11;
 

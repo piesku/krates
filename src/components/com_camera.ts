@@ -1,25 +1,8 @@
-import {create} from "../../common/mat4.js";
-import {Mat4} from "../../common/math.js";
-import {Entity, Game} from "../game.js";
-import {Has} from "../world.js";
+import {CameraDisplay} from "./com_camera_display.js";
+import {CameraFramebuffer} from "./com_camera_framebuffer.js";
 
-export interface Camera {
-    FovY: number;
-    Near: number;
-    Far: number;
-    Projection: Mat4;
-    Pv: Mat4;
-}
-
-export function camera(fovy: number, near: number, far: number) {
-    return (game: Game, entity: Entity) => {
-        game.World.Signature[entity] |= Has.Camera;
-        game.World.Camera[entity] = {
-            FovY: fovy,
-            Near: near,
-            Far: far,
-            Projection: create(),
-            Pv: create(),
-        };
-    };
+export type Camera = CameraDisplay | CameraFramebuffer;
+export const enum CameraKind {
+    Display,
+    Framebuffer,
 }

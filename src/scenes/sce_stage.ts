@@ -2,6 +2,7 @@ import {from_euler} from "../../common/quat.js";
 import {float, set_seed} from "../../common/random.js";
 import {blueprint_box} from "../blueprints/blu_box.js";
 import {blueprint_camera_follow} from "../blueprints/blu_camera_follow.js";
+import {blueprint_camera_minimap} from "../blueprints/blu_camera_minimap.js";
 import {blueprint_ground} from "../blueprints/blu_ground.js";
 import {blueprint_player} from "../blueprints/blu_player.js";
 import {light_directional} from "../components/com_light.js";
@@ -12,9 +13,8 @@ import {World} from "../world.js";
 
 export function scene_stage(game: Game) {
     game.World = new World();
-    game.Camera = undefined;
+    game.Cameras = [];
     game.ViewportResized = true;
-    game.Gl.clearColor(0.2, 0.5, 0.9, 1);
     game.MapSize = 11;
 
     set_seed(Date.now());
@@ -71,11 +71,17 @@ export function scene_stage(game: Game) {
         Rotation: [0, 1, 0, 0],
     });
 
-    // Camera.
+    // Main Camera.
     instantiate(game, {
         ...blueprint_camera_follow(game),
         Translation: [float(-20, 20), float(10, 20), float(10, 20)],
         Rotation: from_euler([0, 0, 0, 0], 0, float(-135, -225), 0),
+    });
+
+    // Minimap Camera.
+    instantiate(game, {
+        Translation: [0, 12, 0],
+        ...blueprint_camera_minimap(game),
     });
 
     // Boxes.
