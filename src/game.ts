@@ -1,3 +1,4 @@
+import {create_render_buffer, create_texture_rgba} from "../common/texture.js";
 import {
     GL_BLEND,
     GL_CULL_FACE,
@@ -5,8 +6,8 @@ import {
     GL_ONE,
     GL_ONE_MINUS_SRC_ALPHA,
 } from "../common/webgl.js";
-import {mat1_diffuse_gouraud} from "../materials/mat1_diffuse_gouraud.js";
-import {mat1_textured} from "../materials/mat1_textured.js";
+import {mat1_textured_diffuse} from "../materials/mat1_textured_diffuse.js";
+import {mat1_textured_unlit} from "../materials/mat1_textured_unlit.js";
 import {mesh_cube} from "../meshes/cube.js";
 import {mesh_plane} from "../meshes/plane.js";
 import {Camera} from "./components/com_camera.js";
@@ -41,17 +42,22 @@ export class Game {
     Gl = this.Canvas.getContext("webgl")!;
     ExtVao = this.Gl.getExtension("OES_vertex_array_object")!;
 
-    MaterialDiffuseGouraud = mat1_diffuse_gouraud(this.Gl);
-    MaterialTextured = mat1_textured(this.Gl);
+    MaterialTexturedDiffuse = mat1_textured_diffuse(this.Gl);
+    MaterialTexturedUnlit = mat1_textured_unlit(this.Gl);
     MeshCube = mesh_cube(this.Gl);
     MeshPlane = mesh_plane(this.Gl);
 
-    Camera?: Camera;
+    Cameras: Array<Camera> = [];
     // The rendering pipeline supports 8 lights.
     LightPositions = new Float32Array(4 * 8);
     LightDetails = new Float32Array(4 * 8);
 
-    Textures: Record<string, WebGLTexture> = {};
+    Textures: Record<string, WebGLTexture> = {
+        Minimap: create_texture_rgba(this.Gl, 256, 256),
+    };
+    RenderBuffers: Record<string, WebGLRenderbuffer> = {
+        Minimap: create_render_buffer(this.Gl, 256, 256),
+    };
 
     MapSize = 11;
 

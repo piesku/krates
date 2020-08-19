@@ -1,23 +1,28 @@
 import {Material, Mesh} from "../../common/material.js";
-import {Vec4} from "../../common/math.js";
 import {GL_ARRAY_BUFFER, GL_CW, GL_ELEMENT_ARRAY_BUFFER, GL_FLOAT} from "../../common/webgl.js";
-import {DiffuseLayout} from "../../materials/layout_diffuse.js";
+import {TexturedUnlitLayout} from "../../materials/layout_textured_unlit.js";
 import {Entity, Game} from "../game.js";
 import {Has} from "../world.js";
 import {RenderKind} from "./com_render.js";
 
-export interface RenderDiffuse {
-    readonly Kind: RenderKind.Diffuse;
-    readonly Material: Material<DiffuseLayout>;
+export interface RenderTexturedUnlit {
+    readonly Kind: RenderKind.TexturedUnlit;
+    readonly Material: Material<TexturedUnlitLayout>;
     readonly Mesh: Mesh;
     readonly FrontFace: GLenum;
     readonly Vao: WebGLVertexArrayObject;
-    Color: Vec4;
+    Texture: WebGLTexture;
+    TexScale: number;
 }
 
 let vaos: WeakMap<Mesh, WebGLVertexArrayObject> = new WeakMap();
 
-export function render_diffuse(material: Material<DiffuseLayout>, mesh: Mesh, color: Vec4) {
+export function render_textured_unlit(
+    material: Material<TexturedUnlitLayout>,
+    mesh: Mesh,
+    texture: WebGLTexture,
+    texture_scale: number = 1
+) {
     return (game: Game, entity: Entity) => {
         if (!vaos.has(mesh)) {
             // We only need to create the VAO once.
@@ -35,9 +40,16 @@ export function render_diffuse(material: Material<DiffuseLayout>, mesh: Mesh, co
                 0
             );
 
-            game.Gl.bindBuffer(GL_ARRAY_BUFFER, mesh.NormalBuffer);
-            game.Gl.enableVertexAttribArray(material.Locations.VertexNormal);
-            game.Gl.vertexAttribPointer(material.Locations.VertexNormal, 3, GL_FLOAT, false, 0, 0);
+            game.Gl.bindBuffer(GL_ARRAY_BUFFER, mesh.TexCoordBuffer);
+            game.Gl.enableVertexAttribArray(material.Locations.VertexTexCoord);
+            game.Gl.vertexAttribPointer(
+                material.Locations.VertexTexCoord,
+                2,
+                GL_FLOAT,
+                false,
+                0,
+                0
+            );
 
             game.Gl.bindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.IndexBuffer);
 
@@ -47,12 +59,13 @@ export function render_diffuse(material: Material<DiffuseLayout>, mesh: Mesh, co
 
         game.World.Signature[entity] |= Has.Render;
         game.World.Render[entity] = {
-            Kind: RenderKind.Diffuse,
+            Kind: RenderKind.TexturedUnlit,
             Material: material,
             Mesh: mesh,
             FrontFace: GL_CW,
             Vao: vaos.get(mesh)!,
-            Color: color,
+            Texture: texture,
+            TexScale: texture_scale,
         };
     };
 }

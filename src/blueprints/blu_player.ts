@@ -2,7 +2,7 @@ import {collide} from "../components/com_collide.js";
 import {control_player} from "../components/com_control_player.js";
 import {move} from "../components/com_move.js";
 import {named} from "../components/com_named.js";
-import {render_textured} from "../components/com_render_textured.js";
+import {render_textured_diffuse} from "../components/com_render_textured_diffuse.js";
 import {rigid_body} from "../components/com_rigid_body.js";
 import {walk} from "../components/com_walk.js";
 import {Blueprint} from "../core.js";
@@ -23,8 +23,8 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                 // Body.
                 Scale: [1, 1.5, 0.5],
                 Using: [
-                    render_textured(
-                        game.MaterialTextured,
+                    render_textured_diffuse(
+                        game.MaterialTexturedDiffuse,
                         game.MeshCube,
                         game.Textures["checker1.png"]
                     ),
@@ -34,8 +34,8 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                         Scale: [1.6, 1, 1.6],
                         Translation: [0, -0.31, 0],
                         Using: [
-                            render_textured(
-                                game.MaterialTextured,
+                            render_textured_diffuse(
+                                game.MaterialTexturedDiffuse,
                                 game.MeshPlane,
                                 game.Textures["shadow.gif"]
                             ),

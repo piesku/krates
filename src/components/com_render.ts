@@ -1,9 +1,9 @@
-import {RenderDiffuse} from "./com_render_diffuse.js";
-import {RenderTextured} from "./com_render_textured.js";
+import {RenderTexturedDiffuse} from "./com_render_textured_diffuse.js";
+import {RenderTexturedUnlit} from "./com_render_textured_unlit.js";
 
-export type Render = RenderDiffuse | RenderTextured;
+export type Render = RenderTexturedDiffuse | RenderTexturedUnlit;
 
 export const enum RenderKind {
-    Diffuse,
-    Textured,
+    TexturedDiffuse,
+    TexturedUnlit,
 }

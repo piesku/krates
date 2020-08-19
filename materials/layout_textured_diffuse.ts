@@ -1,15 +1,14 @@
-export interface SpecularLayout {
+export interface TexturedDiffuseLayout {
     // Uniforms
     Pv: WebGLUniformLocation;
     World: WebGLUniformLocation;
     Self: WebGLUniformLocation;
-    Eye: WebGLUniformLocation;
-    ColorDiffuse: WebGLUniformLocation;
-    ColorSpecular: WebGLUniformLocation;
-    Shininess: WebGLUniformLocation;
+    Sampler: WebGLUniformLocation;
     LightPositions: WebGLUniformLocation;
     LightDetails: WebGLUniformLocation;
+    TexScale: WebGLUniformLocation;
     // Attributes
     VertexPosition: GLint;
+    VertexTexCoord: GLint;
     VertexNormal: GLint;
 }
