@@ -1,4 +1,10 @@
-import {GL_BLEND, GL_CULL_FACE, GL_DEPTH_TEST, GL_DST_COLOR, GL_ONE} from "../common/webgl.js";
+import {
+    GL_BLEND,
+    GL_CULL_FACE,
+    GL_DEPTH_TEST,
+    GL_ONE,
+    GL_ONE_MINUS_SRC_ALPHA,
+} from "../common/webgl.js";
 import {mat1_diffuse_gouraud} from "../materials/mat1_diffuse_gouraud.js";
 import {mat1_textured} from "../materials/mat1_textured.js";
 import {mesh_cube} from "../meshes/cube.js";
@@ -86,7 +92,7 @@ export class Game {
 
         this.Gl.enable(GL_DEPTH_TEST);
         this.Gl.enable(GL_CULL_FACE);
-        this.Gl.blendFunc(GL_ONE, GL_DST_COLOR);
+        this.Gl.blendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         this.Gl.enable(GL_BLEND);
     }
 
