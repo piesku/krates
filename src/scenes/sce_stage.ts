@@ -11,7 +11,7 @@ import {light_directional} from "../components/com_light.js";
 import {render_textured_diffuse} from "../components/com_render_textured_diffuse.js";
 import {instantiate} from "../core.js";
 import {Game} from "../game.js";
-import {World} from "../world.js";
+import {Has, World} from "../world.js";
 
 const enum MapProps {
     Empty = 0,
@@ -60,7 +60,7 @@ export function scene_stage(game: Game) {
                         game.MeshPlane,
                         game.Textures["404"],
                         game.MapSize,
-                        "grass"
+                        "water"
                     ),
                 ],
             });
@@ -81,10 +81,12 @@ export function scene_stage(game: Game) {
                         "water"
                     )
                 );
-                instantiate(game, {
+                let water_box = instantiate(game, {
                     Translation: [x - game.MapSize / 2 + 0.5, 0, z - game.MapSize / 2 + 0.5],
                     ...ground,
                 });
+
+                game.World.Signature[water_box] &= ~Has.RigidBody;
             } else {
                 instantiate(game, {
                     Translation: [x - game.MapSize / 2 + 0.5, 0, z - game.MapSize / 2 + 0.5],
