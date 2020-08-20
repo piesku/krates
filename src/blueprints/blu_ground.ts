@@ -12,7 +12,9 @@ export function blueprint_ground(game: Game): Blueprint {
             render_textured_diffuse(
                 game.MaterialTexturedDiffuse,
                 game.MeshCube,
-                game.Textures["404"]
+                game.Textures["404"],
+                1,
+                "grass"
             ),
         ],
     };

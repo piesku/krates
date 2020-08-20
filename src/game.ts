@@ -17,7 +17,7 @@ import {loop_start, loop_stop} from "./core.js";
 import {sys_camera} from "./systems/sys_camera.js";
 import {sys_collide} from "./systems/sys_collide.js";
 import {sys_control_keyboard} from "./systems/sys_control_keyboard.js";
-import {sys_control_powerup} from "./systems/sys_control_powerup.js";
+import {sys_control_rotate} from "./systems/sys_control_rotate.js";
 import {sys_framerate} from "./systems/sys_framerate.js";
 import {sys_light} from "./systems/sys_light.js";
 import {sys_mimic} from "./systems/sys_mimic.js";
@@ -65,6 +65,9 @@ export class Game {
         Minimap: create_texture_rgba(this.Gl, 512, 512),
         Postprocess: create_texture_rgba(this.Gl, 128, 128),
     };
+
+    AllTextures: Record<string, string> = {};
+
     RenderBuffers: Record<string, WebGLRenderbuffer> = {
         Minimap: create_render_buffer(this.Gl, 512, 512),
         Postprocess: create_render_buffer(this.Gl, 128, 128),
@@ -123,7 +126,7 @@ export class Game {
 
         // Player input.
         sys_control_keyboard(this, delta);
-        sys_control_powerup(this, delta);
+        sys_control_rotate(this, delta);
 
         // Game logic.
         sys_walk(this, delta);

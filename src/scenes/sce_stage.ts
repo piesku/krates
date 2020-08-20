@@ -19,6 +19,32 @@ export function scene_stage(game: Game) {
 
     set_seed(Date.now());
 
+    //BG
+    for (let z = -1; z < 2; z++) {
+        for (let x = -1; x < 2; x++) {
+            if (x === 0 && z === 0) {
+                continue;
+            }
+
+            instantiate(game, {
+                Scale: [game.MapSize, 1, game.MapSize],
+                Translation: [x * game.MapSize, 0.5, z * game.MapSize],
+                Rotation: from_euler([0, 0, 0, 1], 0, 90, 0),
+                Using: [
+                    // collide(false, Layer.Terrain, Layer.None),
+                    // rigid_body(false),
+                    render_textured_diffuse(
+                        game.MaterialTexturedDiffuse,
+                        game.MeshPlane,
+                        game.Textures["404"],
+                        game.MapSize,
+                        "grass"
+                    ),
+                ],
+            });
+        }
+    }
+
     // Ground with holes.
     for (let z = 0; z < game.MapSize; z++) {
         for (let x = 0; x < game.MapSize; x++) {
@@ -95,34 +121,11 @@ export function scene_stage(game: Game) {
         Translation: [-2, 20, 0],
     });
 
-    //BG
-    for (let z = -1; z < 2; z++) {
-        for (let x = -1; x < 2; x++) {
-            if (x === 0 && z === 0) {
-                continue;
-            }
-
-            instantiate(game, {
-                Scale: [game.MapSize, 1, game.MapSize],
-                Translation: [x * game.MapSize, 0.5, z * game.MapSize],
-                Rotation: from_euler([0, 0, 0, 1], 0, 90, 0),
-                Using: [
-                    // collide(false, Layer.Terrain, Layer.None),
-                    // rigid_body(false),
-                    render_textured_diffuse(
-                        game.MaterialTexturedDiffuse,
-                        game.MeshPlane,
-                        game.Textures["404"],
-                        game.MapSize
-                    ),
-                ],
-            });
-        }
-    }
-
-    // Textures
-    instantiate(game, {
+    // Texture= Powerups
+    let texture_id = instantiate(game, {
         ...blueprint_texture(game),
         Translation: [-3, 1, -3],
     });
+
+    game.AllTextures[texture_id] = "grass";
 }

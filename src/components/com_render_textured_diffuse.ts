@@ -12,6 +12,7 @@ export interface RenderTexturedDiffuse {
     readonly FrontFace: GLenum;
     readonly Vao: WebGLVertexArrayObject;
     Texture: WebGLTexture;
+    FinalTextureName?: string;
     TexScale: number;
 }
 
@@ -21,7 +22,8 @@ export function render_textured_diffuse(
     material: Material<TexturedDiffuseLayout>,
     mesh: Mesh,
     texture: WebGLTexture,
-    texture_scale: number = 1
+    texture_scale: number = 1,
+    final_texture_name?: string
 ) {
     return (game: Game, entity: Entity) => {
         if (!vaos.has(mesh)) {
@@ -70,6 +72,7 @@ export function render_textured_diffuse(
             Vao: vaos.get(mesh)!,
             Texture: texture,
             TexScale: texture_scale,
+            FinalTextureName: final_texture_name,
         };
     };
 }
