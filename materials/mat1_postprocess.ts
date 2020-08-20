@@ -17,13 +17,18 @@ let fragment = `
     precision mediump float;
 
     uniform sampler2D sampler;
+    uniform float aspect;
 
     varying vec2 vert_texcoord;
 
     void main() {
-        float aspect = 1.0;
-        vec2 uv = vec2(vert_texcoord.x, vert_texcoord.y / aspect + (1.0 - 1.0 / aspect));
-        gl_FragColor = texture2D(sampler, uv);
+        if (aspect > 1.0) {
+            vec2 uv = vec2(vert_texcoord.x, vert_texcoord.y / aspect + (1.0 - 1.0 / aspect));
+            gl_FragColor = texture2D(sampler, uv);
+        } else {
+            vec2 uv = vec2(vert_texcoord.x * aspect + (1.0 - aspect), vert_texcoord.y);
+            gl_FragColor = texture2D(sampler, uv);
+        }
     }
 `;
 
@@ -34,6 +39,7 @@ export function mat1_postprocess(gl: WebGLRenderingContext): Material<Postproces
         Program: program,
         Locations: {
             Sampler: gl.getUniformLocation(program, "sampler")!,
+            Aspect: gl.getUniformLocation(program, "aspect")!,
             VertexPosition: gl.getAttribLocation(program, "position")!,
             VertexTexCoord: gl.getAttribLocation(program, "texcoord")!,
         },

@@ -15,7 +15,7 @@ export function blueprint_camera_follow(game: Game): Blueprint {
                 Children: [
                     {
                         // Camera
-                        Translation: [0, 0, 5],
+                        Translation: [0, -2, 8],
                         Using: [
                             camera_framebuffer(
                                 1,
@@ -29,17 +29,19 @@ export function blueprint_camera_follow(game: Game): Blueprint {
                             ),
                             //camera_display(1, 0.1, 1000, [0.2, 0.5, 0.9, 1]),
                         ],
-                    },
-                    {
-                        // Minimap Plane.
-                        Translation: [0.5, -0.5, 2],
-                        Rotation: [0.707, 0, 0, 0.707],
-                        Using: [
-                            render_textured_unlit(
-                                game.MaterialTexturedUnlit,
-                                game.MeshPlane,
-                                game.Textures.Minimap
-                            ),
+                        Children: [
+                            {
+                                // Minimap Plane.
+                                Translation: [1, 0.5, -3],
+                                Rotation: [0.707, 0, 0, 0.707],
+                                Using: [
+                                    render_textured_unlit(
+                                        game.MaterialTexturedUnlit,
+                                        game.MeshPlane,
+                                        game.Textures.Minimap
+                                    ),
+                                ],
+                            },
                         ],
                     },
                 ],
