@@ -21,9 +21,6 @@ export function sys_postprocess(game: Game, delta: number) {
 
     game.Gl.useProgram(material.Program);
 
-    let aspect = game.ViewportWidth / game.ViewportHeight;
-    game.Gl.uniform1f(material.Locations.Aspect, aspect);
-
     game.Gl.activeTexture(GL_TEXTURE0);
     game.Gl.bindTexture(GL_TEXTURE_2D, game.Textures.Postprocess);
     game.Gl.uniform1i(material.Locations.Sampler, 0);

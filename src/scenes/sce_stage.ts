@@ -15,7 +15,6 @@ import {World} from "../world.js";
 export function scene_stage(game: Game) {
     game.World = new World();
     game.Cameras = [];
-    game.ViewportResized = true;
     game.MapSize = 11;
 
     set_seed(Date.now());
@@ -81,7 +80,7 @@ export function scene_stage(game: Game) {
 
     // Minimap Camera.
     instantiate(game, {
-        Translation: [0, 12, 0],
+        Rotation: [0, 1, 0, 0],
         ...blueprint_camera_minimap(game),
     });
 

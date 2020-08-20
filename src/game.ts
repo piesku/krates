@@ -21,6 +21,7 @@ import {sys_control_powerup} from "./systems/sys_control_powerup.js";
 import {sys_framerate} from "./systems/sys_framerate.js";
 import {sys_light} from "./systems/sys_light.js";
 import {sys_mimic} from "./systems/sys_mimic.js";
+import {sys_minimap} from "./systems/sys_minimap.js";
 import {sys_move} from "./systems/sys_move.js";
 import {sys_physics} from "./systems/sys_physics.js";
 import {sys_postprocess} from "./systems/sys_postprocess.js";
@@ -34,17 +35,18 @@ export type Entity = number;
 export class Game {
     World = new World();
 
-    ViewportWidth = 0;
-    ViewportHeight = 0;
-    ViewportResized = false;
+    ViewportWidth = 512;
+    ViewportHeight = 384;
 
     InputState: Record<string, number> = {};
     InputDelta: Record<string, number> = {};
 
     Ui = document.querySelector("main")!;
-    Canvas = document.querySelector("canvas")!;
-    Gl = this.Canvas.getContext("webgl")!;
+    CanvasScene = document.querySelector("canvas#scene")! as HTMLCanvasElement;
+    Gl = this.CanvasScene.getContext("webgl")!;
     ExtVao = this.Gl.getExtension("OES_vertex_array_object")!;
+    CanvasMinimap = document.querySelector("canvas#minimap")! as HTMLCanvasElement;
+    ContextMinimap = this.CanvasMinimap.getContext("2d")!;
 
     MaterialTexturedDiffuse = mat1_textured_diffuse(this.Gl);
     MaterialTexturedUnlit = mat1_textured_unlit(this.Gl);
@@ -110,7 +112,6 @@ export class Game {
 
     FrameReset() {
         // Reset event flags for the next frame.
-        this.ViewportResized = false;
         for (let name in this.InputDelta) {
             this.InputDelta[name] = 0;
         }
@@ -138,6 +139,7 @@ export class Game {
         sys_light(this, delta);
         sys_render(this, delta);
         sys_postprocess(this, delta);
+        sys_minimap(this, delta);
         sys_framerate(this, delta, performance.now() - now);
     }
 }

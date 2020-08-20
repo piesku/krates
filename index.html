@@ -7,13 +7,27 @@
     body {
         overflow: hidden;
         margin: 0;
+        background-color: #222;
     }
-    canvas,
     main {
         position: absolute;
         width: 100vw;
         height: 100vh;
         user-select: none;
+    }
+    #ds {
+        width: 512px;
+        margin: 0 auto;
+        padding: 20px;
+        display: flex;
+        flex-flow: column nowrap;
+    }
+    canvas {
+        width: 512px;
+        height: 384px;
+    }
+    div#hinge {
+        height: 20px;
     }
     img {
         display: none;
@@ -45,10 +59,15 @@
 <body>
     <img src="../textures/krates.gif" id="krates" />
     <img src="../textures/grass.gif" id="grass" />
-    <img src="../textures/shadow.png" id="shadow" />
+    <img src="../textures/shadow.gif" id="shadow" />
     <img src="../textures/checker1.png" id="checker1" />
     <img src="../textures/404.gif" id="404" />
-    <canvas></canvas>
+
+    <div id="ds">
+        <canvas id="scene" width="512" height="384"></canvas>
+        <div id="hinge"></div>
+        <canvas id="minimap" width="512" height="384"></canvas>
+    </div>
     <main></main>
 
     <div id="debug">
