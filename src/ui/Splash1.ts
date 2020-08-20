@@ -4,8 +4,8 @@ export function Splash1() {
     return html`
         <div
             style="
-                position: relative;
-                width: 100%;
+                display: grid;
+                place-items: center;
                 height: 100%;
                 background-color: #000;
                 overflow: hidden;
@@ -13,13 +13,11 @@ export function Splash1() {
         >
             <div
                 style="
-                    position: absolute;
-                    top: 150px;
-                    font-size: 64px;
+                    width: 300px;
                     animation: 3s ease-in-out both slide-from-left;
                 "
             >
-                Krates
+                Piesku presents
             </div>
         </div>
     `;

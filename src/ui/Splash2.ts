@@ -5,8 +5,8 @@ export function Splash2() {
     return html`
         <div
             style="
-                position: relative;
-                width: 100%;
+                display: grid;
+                place-items: center;
                 height: 100%;
                 background-color: #000;
                 overflow: hidden;
@@ -14,15 +14,12 @@ export function Splash2() {
         >
             <div
                 style="
-                    position: absolute;
-                    top: 170px;
-                    width: 100%;
-                    font-size: 48px;
+                    width: 400px;
                     animation: 3s ease-in-out both slide-from-right;
                 "
                 onanimationend="$(${Action.GoToTitle})"
             >
-                2020 Piesku
+                A js13kGames game
             </div>
         </div>
     `;
