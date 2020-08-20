@@ -7,13 +7,28 @@
     body {
         overflow: hidden;
         margin: 0;
+        background-color: #222;
     }
-    canvas,
     main {
         position: absolute;
         width: 100vw;
         height: 100vh;
         user-select: none;
+    }
+    #ds {
+        width: 512px;
+        margin: 0 auto;
+        padding: 20px;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: space-between;
+    }
+    canvas {
+        width: 512px;
+        height: 384px;
+    }
+    div#hinge {
+        height: 20px;
     }
     img {
         display: none;
@@ -56,7 +71,11 @@
         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEABAMAAACuXLVVAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAHlBMVEUWSuUW5UoW5eVAQEB+FuV+5RaWlpblFhblFrHlsRZkv2sIAAABfElEQVR42u3dPWrDQBAG0AWfQOQGKlInpEl64RsoBzD5uUF0ADfuU+m2KYzQavrMbvFU6pPWDwYGdljb5SVcX+H677wAAAAAAHQDuIYHzmGBU8gfQ/4Q8veQ/4b8B+AIeL3dbvUDH9M01Qs8lVLq/DKOY50/D8NQ55/zPNf527qudf69LIsS9AbQiAAAAAAAmgGyPzDmAAAAAAD9ALJ2QjEHKNnzgJgrQT8AjQgAAAAAoBnAhAQAAAAAIHsnFN8HKNnzgPi+EvQD0IgAAAAAAJwfAAAAAABoDsjaCcX1AUr2PCCurwT9ADQiAAAAAADnBwAAAAAAmgOydkJxJwZQsucBcR6hBP0ANCIAAAAAAOcHAAAAAACaA7J2Qlt+AjgC8uYB97v79xmUoB+ARgQAAAAA4PwAAAAAAEBzQNZOaMvPAEdA3jzgfnf/PUQl6AegEQEAAAAAOD8AAAAAANAckLUT2vIrwBGQNw+4393/T1EJ+gFoRAAAAAAArQB/ZsZJK/J4qtUAAAAASUVORK5CYII="
         id="checker1"
     />
-    <canvas></canvas>
+    <div id="ds">
+        <canvas id="scene" width="512" height="384"></canvas>
+        <div id="hinge"></div>
+        <canvas id="minimap" width="512" height="384"></canvas>
+    </div>
     <main></main>
 
     <div id="debug">
