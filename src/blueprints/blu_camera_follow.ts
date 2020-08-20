@@ -1,5 +1,5 @@
 import {from_euler} from "../../common/quat.js";
-import {camera_framebuffer} from "../components/com_camera_framebuffer.js";
+import {camera_framebuffer_perspective} from "../components/com_camera_framebuffer.js";
 import {mimic} from "../components/com_mimic.js";
 import {find_first} from "../components/com_named.js";
 import {Blueprint} from "../core.js";
@@ -16,7 +16,7 @@ export function blueprint_camera_follow(game: Game): Blueprint {
                         // Camera
                         Translation: [0, -2, 8],
                         Using: [
-                            camera_framebuffer(
+                            camera_framebuffer_perspective(
                                 1,
                                 0.1,
                                 1000,

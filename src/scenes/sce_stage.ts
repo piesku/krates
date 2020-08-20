@@ -79,7 +79,7 @@ export function scene_stage(game: Game) {
 
     // Minimap Camera.
     instantiate(game, {
-        Translation: [0, 12, 0],
+        Rotation: [0, 1, 0, 0],
         ...blueprint_camera_minimap(game),
     });
 
