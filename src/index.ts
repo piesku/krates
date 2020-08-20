@@ -1,9 +1,13 @@
 import {create_texture_from} from "../common/texture.js";
+import {dispatch} from "./actions.js";
 import {loop_start} from "./core.js";
 import {Game} from "./game.js";
 import {scene_stage} from "./scenes/sce_stage.js";
 
 let game = new Game();
+
+// @ts-ignore
+window.$ = (...args) => dispatch(game, ...args);
 
 // @ts-ignore
 window.game = game;
