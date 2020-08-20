@@ -1,7 +1,7 @@
 import {from_euler} from "../../common/quat.js";
 import {Action} from "../actions.js";
 import {collide} from "../components/com_collide.js";
-import {control_powerup} from "../components/com_control_powerup.js";
+import {control_rotate} from "../components/com_control_rotate.js";
 import {move} from "../components/com_move.js";
 import {render_textured_diffuse} from "../components/com_render_textured_diffuse.js";
 import {trigger} from "../components/com_trigger.js";
@@ -14,7 +14,7 @@ export function blueprint_texture(game: Game): Blueprint {
         Using: [
             collide(true, Layer.Terrain, Layer.Terrain | Layer.Player, [0.5, 0.5, 0.5]),
             move(0, 3),
-            control_powerup(),
+            control_rotate(),
             trigger(Action.TextureCollected),
         ],
         Children: [

@@ -31,8 +31,6 @@ export function scene_stage(game: Game) {
                 Translation: [x * game.MapSize, 0.5, z * game.MapSize],
                 Rotation: from_euler([0, 0, 0, 1], 0, 90, 0),
                 Using: [
-                    // collide(false, Layer.Terrain, Layer.None),
-                    // rigid_body(false),
                     render_textured_diffuse(
                         game.MaterialTexturedDiffuse,
                         game.MeshPlane,
