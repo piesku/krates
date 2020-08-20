@@ -14,7 +14,6 @@ import {mesh_plane} from "../meshes/plane.js";
 import {mesh_quad} from "../meshes/quad.js";
 import {Camera} from "./components/com_camera.js";
 import {loop_start, loop_stop} from "./core.js";
-import {scene_splash} from "./scenes/sce_splash.js";
 import {sys_camera} from "./systems/sys_camera.js";
 import {sys_collide} from "./systems/sys_collide.js";
 import {sys_control_keyboard} from "./systems/sys_control_keyboard.js";
@@ -76,7 +75,7 @@ export class Game {
         Postprocess: create_render_buffer(this.Gl, 128, 128),
     };
 
-    CurrentScene = scene_splash;
+    CurrentScene?: (game: Game) => void;
     MapSize = 11;
 
     constructor() {

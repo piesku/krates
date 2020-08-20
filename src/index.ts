@@ -2,7 +2,6 @@ import {create_texture_from} from "../common/texture.js";
 import {dispatch} from "./actions.js";
 import {loop_start} from "./core.js";
 import {Game} from "./game.js";
-import {scene_splash} from "./scenes/sce_splash.js";
 
 let game = new Game();
 
@@ -16,5 +15,4 @@ let textures = document.querySelectorAll("img");
 for (let i = 0; i < textures.length; i++) {
     game.Textures[textures[i].id] = create_texture_from(game.Gl, textures[i]);
 }
-scene_splash(game);
 loop_start(game);
