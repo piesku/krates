@@ -72,19 +72,17 @@ export function scene_stage(game: Game) {
         for (let x = 0; x < game.MapSize; x++) {
             let ground = blueprint_ground(game);
             if (x === 0 || z === 0 || x === game.MapSize - 1 || z === game.MapSize - 1) {
-                instantiate(game, {
-                    Translation: [x - game.MapSize / 2 + 0.5, 0, z - game.MapSize / 2 + 0.5],
-                    ...ground,
-                });
                 ground.Using?.push(
                     render_textured_diffuse(
                         game.MaterialTexturedDiffuse,
                         game.MeshCube,
-                        game.Textures["404"]
+                        game.Textures["404"],
+                        1,
+                        "water"
                     )
                 );
                 instantiate(game, {
-                    Translation: [x - game.MapSize / 2 + 0.5, 1, z - game.MapSize / 2 + 0.5],
+                    Translation: [x - game.MapSize / 2 + 0.5, 0, z - game.MapSize / 2 + 0.5],
                     ...ground,
                 });
             } else {
@@ -100,7 +98,8 @@ export function scene_stage(game: Game) {
         for (let x = 0; x < level_size; x++) {
             let pos = z * level_size + x;
             let token = level[pos];
-            let Translation: Vec3 = [x - level_size / 2 + 0.5, 5, z - level_size / 2 + 0.5];
+            let Translation: Vec3 = [x - level_size / 2 + 0.5, 0, z - level_size / 2 + 0.5];
+
             switch (token) {
                 case MapProps.Krates:
                     Translation[1] = 10 + ~~(Math.random() * 3);
@@ -116,7 +115,7 @@ export function scene_stage(game: Game) {
                         Translation,
                     });
 
-                    game.AllTextures[texture_id] = "grass";
+                    game.AllTextures[texture_id] = "water";
                     break;
                 case MapProps.SpawnPoint:
                     Translation[1] = 5;
@@ -127,6 +126,12 @@ export function scene_stage(game: Game) {
                         Rotation: [0, 1, 0, 0],
                     });
                     break;
+                // case MapProps.Empty:
+                //     instantiate(game, {
+                //         Translation,
+                //         ...blueprint_ground(game),
+                //     });
+                //     break;
             }
         }
     }
