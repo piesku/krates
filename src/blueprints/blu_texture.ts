@@ -8,7 +8,7 @@ import {trigger} from "../components/com_trigger.js";
 import {Blueprint} from "../core.js";
 import {Game, Layer} from "../game.js";
 
-export function blueprint_texture(game: Game): Blueprint {
+export function blueprint_texture(game: Game, texture_name: string): Blueprint {
     return {
         Scale: [0.5, 0.5, 0.5],
         Using: [
@@ -25,7 +25,7 @@ export function blueprint_texture(game: Game): Blueprint {
                     render_textured_diffuse(
                         game.MaterialTexturedDiffuse,
                         game.MeshCube,
-                        game.Textures["grass"]
+                        game.Textures[texture_name]
                     ),
                 ],
             },

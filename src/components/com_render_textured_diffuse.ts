@@ -14,6 +14,7 @@ export interface RenderTexturedDiffuse {
     Texture: WebGLTexture;
     FinalTextureName?: string;
     TexScale: number;
+    TexOffset?: () => number;
 }
 
 let vaos: WeakMap<Mesh, WebGLVertexArrayObject> = new WeakMap();
@@ -23,7 +24,8 @@ export function render_textured_diffuse(
     mesh: Mesh,
     texture: WebGLTexture,
     texture_scale: number = 1,
-    final_texture_name?: string
+    final_texture_name?: string,
+    texture_offset?: () => number
 ) {
     return (game: Game, entity: Entity) => {
         if (!vaos.has(mesh)) {
@@ -72,6 +74,7 @@ export function render_textured_diffuse(
             Vao: vaos.get(mesh)!,
             Texture: texture,
             TexScale: texture_scale,
+            TexOffset: texture_offset,
             FinalTextureName: final_texture_name,
         };
     };

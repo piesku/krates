@@ -11,29 +11,10 @@ import {light_directional} from "../components/com_light.js";
 import {render_textured_diffuse} from "../components/com_render_textured_diffuse.js";
 import {instantiate} from "../core.js";
 import {Game} from "../game.js";
-import {Has, World} from "../world.js";
+import {MapProps} from "../level1.js";
+import {World} from "../world.js";
 
-const enum MapProps {
-    Empty = 0,
-    SpawnPoint,
-    Krates,
-    Texture,
-}
-
-// prettier-ignore
-let level = [
-    MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty,
-    MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Texture, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty,
-    MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty,
-    MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty,
-    MapProps.Krates, MapProps.Krates, MapProps.Krates, MapProps.Krates, MapProps.Krates, MapProps.Krates, MapProps.Krates, MapProps.Krates, MapProps.Krates,
-    MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty,
-    MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.SpawnPoint, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty,
-    MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty,
-    MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty,
-];
-
-export function scene_stage(game: Game) {
+export function scene_stage(game: Game, texture_name: string, level: MapProps[]) {
     game.World = new World();
     game.Cameras = [];
     let level_size = Math.sqrt(level.length);
@@ -43,51 +24,56 @@ export function scene_stage(game: Game) {
 
     set_seed(Date.now());
 
-    //BG
-    for (let z = -1; z < 2; z++) {
-        for (let x = -1; x < 2; x++) {
-            if (x === 0 && z === 0) {
-                continue;
-            }
+    instantiate(game, {
+        Scale: [game.MapSize, 1, game.MapSize],
+        Translation: [0, 0.099, 0],
+        Using: [
+            render_textured_diffuse(
+                game.MaterialTexturedDiffuse,
+                game.MeshPlane,
+                game.Textures["404"],
+                game.MapSize,
+                "water",
+                () => Math.sin(Date.now() / 200) / 10
+            ),
+        ],
+    });
 
-            instantiate(game, {
-                Scale: [game.MapSize, 1, game.MapSize],
-                Translation: [x * game.MapSize, 0.5, z * game.MapSize],
-                Rotation: from_euler([0, 0, 0, 1], 0, 90, 0),
-                Using: [
-                    render_textured_diffuse(
-                        game.MaterialTexturedDiffuse,
-                        game.MeshPlane,
-                        game.Textures["404"],
-                        game.MapSize,
-                        "water"
-                    ),
-                ],
-            });
-        }
-    }
+    instantiate(game, {
+        Scale: [game.MapSize + 5, 1, game.MapSize + 5],
+        Translation: [0, 0.098, 0],
+        Using: [
+            render_textured_diffuse(
+                game.MaterialTexturedDiffuse,
+                game.MeshPlane,
+                game.Textures["404"],
+                game.MapSize + 5,
+                "water",
+                () => Math.sin(Date.now() / 320) / 10
+            ),
+        ],
+    });
+
+    instantiate(game, {
+        Scale: [game.MapSize * 10, 1, game.MapSize * 10],
+        Translation: [0, 0.097, 0],
+        Using: [
+            render_textured_diffuse(
+                game.MaterialTexturedDiffuse,
+                game.MeshPlane,
+                game.Textures["404"],
+                game.MapSize * 10,
+                "water",
+                () => Math.sin(Date.now() / 500) / 100
+            ),
+        ],
+    });
 
     // Ground with holes.
     for (let z = 0; z < game.MapSize; z++) {
         for (let x = 0; x < game.MapSize; x++) {
             let ground = blueprint_ground(game);
-            if (x === 0 || z === 0 || x === game.MapSize - 1 || z === game.MapSize - 1) {
-                ground.Using?.push(
-                    render_textured_diffuse(
-                        game.MaterialTexturedDiffuse,
-                        game.MeshCube,
-                        game.Textures["404"],
-                        1,
-                        "water"
-                    )
-                );
-                let water_box = instantiate(game, {
-                    Translation: [x - game.MapSize / 2 + 0.5, 0, z - game.MapSize / 2 + 0.5],
-                    ...ground,
-                });
-
-                game.World.Signature[water_box] &= ~Has.RigidBody;
-            } else {
+            if (!(x === 0 || z === 0 || x === game.MapSize - 1 || z === game.MapSize - 1)) {
                 instantiate(game, {
                     Translation: [x - game.MapSize / 2 + 0.5, 0, z - game.MapSize / 2 + 0.5],
                     ...blueprint_ground(game),
@@ -104,7 +90,7 @@ export function scene_stage(game: Game) {
 
             switch (token) {
                 case MapProps.Krates:
-                    Translation[1] = 10 + ~~(Math.random() * 3);
+                    // Translation[1] = 10 + ~~(Math.random() * 3);
                     instantiate(game, {
                         Translation,
                         ...blueprint_box(game),
@@ -113,11 +99,11 @@ export function scene_stage(game: Game) {
                 case MapProps.Texture:
                     Translation[1] = 1;
                     let texture_id = instantiate(game, {
-                        ...blueprint_texture(game),
+                        ...blueprint_texture(game, texture_name),
                         Translation,
                     });
 
-                    game.AllTextures[texture_id] = "water";
+                    game.AllTextures[texture_id] = texture_name;
                     break;
                 case MapProps.SpawnPoint:
                     Translation[1] = 5;

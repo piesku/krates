@@ -105,6 +105,10 @@ function use_textured_diffuse(game: Game, material: Material<TexturedDiffuseLayo
 
 function draw_textured_diffuse(game: Game, transform: Transform, render: RenderTexturedDiffuse) {
     game.Gl.uniform1f(render.Material.Locations.TexScale, render.TexScale);
+    game.Gl.uniform1f(
+        render.Material.Locations.TexOffset,
+        render.TexOffset ? render.TexOffset() : 0
+    );
 
     game.Gl.uniformMatrix4fv(render.Material.Locations.World, false, transform.World);
     game.Gl.uniformMatrix4fv(render.Material.Locations.Self, false, transform.Self);

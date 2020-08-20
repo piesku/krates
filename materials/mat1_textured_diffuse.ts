@@ -16,7 +16,6 @@ let vertex = `
     attribute vec3 normal;
     varying vec2 vert_texcoord;
     varying vec3 rgb;
-    varying float f_texscale;
 
     void main() {
         vec4 vert_pos = world * vec4(position, 1.0);
@@ -48,11 +47,17 @@ let fragment = `
     precision mediump float;
     uniform sampler2D sampler;
     uniform float texscale;
+    uniform float texoffset;
     varying vec2 vert_texcoord;
     varying vec3 rgb;
-    varying float f_texscale;
+
     void main() {
-        gl_FragColor = vec4(rgb, 1.0) * texture2D(sampler, vert_texcoord * texscale);
+        if (texoffset == 0.0) {
+            gl_FragColor = vec4(rgb, 1.0) * texture2D(sampler, vert_texcoord * texscale);
+        } else {
+            gl_FragColor = vec4(rgb, 1.0) * texture2D(sampler, vert_texcoord * texscale + vec2(texoffset, 0.0));
+        }
+
     }
 `;
 
@@ -70,6 +75,7 @@ export function mat1_textured_diffuse(gl: WebGLRenderingContext): Material<Textu
             VertexTexCoord: gl.getAttribLocation(program, "texcoord")!,
             VertexNormal: gl.getAttribLocation(program, "normal")!,
             TexScale: gl.getUniformLocation(program, "texscale")!,
+            TexOffset: gl.getUniformLocation(program, "texoffset")!,
             LightPositions: gl.getUniformLocation(program, "light_positions")!,
             LightDetails: gl.getUniformLocation(program, "light_details")!,
         },

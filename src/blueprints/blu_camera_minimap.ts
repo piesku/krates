@@ -16,7 +16,7 @@ export function blueprint_camera_minimap(game: Game): Blueprint {
                 game.RenderBuffers.Minimap,
                 512,
                 512,
-                [0, 0, 1, 1]
+                [255, 255, 255, 1]
             ),
         ],
     };
