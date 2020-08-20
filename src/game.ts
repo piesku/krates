@@ -34,9 +34,8 @@ export type Entity = number;
 export class Game {
     World = new World();
 
-    ViewportWidth = 0;
-    ViewportHeight = 0;
-    ViewportResized = false;
+    ViewportWidth = 512;
+    ViewportHeight = 384;
 
     InputState: Record<string, number> = {};
     InputDelta: Record<string, number> = {};
@@ -112,7 +111,6 @@ export class Game {
 
     FrameReset() {
         // Reset event flags for the next frame.
-        this.ViewportResized = false;
         for (let name in this.InputDelta) {
             this.InputDelta[name] = 0;
         }
