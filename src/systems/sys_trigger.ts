@@ -13,11 +13,9 @@ export function sys_trigger(game: Game, delta: number) {
 }
 
 function update(game: Game, entity: Entity) {
-    let collisions = game.World.Collide[entity].Collisions;
-    for (let collide of collisions) {
-        if (game.World.Signature[collide.Other] & Has.ControlPlayer) {
-            game.World.Signature[entity] &= ~Has.Trigger;
-            dispatch(game, game.World.Trigger[entity].Action, [entity]);
-        }
+    let collide = game.World.Collide[entity];
+    let trigger = game.World.Trigger[entity];
+    for (let collision of collide.Collisions) {
+        dispatch(game, trigger.Action, [entity, collision.Other]);
     }
 }
