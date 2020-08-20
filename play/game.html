@@ -39,11 +39,16 @@
 <img src="../textures/shadow.gif" id="shadow" />
 <img src="../textures/checker1.png" id="checker1" />
 
-<div id="ds">
-    <canvas id="scene" width="512" height="384"></canvas>
+<main>
+    <div class="screen" id="scene">
+        <canvas width="512" height="384"></canvas>
+        <div></div>
+    </div>
     <div id="hinge"></div>
-    <canvas id="minimap" width="512" height="384"></canvas>
-</div
+    <div class="screen" id="minimap">
+        <canvas width="512" height="384"></canvas>
+        <div></div>
+    </div>
+</main>
 
-<main></main>
 <script src="game.terser.js"></script>
