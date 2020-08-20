@@ -15,6 +15,7 @@ import {MapProps} from "../level1.js";
 import {World} from "../world.js";
 
 export function scene_stage(game: Game, texture_name: string, level: MapProps[]) {
+    game.CurrentScene = scene_stage;
     game.World = new World();
     game.Cameras = [];
     let level_size = Math.sqrt(level.length);

@@ -28,6 +28,7 @@ import {sys_postprocess} from "./systems/sys_postprocess.js";
 import {sys_render} from "./systems/sys_render.js";
 import {sys_transform} from "./systems/sys_transform.js";
 import {sys_trigger} from "./systems/sys_trigger.js";
+import {sys_ui} from "./systems/sys_ui.js";
 import {sys_walk} from "./systems/sys_walk.js";
 import {World} from "./world.js";
 
@@ -42,11 +43,12 @@ export class Game {
     InputState: Record<string, number> = {};
     InputDelta: Record<string, number> = {};
 
-    Ui = document.querySelector("main")!;
-    CanvasScene = document.querySelector("canvas#scene")! as HTMLCanvasElement;
+    Ui1 = document.querySelector("#scene div")! as HTMLElement;
+    Ui2 = document.querySelector("#minimap div")! as HTMLElement;
+    CanvasScene = document.querySelector("#scene canvas")! as HTMLCanvasElement;
     Gl = this.CanvasScene.getContext("webgl")!;
     ExtVao = this.Gl.getExtension("OES_vertex_array_object")!;
-    CanvasMinimap = document.querySelector("canvas#minimap")! as HTMLCanvasElement;
+    CanvasMinimap = document.querySelector("#minimap canvas")! as HTMLCanvasElement;
     ContextMinimap = this.CanvasMinimap.getContext("2d")!;
 
     MaterialTexturedDiffuse = mat1_textured_diffuse(this.Gl);
@@ -73,6 +75,7 @@ export class Game {
         Postprocess: create_render_buffer(this.Gl, 128, 128),
     };
 
+    CurrentScene?: Function;
     MapSize = 11;
 
     constructor() {
@@ -89,23 +92,6 @@ export class Game {
         window.addEventListener("keyup", (evt) => {
             this.InputState[evt.code] = 0;
             this.InputDelta[evt.code] = -1;
-        });
-        this.Ui.addEventListener("mousedown", (evt) => {
-            this.InputState[`Mouse${evt.button}`] = 1;
-            this.InputDelta[`Mouse${evt.button}`] = 1;
-        });
-        this.Ui.addEventListener("mouseup", (evt) => {
-            this.InputState[`Mouse${evt.button}`] = 0;
-            this.InputDelta[`Mouse${evt.button}`] = -1;
-        });
-        this.Ui.addEventListener("mousemove", (evt) => {
-            this.InputState.MouseX = evt.offsetX;
-            this.InputState.MouseY = evt.offsetY;
-            this.InputDelta.MouseX = evt.movementX;
-            this.InputDelta.MouseY = evt.movementY;
-        });
-        this.Ui.addEventListener("wheel", (evt) => {
-            this.InputDelta.WheelY = evt.deltaY;
         });
 
         this.Gl.enable(GL_DEPTH_TEST);
@@ -145,6 +131,7 @@ export class Game {
         sys_render(this, delta);
         sys_postprocess(this, delta);
         sys_minimap(this, delta);
+        sys_ui(this, delta);
         sys_framerate(this, delta, performance.now() - now);
     }
 }
