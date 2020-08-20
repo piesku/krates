@@ -8,30 +8,70 @@
         overflow: hidden;
         margin: 0;
         background-color: #222;
+        font-family: Arial;
+        font-weight: bold;
+        font-style: italic;
+        color: #fff;
     }
     main {
-        position: absolute;
-        width: 100vw;
-        height: 100vh;
-        user-select: none;
-    }
-    #ds {
         width: 512px;
         margin: 0 auto;
         padding: 20px;
         display: flex;
         flex-flow: column nowrap;
     }
+    .screen,
     canvas {
+        position: relative;
+        width: 512px;
+        height: 384px;
+    }
+    .screen > div {
+        position: absolute;
+        top: 0;
         width: 512px;
         height: 384px;
     }
     div#hinge {
         height: 20px;
     }
+    div[onclick] {
+        cursor: pointer;
+    }
     img {
         display: none;
     }
+
+    @keyframes slide-from-left {
+        0% {
+            right: 512px;
+        }
+        25% {
+            right: 50px;
+        }
+        90% {
+            right: 50px;
+        }
+        100% {
+            right: 512px;
+        }
+    }
+
+    @keyframes slide-from-right {
+        0% {
+            left: 512px;
+        }
+        25% {
+            left: 50px;
+        }
+        90% {
+            left: 50px;
+        }
+        100% {
+            left: 512px;
+        }
+    }
+
     #debug {
         display: flex;
         flex-flow: column nowrap;
@@ -64,12 +104,17 @@
     <img src="../textures/water.gif" id="water" />
     <img src="../textures/404.gif" id="404" />
 
-    <div id="ds">
-        <canvas id="scene" width="512" height="384"></canvas>
+    <main>
+        <div class="screen" id="scene">
+            <canvas width="512" height="384"></canvas>
+            <div></div>
+        </div>
         <div id="hinge"></div>
-        <canvas id="minimap" width="512" height="384"></canvas>
-    </div>
-    <main></main>
+        <div class="screen" id="minimap">
+            <canvas width="512" height="384"></canvas>
+            <div></div>
+        </div>
+    </main>
 
     <div id="debug">
         <div>update: <span id="update"></span></div>
