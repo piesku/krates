@@ -5,7 +5,7 @@ import {Game} from "../game.js";
 
 export function blueprint_camera_minimap(game: Game): Blueprint {
     return {
-        Translation: [0, 10, -2],
+        Translation: [0, 10, 0],
         Rotation: from_euler([0, 0, 0, 0], -90, 0, 0),
         Using: [
             camera_framebuffer_ortho(

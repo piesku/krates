@@ -16,20 +16,13 @@ export function sys_minimap(game: Game, delta: number) {
 }
 
 function render_minimap(game: Game, camera: CameraFramebuffer) {
-    let data = new Uint8ClampedArray(camera.ViewportWidth * camera.ViewportHeight * 4);
+    let image = new ImageData(512, 384);
     game.Gl.bindFramebuffer(GL_FRAMEBUFFER, camera.Target);
-    game.Gl.readPixels(
-        0,
-        0,
-        camera.ViewportWidth,
-        camera.ViewportHeight,
-        GL_RGBA,
-        GL_DATA_UNSIGNED_BYTE,
-        data
-    );
-    game.ContextMinimap.putImageData(
-        new ImageData(data, camera.ViewportWidth, camera.ViewportHeight),
-        0,
-        0
-    );
+    game.Gl.readPixels(0, 64, 512, 384, GL_RGBA, GL_DATA_UNSIGNED_BYTE, image.data);
+
+    game.ContextMinimap.putImageData(image, 0, 0);
+    game.ContextMinimap.scale(1, -1);
+    game.ContextMinimap.translate(0, -384);
+    game.ContextMinimap.drawImage(game.CanvasMinimap, 0, 0);
+    game.ContextMinimap.resetTransform();
 }
