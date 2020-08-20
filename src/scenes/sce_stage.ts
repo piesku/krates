@@ -5,6 +5,7 @@ import {blueprint_camera_follow} from "../blueprints/blu_camera_follow.js";
 import {blueprint_camera_minimap} from "../blueprints/blu_camera_minimap.js";
 import {blueprint_ground} from "../blueprints/blu_ground.js";
 import {blueprint_player} from "../blueprints/blu_player.js";
+import {blueprint_texture} from "../blueprints/blu_texture.js";
 import {light_directional} from "../components/com_light.js";
 import {render_textured_diffuse} from "../components/com_render_textured_diffuse.js";
 import {instantiate} from "../core.js";
@@ -32,7 +33,7 @@ export function scene_stage(game: Game) {
                     render_textured_diffuse(
                         game.MaterialTexturedDiffuse,
                         game.MeshCube,
-                        game.Textures["krates"]
+                        game.Textures["404"]
                     )
                 );
                 instantiate(game, {
@@ -92,7 +93,7 @@ export function scene_stage(game: Game) {
 
     instantiate(game, {
         ...blueprint_box(game),
-        Translation: [-2, 20, -2],
+        Translation: [-2, 20, 0],
     });
 
     //BG
@@ -112,11 +113,17 @@ export function scene_stage(game: Game) {
                     render_textured_diffuse(
                         game.MaterialTexturedDiffuse,
                         game.MeshPlane,
-                        game.Textures["grass"],
+                        game.Textures["404"],
                         game.MapSize
                     ),
                 ],
             });
         }
     }
+
+    // Textures
+    instantiate(game, {
+        ...blueprint_texture(game),
+        Translation: [-3, 1, -3],
+    });
 }
