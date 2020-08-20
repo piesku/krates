@@ -1,3 +1,4 @@
+import {Vec3} from "../../common/math.js";
 import {from_euler} from "../../common/quat.js";
 import {float, set_seed} from "../../common/random.js";
 import {blueprint_box} from "../blueprints/blu_box.js";
@@ -12,10 +13,33 @@ import {instantiate} from "../core.js";
 import {Game} from "../game.js";
 import {World} from "../world.js";
 
+const enum MapProps {
+    Empty = 0,
+    SpawnPoint,
+    Krates,
+    Texture,
+}
+
+// prettier-ignore
+let level = [
+    MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty,
+    MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Texture, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty,
+    MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty,
+    MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty,
+    MapProps.Krates, MapProps.Krates, MapProps.Krates, MapProps.Krates, MapProps.Krates, MapProps.Krates, MapProps.Krates, MapProps.Krates, MapProps.Krates,
+    MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty,
+    MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.SpawnPoint, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty,
+    MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty,
+    MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty, MapProps.Empty,
+];
+
 export function scene_stage(game: Game) {
     game.World = new World();
     game.Cameras = [];
-    game.MapSize = 11;
+    let level_size = Math.sqrt(level.length);
+    game.MapSize = level_size + 2;
+
+    // let map_size_with_fence = game.MapSize + 2;
 
     set_seed(Date.now());
 
@@ -63,12 +87,6 @@ export function scene_stage(game: Game) {
                     Translation: [x - game.MapSize / 2 + 0.5, 1, z - game.MapSize / 2 + 0.5],
                     ...ground,
                 });
-            } else if (Math.random() < 0.05) {
-                // Lava
-                instantiate(game, {
-                    Translation: [x - game.MapSize / 2 + 0.5, -1, z - game.MapSize / 2 + 0.5],
-                    ...blueprint_ground(game),
-                });
             } else {
                 instantiate(game, {
                     Translation: [x - game.MapSize / 2 + 0.5, 0, z - game.MapSize / 2 + 0.5],
@@ -78,6 +96,40 @@ export function scene_stage(game: Game) {
         }
     }
 
+    for (let z = 0; z < level_size; z++) {
+        for (let x = 0; x < level_size; x++) {
+            let pos = z * level_size + x;
+            let token = level[pos];
+            let Translation: Vec3 = [x - level_size / 2 + 0.5, 5, z - level_size / 2 + 0.5];
+            switch (token) {
+                case MapProps.Krates:
+                    Translation[1] = 10 + ~~(Math.random() * 3);
+                    instantiate(game, {
+                        Translation,
+                        ...blueprint_box(game),
+                    });
+                    break;
+                case MapProps.Texture:
+                    Translation[1] = 1;
+                    let texture_id = instantiate(game, {
+                        ...blueprint_texture(game),
+                        Translation,
+                    });
+
+                    game.AllTextures[texture_id] = "grass";
+                    break;
+                case MapProps.SpawnPoint:
+                    Translation[1] = 5;
+                    console.log(x + 1, z + 1);
+                    instantiate(game, {
+                        ...blueprint_player(game, x + 1, z + 1),
+                        Translation,
+                        Rotation: [0, 1, 0, 0],
+                    });
+                    break;
+            }
+        }
+    }
     // Directional light.
     instantiate(game, {
         Translation: [1, 1, -1],
@@ -86,13 +138,6 @@ export function scene_stage(game: Game) {
     instantiate(game, {
         Translation: [1, 1, 1],
         Using: [light_directional([1, 1, 1], 0.5)],
-    });
-
-    // Player.
-    instantiate(game, {
-        ...blueprint_player(game, 5, 5),
-        Translation: [0, 5, 0],
-        Rotation: [0, 1, 0, 0],
     });
 
     // Main Camera.
@@ -107,23 +152,4 @@ export function scene_stage(game: Game) {
         Rotation: [0, 1, 0, 0],
         ...blueprint_camera_minimap(game),
     });
-
-    // Boxes.
-    instantiate(game, {
-        ...blueprint_box(game),
-        Translation: [2, 10, 2],
-    });
-
-    instantiate(game, {
-        ...blueprint_box(game),
-        Translation: [-2, 20, 0],
-    });
-
-    // Texture= Powerups
-    let texture_id = instantiate(game, {
-        ...blueprint_texture(game),
-        Translation: [-3, 1, -3],
-    });
-
-    game.AllTextures[texture_id] = "grass";
 }
