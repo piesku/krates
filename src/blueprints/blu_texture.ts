@@ -12,7 +12,7 @@ export function blueprint_texture(game: Game): Blueprint {
         Children: [
             {
                 Translation: [0, 1, 0],
-                Rotation: from_euler([0, 0, 0, 0], 45, 45, 45),
+                Rotation: from_euler([0, 0, 0, 0], 45, 45, 0),
                 Using: [
                     render_textured_diffuse(
                         game.MaterialTexturedDiffuse,
