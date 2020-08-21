@@ -2,6 +2,7 @@ import {Vec3} from "../common/math.js";
 import {blueprint_box} from "./blueprints/blu_box.js";
 import {blueprint_ground} from "./blueprints/blu_ground.js";
 import {blueprint_player} from "./blueprints/blu_player.js";
+import {blueprint_stone} from "./blueprints/blu_stone.js";
 import {blueprint_texture} from "./blueprints/blu_texture.js";
 import {instantiate} from "./core.js";
 import {Game} from "./game.js";
@@ -13,6 +14,7 @@ export const enum TileKind {
     Krates,
     SpawnPoint,
     Texture,
+    Stone,
 }
 
 export interface MapData {
@@ -33,6 +35,13 @@ export let maps: Array<MapData> = [
         // prettier-ignore
         props: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     },
+    {
+        texture: "stone",
+        // prettier-ignore
+        terrain: [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+        // prettier-ignore
+        props: [0, 0, 6, 0, 0, 0, 0, 5, 0, 6, 0, 6, 0, 0, 0, 0, 0, 0, 6, 0, 0, 6, 6, 6, 6, 6, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    },
 ];
 
 export function create_tile(game: Game, tile: TileKind, translation: Vec3, x?: number, z?: number) {
@@ -48,6 +57,12 @@ export function create_tile(game: Game, tile: TileKind, translation: Vec3, x?: n
         case TileKind.Krates:
             instantiate(game, {
                 ...blueprint_box(game, textured),
+                Translation: translation,
+            });
+            break;
+        case TileKind.Stone:
+            instantiate(game, {
+                ...blueprint_stone(game, textured),
                 Translation: translation,
             });
             break;
