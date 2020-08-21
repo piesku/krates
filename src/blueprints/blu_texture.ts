@@ -12,7 +12,7 @@ export function blueprint_texture(game: Game, texture_name: string): Blueprint {
     return {
         Scale: [0.5, 0.5, 0.5],
         Using: [
-            collide(true, Layer.Terrain, Layer.Terrain | Layer.Player, [0.5, 0.5, 0.5]),
+            collide(true, Layer.Collectable, Layer.Player, [0.5, 0.5, 0.5]),
             move(0, 3),
             control_rotate(),
             trigger(Action.TextureCollected),

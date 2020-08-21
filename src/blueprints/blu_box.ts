@@ -7,7 +7,11 @@ import {Game, Layer} from "../game.js";
 export function blueprint_box(game: Game, textured = false): Blueprint {
     return {
         Using: [
-            collide(true, Layer.Terrain, Layer.Terrain | Layer.Player, [0.9, 0.9, 0.9]),
+            collide(true, Layer.Movable, Layer.Terrain | Layer.Movable | Layer.Player, [
+                0.9,
+                0.9,
+                0.9,
+            ]),
             rigid_body(true),
             render_textured_diffuse(
                 game.MaterialTexturedDiffuse,
