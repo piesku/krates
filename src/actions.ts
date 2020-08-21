@@ -77,16 +77,17 @@ export function dispatch(game: Game, action: Action, payload: unknown) {
             let [entity, player] = payload as [Entity, Entity];
 
             let walk = game.World.Walk[player];
+            let dest_walk = game.World.Walk[dest];
 
-            console.log(dest);
+            let player_transform = game.World.Transform[player];
+            let dest_transform = game.World.Transform[dest];
+
             if (dest) {
-                game.World.Transform[player].Translation = game.World.Transform[
-                    dest
-                ].Translation.slice() as Vec3;
-                game.World.Transform[player].Dirty = true;
+                player_transform.Translation = dest_transform.Translation.slice() as Vec3;
+                player_transform.Dirty = true;
 
                 if (walk) {
-                    let {CurrentX, CurrentZ} = game.World.Walk[dest];
+                    let {CurrentX, CurrentZ} = dest_walk;
                     walk.CurrentX = walk.TargetX = CurrentX;
                     walk.CurrentZ = walk.TargetZ = CurrentZ;
                 }
