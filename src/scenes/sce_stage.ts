@@ -11,14 +11,13 @@ import {World} from "../world.js";
 
 export function scene_stage(game: Game) {
     game.CurrentScene = scene_stage;
+    game.StageCleared = false;
     game.World = new World();
     game.Cameras = [];
-    game.MapSize = 11;
 
     set_seed(Date.now());
 
     let map = maps[game.CurrentLevel];
-
     game.MapSize = Math.sqrt(map.terrain.length);
 
     instantiate(game, {

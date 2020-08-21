@@ -66,3 +66,15 @@ img {
         margin-right: -1000px;
     }
 }
+
+@keyframes slide-from-bottom {
+    0% {
+        margin-bottom: -1000px;
+    }
+    75% {
+        margin-bottom: 30px;
+    }
+    100% {
+        margin-bottom: 0;
+    }
+}

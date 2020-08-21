@@ -4,6 +4,7 @@ import {find_first} from "./components/com_named.js";
 import {RenderKind} from "./components/com_render.js";
 import {destroy} from "./core.js";
 import {Entity, Game} from "./game.js";
+import {maps} from "./maps.js";
 import {scene_stage} from "./scenes/sce_stage.js";
 import {scene_title} from "./scenes/sce_title.js";
 import {Has} from "./world.js";
@@ -36,6 +37,7 @@ export function dispatch(game: Game, action: Action, payload: unknown) {
             }
 
             destroy(game.World, entity);
+            game.StageCleared = true;
             break;
         }
         case Action.GoToTitle: {
@@ -44,8 +46,10 @@ export function dispatch(game: Game, action: Action, payload: unknown) {
         }
         case Action.GoToStage: {
             let stage = payload as number;
-            game.CurrentLevel = stage;
-            requestAnimationFrame(() => scene_stage(game));
+            if (stage < maps.length) {
+                game.CurrentLevel = stage;
+                requestAnimationFrame(() => scene_stage(game));
+            }
             break;
         }
 
