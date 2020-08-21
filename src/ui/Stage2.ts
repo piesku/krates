@@ -1,6 +1,7 @@
 import {html} from "../../common/html.js";
 import {Action} from "../actions.js";
 import {Game} from "../game.js";
+import {maps} from "../maps.js";
 
 export function Stage2(game: Game) {
     return html`
@@ -13,16 +14,27 @@ export function Stage2(game: Game) {
             "
         >
             ${game.StageCleared &&
-            `
-                <div
-                    style="
-                        animation: 1s ease-in-out both slide-from-bottom;
-                    "
-                    onclick="$(${Action.GoToStage}, ${game.CurrentLevel + 1})"
-                >
-                    Advance to the Next Stage
-                </div>
-            `}
+            (game.CurrentStage < maps.length - 1
+                ? `
+                    <div
+                        style="
+                            animation: 1s ease-in-out both slide-from-bottom;
+                        "
+                        onclick="$(${Action.GoToStage}, ${game.CurrentStage + 1})"
+                    >
+                        Advance to the Next Stage
+                    </div>
+                `
+                : `
+                    <div
+                        style="
+                            animation: 1s ease-in-out both slide-from-bottom;
+                        "
+                        onclick="$(${Action.GoToTitle})"
+                    >
+                        You Won!
+                    </div>
+                `)}
         </div>
     `;
 }

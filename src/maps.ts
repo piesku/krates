@@ -75,7 +75,7 @@ export let maps: Array<MapData> = [
 ];
 
 export function create_tile(game: Game, tile: TileKind, translation: Vec3, x?: number, z?: number) {
-    let textured = game.CurrentLevel === 0;
+    let textured = game.CurrentStage === 0;
 
     switch (tile) {
         case TileKind.Grass:
@@ -104,7 +104,7 @@ export function create_tile(game: Game, tile: TileKind, translation: Vec3, x?: n
             });
             break;
         case TileKind.Texture:
-            let texture_name = maps[game.CurrentLevel].texture!;
+            let texture_name = maps[game.CurrentStage].texture!;
             let texture_id = instantiate(game, {
                 ...blueprint_texture(game, texture_name),
                 Translation: translation,

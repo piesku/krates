@@ -47,8 +47,7 @@ export function dispatch(game: Game, action: Action, payload: unknown) {
         case Action.GoToStage: {
             let stage = payload as number;
             if (stage < maps.length) {
-                game.CurrentLevel = stage;
-                requestAnimationFrame(() => scene_stage(game));
+                requestAnimationFrame(() => scene_stage(game, stage));
             }
             break;
         }

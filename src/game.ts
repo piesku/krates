@@ -76,9 +76,9 @@ export class Game {
         Postprocess: create_render_buffer(this.Gl, 128, 128),
     };
 
+    CurrentStage = 0;
     CurrentScene?: Function;
     MapSize = 11;
-    CurrentLevel = 0;
     UnlockedTextures: string[] = ["grass", "stone", "krates", "key", "water", "portal"];
     HasKey: boolean = false;
     StageCleared = false;

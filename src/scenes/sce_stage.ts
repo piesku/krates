@@ -9,15 +9,16 @@ import {Game} from "../game.js";
 import {create_tile, maps} from "../maps.js";
 import {World} from "../world.js";
 
-export function scene_stage(game: Game) {
+export function scene_stage(game: Game, stage_index: number) {
     game.CurrentScene = scene_stage;
+    game.CurrentStage = stage_index;
     game.StageCleared = false;
     game.World = new World();
     game.Cameras = [];
 
     set_seed(Date.now());
 
-    let map = maps[game.CurrentLevel];
+    let map = maps[game.CurrentStage];
     game.MapSize = Math.sqrt(map.terrain.length);
 
     instantiate(game, {
