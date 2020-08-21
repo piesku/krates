@@ -18,7 +18,7 @@ export function scene_title(game: Game) {
 
     set_seed(Date.now());
 
-    let map = maps[game.LevelNumber];
+    let map = maps[game.CurrentLevel];
 
     game.MapSize = Math.sqrt(map.terrain.length);
 

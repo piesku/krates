@@ -11,7 +11,7 @@ export function Menu() {
                 background-color: #000;
             "
         >
-            <div onclick="$(${Action.GoToStage}, 2)">
+            <div onclick="$(${Action.GoToStage}, 3)">
                 Start a New Game
             </div>
         </div>

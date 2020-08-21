@@ -42,10 +42,17 @@ export let maps: Array<MapData> = [
         // prettier-ignore
         props: [0, 0, 6, 0, 0, 0, 0, 5, 0, 6, 0, 6, 0, 0, 0, 0, 0, 0, 6, 0, 0, 6, 6, 6, 6, 6, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     },
+    {
+        texture: "krates",
+        // prettier-ignore
+        terrain: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 3, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        // prettier-ignore
+        props: [0, 0, 6, 0, 0, 0, 0, 5, 0, 6, 0, 6, 0, 0, 0, 0, 0, 0, 6, 0, 0, 6, 6, 6, 6, 6, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    },
 ];
 
 export function create_tile(game: Game, tile: TileKind, translation: Vec3, x?: number, z?: number) {
-    let textured = game.LevelNumber === 0;
+    let textured = game.CurrentLevel === 0;
 
     switch (tile) {
         case TileKind.Grass:
@@ -74,7 +81,7 @@ export function create_tile(game: Game, tile: TileKind, translation: Vec3, x?: n
             });
             break;
         case TileKind.Texture:
-            let texture_name = maps[game.LevelNumber].texture!;
+            let texture_name = maps[game.CurrentLevel].texture!;
             let texture_id = instantiate(game, {
                 ...blueprint_texture(game, texture_name),
                 Translation: translation,

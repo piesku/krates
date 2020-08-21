@@ -1,13 +1,13 @@
-import {from_euler} from "../../common/quat.js";
-import {float, set_seed} from "../../common/random.js";
-import {blueprint_camera_follow} from "../blueprints/blu_camera_follow.js";
-import {blueprint_camera_minimap} from "../blueprints/blu_camera_minimap.js";
-import {light_directional} from "../components/com_light.js";
-import {render_textured_diffuse} from "../components/com_render_textured_diffuse.js";
-import {instantiate} from "../core.js";
-import {Game} from "../game.js";
-import {create_tile, maps} from "../maps.js";
-import {World} from "../world.js";
+import { from_euler } from "../../common/quat.js";
+import { float, set_seed } from "../../common/random.js";
+import { blueprint_camera_follow } from "../blueprints/blu_camera_follow.js";
+import { blueprint_camera_minimap } from "../blueprints/blu_camera_minimap.js";
+import { light_directional } from "../components/com_light.js";
+import { render_textured_diffuse } from "../components/com_render_textured_diffuse.js";
+import { instantiate } from "../core.js";
+import { Game } from "../game.js";
+import { create_tile, maps } from "../maps.js";
+import { World } from "../world.js";
 
 export function scene_stage(game: Game) {
     game.CurrentScene = scene_stage;
@@ -17,7 +17,7 @@ export function scene_stage(game: Game) {
 
     set_seed(Date.now());
 
-    let map = maps[game.LevelNumber];
+    let map = maps[game.CurrentLevel];
 
     game.MapSize = Math.sqrt(map.terrain.length);
 

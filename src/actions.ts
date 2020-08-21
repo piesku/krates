@@ -39,7 +39,7 @@ export function dispatch(game: Game, action: Action, payload: unknown) {
         }
         case Action.GoToStage: {
             let stage = payload as number;
-            game.LevelNumber = stage;
+            game.CurrentLevel = stage;
             requestAnimationFrame(() => scene_stage(game));
             break;
         }
