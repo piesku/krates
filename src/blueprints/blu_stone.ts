@@ -18,17 +18,17 @@ export function blueprint_stone(game: Game, textured = false): Blueprint {
             ),
         ],
         Children: [
-            {
-                Scale: [1.8, 1, 1.8],
-                Translation: [0, -0.4, 0],
-                Using: [
-                    render_textured_diffuse(
-                        game.MaterialTexturedDiffuse,
-                        game.MeshPlane,
-                        game.Textures["shadow"]
-                    ),
-                ],
-            },
+            // {
+            //     Scale: [1.8, 1, 1.8],
+            //     Translation: [0, -0.4, 0],
+            //     Using: [
+            //         render_textured_diffuse(
+            //             game.MaterialTexturedDiffuse,
+            //             game.MeshPlane,
+            //             game.Textures["shadow"]
+            //         ),
+            //     ],
+            // },
         ],
     };
 }

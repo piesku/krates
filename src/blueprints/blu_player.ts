@@ -30,17 +30,17 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                     ),
                 ],
                 Children: [
-                    {
-                        Scale: [1.6, 1, 1.6],
-                        Translation: [0, -0.31, 0],
-                        Using: [
-                            render_textured_diffuse(
-                                game.MaterialTexturedDiffuse,
-                                game.MeshPlane,
-                                game.Textures["shadow"]
-                            ),
-                        ],
-                    },
+                    // {
+                    //     Scale: [1.6, 1, 1.6],
+                    //     Translation: [0, -0.31, 0],
+                    //     Using: [
+                    //         render_textured_diffuse(
+                    //             game.MaterialTexturedDiffuse,
+                    //             game.MeshPlane,
+                    //             game.Textures["shadow"]
+                    //         ),
+                    //     ],
+                    // },
                 ],
             },
         ],
