@@ -78,7 +78,7 @@ export class Game {
     CurrentScene?: Function;
     MapSize = 11;
     CurrentLevel = 0;
-    UnlockedTextures: string[] = [];
+    UnlockedTextures: string[] = ["grass", "water", "stone", "krates"];
 
     constructor() {
         document.addEventListener("visibilitychange", () =>

@@ -5,6 +5,9 @@ import {Blueprint} from "../core.js";
 import {Game, Layer} from "../game.js";
 
 export function blueprint_box(game: Game, textured = false): Blueprint {
+    let texture = "krates";
+    textured = game.UnlockedTextures.includes(texture) ? true : textured;
+
     return {
         Using: [
             collide(true, Layer.Movable, Layer.Terrain | Layer.Movable | Layer.Player),
@@ -12,9 +15,9 @@ export function blueprint_box(game: Game, textured = false): Blueprint {
             render_textured_diffuse(
                 game.MaterialTexturedDiffuse,
                 game.MeshCube,
-                game.Textures[textured ? "krates" : "404"],
+                game.Textures[textured ? texture : "404"],
                 1,
-                "krates"
+                texture
             ),
         ],
         Children: [

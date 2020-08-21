@@ -5,6 +5,8 @@ import {Blueprint} from "../core.js";
 import {Game, Layer} from "../game.js";
 
 export function blueprint_stone(game: Game, textured = false): Blueprint {
+    let texture = "stone";
+    textured = game.UnlockedTextures.includes(texture) ? true : textured;
     return {
         Using: [
             collide(false, Layer.Terrain, Layer.None, [1, 1, 1]),
@@ -12,9 +14,9 @@ export function blueprint_stone(game: Game, textured = false): Blueprint {
             render_textured_diffuse(
                 game.MaterialTexturedDiffuse,
                 game.MeshCube,
-                game.Textures[textured ? "stone" : "404"],
+                game.Textures[textured ? texture : "404"],
                 1,
-                "stone"
+                texture
             ),
         ],
         Children: [
