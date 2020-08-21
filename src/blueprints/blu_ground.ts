@@ -4,7 +4,7 @@ import {rigid_body} from "../components/com_rigid_body.js";
 import {Blueprint} from "../core.js";
 import {Game, Layer} from "../game.js";
 
-export function blueprint_ground(game: Game): Blueprint {
+export function blueprint_ground(game: Game, textured = false): Blueprint {
     return {
         Using: [
             collide(false, Layer.Terrain, Layer.None),
@@ -12,7 +12,7 @@ export function blueprint_ground(game: Game): Blueprint {
             render_textured_diffuse(
                 game.MaterialTexturedDiffuse,
                 game.MeshCube,
-                game.Textures["404"],
+                game.Textures[textured ? "grass" : "404"],
                 1,
                 "grass"
             ),

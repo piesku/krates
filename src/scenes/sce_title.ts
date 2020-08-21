@@ -1,3 +1,4 @@
+import {Vec3} from "../../common/math.js";
 import {from_euler} from "../../common/quat.js";
 import {float, set_seed} from "../../common/random.js";
 import {blueprint_box} from "../blueprints/blu_box.js";
@@ -7,9 +8,9 @@ import {control_rotate} from "../components/com_control_rotate.js";
 import {light_directional} from "../components/com_light.js";
 import {move} from "../components/com_move.js";
 import {named} from "../components/com_named.js";
-import {render_textured_diffuse} from "../components/com_render_textured_diffuse.js";
 import {instantiate} from "../core.js";
 import {Game} from "../game.js";
+import {maps, TileKind} from "../maps.js";
 import {World} from "../world.js";
 
 export function scene_title(game: Game) {
@@ -20,38 +21,17 @@ export function scene_title(game: Game) {
 
     set_seed(Date.now());
 
-    // Ground with holes.
+    let map = maps[0];
+    game.MapSize = Math.sqrt(map.terrain.length);
+
     for (let z = 0; z < game.MapSize; z++) {
         for (let x = 0; x < game.MapSize; x++) {
-            let ground = blueprint_ground(game);
-            if (x === 0 || z === 0 || x === game.MapSize - 1 || z === game.MapSize - 1) {
-                instantiate(game, {
-                    Translation: [x - game.MapSize / 2 + 0.5, 0, z - game.MapSize / 2 + 0.5],
-                    ...ground,
-                });
-                ground.Using?.push(
-                    render_textured_diffuse(
-                        game.MaterialTexturedDiffuse,
-                        game.MeshCube,
-                        game.Textures["404"]
-                    )
-                );
-                instantiate(game, {
-                    Translation: [x - game.MapSize / 2 + 0.5, 1, z - game.MapSize / 2 + 0.5],
-                    ...ground,
-                });
-            } else if (Math.random() < 0.05) {
-                // Lava
-                instantiate(game, {
-                    Translation: [x - game.MapSize / 2 + 0.5, -1, z - game.MapSize / 2 + 0.5],
-                    ...blueprint_ground(game),
-                });
-            } else {
-                instantiate(game, {
-                    Translation: [x - game.MapSize / 2 + 0.5, 0, z - game.MapSize / 2 + 0.5],
-                    ...blueprint_ground(game),
-                });
-            }
+            let index = z * game.MapSize + x;
+            let world_x = x - game.MapSize / 2 + 0.5;
+            let world_z = z - game.MapSize / 2 + 0.5;
+
+            create_tile(game, map.terrain[index], [world_x, 0, world_z]);
+            create_tile(game, map.props[index], [world_x, 1, world_z]);
         }
     }
 
@@ -67,7 +47,7 @@ export function scene_title(game: Game) {
 
     // Camera Anchor
     instantiate(game, {
-        Translation: [0, 5, 0],
+        Translation: [0, 2, 0],
         Rotation: [0, 1, 0, 0],
         Using: [named("camera anchor"), control_rotate(), move(0, 0.1)],
     });
@@ -78,15 +58,21 @@ export function scene_title(game: Game) {
         Translation: [float(-20, 20), float(10, 20), float(10, 20)],
         Rotation: from_euler([0, 0, 0, 0], 0, float(-135, -225), 0),
     });
+}
 
-    // Boxes.
-    instantiate(game, {
-        ...blueprint_box(game),
-        Translation: [2, 10, 2],
-    });
-
-    instantiate(game, {
-        ...blueprint_box(game),
-        Translation: [-2, 20, 0],
-    });
+export function create_tile(game: Game, tile: TileKind, translation: Vec3) {
+    switch (tile) {
+        case TileKind.Grass:
+            instantiate(game, {
+                ...blueprint_ground(game, true),
+                Translation: translation,
+            });
+            break;
+        case TileKind.Krates:
+            instantiate(game, {
+                ...blueprint_box(game, true),
+                Translation: translation,
+            });
+            break;
+    }
 }

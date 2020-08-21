@@ -4,7 +4,7 @@ import {rigid_body} from "../components/com_rigid_body.js";
 import {Blueprint} from "../core.js";
 import {Game, Layer} from "../game.js";
 
-export function blueprint_box(game: Game): Blueprint {
+export function blueprint_box(game: Game, textured = false): Blueprint {
     return {
         Using: [
             collide(true, Layer.Terrain, Layer.Terrain | Layer.Player, [0.9, 0.9, 0.9]),
@@ -12,7 +12,7 @@ export function blueprint_box(game: Game): Blueprint {
             render_textured_diffuse(
                 game.MaterialTexturedDiffuse,
                 game.MeshCube,
-                game.Textures["404"]
+                game.Textures[textured ? "krates" : "404"]
             ),
         ],
         Children: [
