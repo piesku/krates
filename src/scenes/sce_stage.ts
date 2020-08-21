@@ -87,18 +87,16 @@ export function scene_stage(game: Game, texture_name: string, level: MapProps[])
         for (let x = 0; x < level_size; x++) {
             let pos = z * level_size + x;
             let token = level[pos];
-            let Translation: Vec3 = [x - level_size / 2 + 0.5, 0, z - level_size / 2 + 0.5];
+            let Translation: Vec3 = [x - level_size / 2 + 0.5, 1, z - level_size / 2 + 0.5];
 
             switch (token) {
                 case MapProps.Krates:
-                    // Translation[1] = 10 + ~~(Math.random() * 3);
                     instantiate(game, {
                         Translation,
                         ...blueprint_box(game),
                     });
                     break;
                 case MapProps.Texture:
-                    Translation[1] = 1;
                     let texture_id = instantiate(game, {
                         ...blueprint_texture(game, texture_name),
                         Translation,
