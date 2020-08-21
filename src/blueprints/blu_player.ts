@@ -14,7 +14,7 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
             control_player(),
             walk(grid_x, grid_z),
             move(10, 3),
-            collide(true, Layer.Player, Layer.Terrain | Layer.Movable),
+            collide(true, Layer.Player, Layer.Terrain),
             rigid_body(true),
             named("camera anchor"),
         ],
