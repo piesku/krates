@@ -13,7 +13,7 @@ export interface RenderTexturedDiffuse {
     readonly Vao: WebGLVertexArrayObject;
     Texture: WebGLTexture;
     FinalTextureName?: string;
-    TexScale: number;
+    TexScale: number | Function;
     TexOffset?: () => number;
 }
 
@@ -23,7 +23,7 @@ export function render_textured_diffuse(
     material: Material<TexturedDiffuseLayout>,
     mesh: Mesh,
     texture: WebGLTexture,
-    texture_scale: number = 1,
+    texture_scale: number | Function = 1,
     final_texture_name?: string,
     texture_offset?: () => number
 ) {

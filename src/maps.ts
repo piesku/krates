@@ -4,8 +4,11 @@ import {blueprint_door} from "./blueprints/blu_door.js";
 import {blueprint_ground} from "./blueprints/blu_ground.js";
 import {blueprint_key} from "./blueprints/blu_key.js";
 import {blueprint_player} from "./blueprints/blu_player.js";
+import {blueprint_portal} from "./blueprints/blu_portal.js";
 import {blueprint_stone} from "./blueprints/blu_stone.js";
 import {blueprint_texture} from "./blueprints/blu_texture.js";
+import {named} from "./components/com_named.js";
+import {walk} from "./components/com_walk.js";
 import {instantiate} from "./core.js";
 import {Game} from "./game.js";
 
@@ -19,6 +22,8 @@ export const enum TileKind {
     Stone,
     Door,
     Key,
+    Portal,
+    PortalDestination,
 }
 
 export interface MapData {
@@ -59,6 +64,13 @@ export let maps: Array<MapData> = [
         terrain: [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
         // prettier-ignore
         props: [0, 0, 0, 0, 0, 0, 0, 7, 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 6, 5, 6, 6, 6, 6, 0, 6, 6, 0, 0, 0, 0, 0, 6, 8, 0, 6, 6, 6, 6, 6, 0, 0, 3, 0, 0, 0, 0, 4]
+    },
+    {
+        texture: "door",
+        // prettier-ignore
+        terrain: [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+        // prettier-ignore
+        props: [0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 0, 0, 6, 6, 6, 9, 6, 6, 6, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 4, 0, 0, 0]
     },
 ];
 
@@ -110,6 +122,20 @@ export function create_tile(game: Game, tile: TileKind, translation: Vec3, x?: n
             instantiate(game, {
                 ...blueprint_door(game, textured),
                 Translation: translation,
+            });
+            break;
+        case TileKind.Portal:
+            translation[1] = 0;
+            instantiate(game, {
+                ...blueprint_portal(game, textured),
+                Translation: translation,
+            });
+            break;
+        case TileKind.PortalDestination:
+            translation[1] = 10;
+            instantiate(game, {
+                Translation: translation,
+                Using: [named("destination"), walk(x!, z!)],
             });
             break;
     }

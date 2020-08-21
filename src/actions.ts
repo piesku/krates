@@ -1,4 +1,6 @@
+import {Vec3} from "../common/math.js";
 import {from_euler} from "../common/quat.js";
+import {find_first} from "./components/com_named.js";
 import {RenderKind} from "./components/com_render.js";
 import {destroy} from "./core.js";
 import {Entity, Game} from "./game.js";
@@ -11,6 +13,7 @@ export const enum Action {
     GoToTitle,
     GoToStage,
     KeyCollected,
+    PortalUsed,
 }
 
 export function dispatch(game: Game, action: Action, payload: unknown) {
@@ -67,6 +70,27 @@ export function dispatch(game: Game, action: Action, payload: unknown) {
 
             destroy(game.World, entity);
             break;
+        }
+
+        case Action.PortalUsed: {
+            let dest = find_first(game.World, "destination");
+            let [entity, player] = payload as [Entity, Entity];
+
+            let walk = game.World.Walk[player];
+
+            console.log(dest);
+            if (dest) {
+                game.World.Transform[player].Translation = game.World.Transform[
+                    dest
+                ].Translation.slice() as Vec3;
+                game.World.Transform[player].Dirty = true;
+
+                if (walk) {
+                    let {CurrentX, CurrentZ} = game.World.Walk[dest];
+                    walk.CurrentX = walk.TargetX = CurrentX;
+                    walk.CurrentZ = walk.TargetZ = CurrentZ;
+                }
+            }
         }
     }
 }

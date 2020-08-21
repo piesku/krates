@@ -79,7 +79,7 @@ export class Game {
     CurrentScene?: Function;
     MapSize = 11;
     CurrentLevel = 0;
-    UnlockedTextures: string[] = ["grass", "water", "stone", "krates", "key"];
+    UnlockedTextures: string[] = ["grass", "stone", "krates", "key", "water", "portal"];
     HasKey: boolean = false;
 
     constructor() {
