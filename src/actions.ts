@@ -1,7 +1,6 @@
 import {RenderKind} from "./components/com_render.js";
 import {destroy} from "./core.js";
 import {Entity, Game} from "./game.js";
-import {level_1} from "./level1.js";
 import {scene_stage} from "./scenes/sce_stage.js";
 import {scene_title} from "./scenes/sce_title.js";
 import {Has} from "./world.js";
@@ -40,7 +39,8 @@ export function dispatch(game: Game, action: Action, payload: unknown) {
         }
         case Action.GoToStage: {
             let stage = payload as number;
-            requestAnimationFrame(() => scene_stage(game, "water", level_1));
+            game.LevelNumber = stage;
+            requestAnimationFrame(() => scene_stage(game));
             break;
         }
     }

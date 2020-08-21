@@ -1,16 +1,13 @@
-import {Vec3} from "../../common/math.js";
 import {from_euler} from "../../common/quat.js";
 import {float, set_seed} from "../../common/random.js";
-import {blueprint_box} from "../blueprints/blu_box.js";
 import {blueprint_camera_follow} from "../blueprints/blu_camera_follow.js";
-import {blueprint_ground} from "../blueprints/blu_ground.js";
 import {control_rotate} from "../components/com_control_rotate.js";
 import {light_directional} from "../components/com_light.js";
 import {move} from "../components/com_move.js";
 import {named} from "../components/com_named.js";
 import {instantiate} from "../core.js";
 import {Game} from "../game.js";
-import {maps, TileKind} from "../maps.js";
+import {create_tile, maps} from "../maps.js";
 import {World} from "../world.js";
 
 export function scene_title(game: Game) {
@@ -21,7 +18,8 @@ export function scene_title(game: Game) {
 
     set_seed(Date.now());
 
-    let map = maps[0];
+    let map = maps[game.LevelNumber];
+
     game.MapSize = Math.sqrt(map.terrain.length);
 
     for (let z = 0; z < game.MapSize; z++) {
@@ -58,21 +56,4 @@ export function scene_title(game: Game) {
         Translation: [float(-20, 20), float(10, 20), float(10, 20)],
         Rotation: from_euler([0, 0, 0, 0], 0, float(-135, -225), 0),
     });
-}
-
-export function create_tile(game: Game, tile: TileKind, translation: Vec3) {
-    switch (tile) {
-        case TileKind.Grass:
-            instantiate(game, {
-                ...blueprint_ground(game, true),
-                Translation: translation,
-            });
-            break;
-        case TileKind.Krates:
-            instantiate(game, {
-                ...blueprint_box(game, true),
-                Translation: translation,
-            });
-            break;
-    }
 }

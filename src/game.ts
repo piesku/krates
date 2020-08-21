@@ -77,6 +77,7 @@ export class Game {
 
     CurrentScene?: Function;
     MapSize = 11;
+    LevelNumber = 0;
 
     constructor() {
         document.addEventListener("visibilitychange", () =>

@@ -1,32 +1,28 @@
-import {Vec3} from "../../common/math.js";
 import {from_euler} from "../../common/quat.js";
 import {float, set_seed} from "../../common/random.js";
-import {blueprint_box} from "../blueprints/blu_box.js";
 import {blueprint_camera_follow} from "../blueprints/blu_camera_follow.js";
 import {blueprint_camera_minimap} from "../blueprints/blu_camera_minimap.js";
-import {blueprint_ground} from "../blueprints/blu_ground.js";
-import {blueprint_player} from "../blueprints/blu_player.js";
-import {blueprint_texture} from "../blueprints/blu_texture.js";
 import {light_directional} from "../components/com_light.js";
 import {render_textured_diffuse} from "../components/com_render_textured_diffuse.js";
 import {instantiate} from "../core.js";
 import {Game} from "../game.js";
-import {MapProps} from "../level1.js";
+import {create_tile, maps} from "../maps.js";
 import {World} from "../world.js";
 
-export function scene_stage(game: Game, texture_name: string, level: MapProps[]) {
+export function scene_stage(game: Game) {
     game.CurrentScene = scene_stage;
     game.World = new World();
     game.Cameras = [];
-    let level_size = Math.sqrt(level.length);
-    game.MapSize = level_size + 2;
-
-    // let map_size_with_fence = game.MapSize + 2;
+    game.MapSize = 11;
 
     set_seed(Date.now());
 
+    let map = maps[game.LevelNumber];
+
+    game.MapSize = Math.sqrt(map.terrain.length);
+
     instantiate(game, {
-        Scale: [game.MapSize, 1, game.MapSize],
+        Scale: [game.MapSize + 2, 1, game.MapSize + 2],
         Translation: [0, 0.099, 0],
         Using: [
             render_textured_diffuse(
@@ -70,56 +66,14 @@ export function scene_stage(game: Game, texture_name: string, level: MapProps[])
         ],
     });
 
-    // Ground with holes.
     for (let z = 0; z < game.MapSize; z++) {
         for (let x = 0; x < game.MapSize; x++) {
-            let ground = blueprint_ground(game);
-            if (!(x === 0 || z === 0 || x === game.MapSize - 1 || z === game.MapSize - 1)) {
-                instantiate(game, {
-                    Translation: [x - game.MapSize / 2 + 0.5, 0, z - game.MapSize / 2 + 0.5],
-                    ...blueprint_ground(game),
-                });
-            }
-        }
-    }
+            let index = z * game.MapSize + x;
+            let world_x = x - game.MapSize / 2 + 0.5;
+            let world_z = z - game.MapSize / 2 + 0.5;
 
-    for (let z = 0; z < level_size; z++) {
-        for (let x = 0; x < level_size; x++) {
-            let pos = z * level_size + x;
-            let token = level[pos];
-            let Translation: Vec3 = [x - level_size / 2 + 0.5, 1, z - level_size / 2 + 0.5];
-
-            switch (token) {
-                case MapProps.Krates:
-                    instantiate(game, {
-                        Translation,
-                        ...blueprint_box(game),
-                    });
-                    break;
-                case MapProps.Texture:
-                    let texture_id = instantiate(game, {
-                        ...blueprint_texture(game, texture_name),
-                        Translation,
-                    });
-
-                    game.AllTextures[texture_id] = texture_name;
-                    break;
-                case MapProps.SpawnPoint:
-                    Translation[1] = 5;
-                    console.log(x + 1, z + 1);
-                    instantiate(game, {
-                        ...blueprint_player(game, x + 1, z + 1),
-                        Translation,
-                        Rotation: [0, 1, 0, 0],
-                    });
-                    break;
-                // case MapProps.Empty:
-                //     instantiate(game, {
-                //         Translation,
-                //         ...blueprint_ground(game),
-                //     });
-                //     break;
-            }
+            create_tile(game, map.terrain[index], [world_x, 0, world_z], x, z);
+            create_tile(game, map.props[index], [world_x, 1, world_z], x, z);
         }
     }
     // Directional light.

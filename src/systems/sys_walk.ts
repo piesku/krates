@@ -24,8 +24,8 @@ function update(game: Game, entity: Entity) {
     let walk = game.World.Walk[entity];
     let move = game.World.Move[entity];
 
-    let min = 1;
-    let max = game.MapSize - 2;
+    let min = 0;
+    let max = game.MapSize - 1;
     walk.X = clamp(min, max, walk.X);
     walk.Z = clamp(min, max, walk.Z);
 
