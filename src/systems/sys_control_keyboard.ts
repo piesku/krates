@@ -15,16 +15,16 @@ function update(game: Game, entity: Entity) {
     if (!(game.World.Signature[entity] & Has.Walk)) {
         let walk = game.World.Walk[entity];
         if (game.InputState["ArrowUp"]) {
-            walk.Z -= 1;
+            walk.TargetZ -= 1;
             game.World.Signature[entity] |= Has.Walk;
         } else if (game.InputState["ArrowLeft"]) {
-            walk.X -= 1;
+            walk.TargetX -= 1;
             game.World.Signature[entity] |= Has.Walk;
         } else if (game.InputState["ArrowDown"]) {
-            walk.Z += 1;
+            walk.TargetZ += 1;
             game.World.Signature[entity] |= Has.Walk;
         } else if (game.InputState["ArrowRight"]) {
-            walk.X += 1;
+            walk.TargetX += 1;
             game.World.Signature[entity] |= Has.Walk;
         }
     }
