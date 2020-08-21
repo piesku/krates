@@ -7,7 +7,7 @@ import {Game, Layer} from "../game.js";
 export function blueprint_ground(game: Game, textured = false): Blueprint {
     return {
         Using: [
-            collide(false, Layer.Terrain, Layer.None),
+            collide(false, Layer.Terrain, Layer.None, [0.6, 1, 0.6]),
             rigid_body(false),
             render_textured_diffuse(
                 game.MaterialTexturedDiffuse,
