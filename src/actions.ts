@@ -1,3 +1,4 @@
+import {from_euler} from "../common/quat.js";
 import {RenderKind} from "./components/com_render.js";
 import {destroy} from "./core.js";
 import {Entity, Game} from "./game.js";
@@ -9,6 +10,7 @@ export const enum Action {
     TextureCollected = 1,
     GoToTitle,
     GoToStage,
+    KeyCollected,
 }
 
 export function dispatch(game: Game, action: Action, payload: unknown) {
@@ -41,6 +43,29 @@ export function dispatch(game: Game, action: Action, payload: unknown) {
             let stage = payload as number;
             game.CurrentLevel = stage;
             requestAnimationFrame(() => scene_stage(game));
+            break;
+        }
+
+        case Action.KeyCollected: {
+            let [entity] = payload as [Entity];
+            const QUERY = Has.Render;
+            for (let i = 0; i < game.World.Signature.length; i++) {
+                if ((game.World.Signature[i] & QUERY) === QUERY) {
+                    let render = game.World.Render[i];
+                    let transform = game.World.Transform[i];
+                    if (render.Kind === RenderKind.TexturedDiffuse) {
+                        if (render.FinalTextureName === "door") {
+                            transform.Rotation = from_euler([0, 0, 0, 1], 0, 90, 0);
+                            transform.Translation[0] -= 0.5;
+                            transform.Dirty = true;
+                            game.World.Signature[i] &= ~Has.Collide;
+                            game.World.Signature[i] &= ~Has.RigidBody;
+                        }
+                    }
+                }
+            }
+
+            destroy(game.World, entity);
             break;
         }
     }
