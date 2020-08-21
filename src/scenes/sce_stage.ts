@@ -47,7 +47,7 @@ export function scene_stage(game: Game, stage_index: number) {
 
     // Main Camera.
     instantiate(game, {
-        ...blueprint_camera_follow(game),
+        ...blueprint_camera_follow(game, 0),
         Translation: [float(-20, 20), float(10, 20), float(10, 20)],
         Rotation: from_euler([0, 0, 0, 0], 0, float(-135, -225), 0),
     });

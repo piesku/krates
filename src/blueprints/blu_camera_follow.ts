@@ -5,7 +5,7 @@ import {find_first} from "../components/com_named.js";
 import {Blueprint} from "../core.js";
 import {Game} from "../game.js";
 
-export function blueprint_camera_follow(game: Game): Blueprint {
+export function blueprint_camera_follow(game: Game, y: number): Blueprint {
     return {
         Using: [mimic(find_first(game.World, "camera anchor"), 0.03)],
         Children: [
@@ -14,7 +14,7 @@ export function blueprint_camera_follow(game: Game): Blueprint {
                 Children: [
                     {
                         // Camera
-                        Translation: [0, -2, 8],
+                        Translation: [0, y, 8],
                         Using: [
                             camera_framebuffer_perspective(
                                 1,
