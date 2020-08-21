@@ -79,7 +79,7 @@ export class Game {
     CurrentStage = 0;
     CurrentScene?: Function;
     MapSize = 11;
-    UnlockedTextures: string[] = ["grass", "stone", "krates", "key", "water", "portal"];
+    UnlockedTextures: string[] = ["portal", "key"];
     HasKey: boolean = false;
     StageCleared = false;
 

@@ -30,6 +30,7 @@ export function dispatch(game: Game, action: Action, payload: unknown) {
                         if (render.FinalTextureName === texture_name) {
                             setTimeout(() => {
                                 render.Texture = game.Textures[texture_name];
+                                game.UnlockedTextures.push(texture_name);
                             }, ~~(Math.random() * i * 10));
                         }
                     }
