@@ -79,7 +79,7 @@ export class Game {
     CurrentStage = 0;
     CurrentScene?: Function;
     MapSize = 11;
-    UnlockedTextures: string[] = ["portal", "key"];
+    UnlockedTextures: string[] = ["portal", "key"]; //, "water", "grass", "stone", "krates"];
     HasKey: boolean = false;
     StageCleared = false;
 
@@ -150,4 +150,5 @@ export const enum Layer {
     Terrain = 2,
     Movable = 4,
     Collectable = 8,
+    TheThingyThatLetKratesNotToSinkInWater = 16,
 }

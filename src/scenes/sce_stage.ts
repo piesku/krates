@@ -2,7 +2,7 @@ import {from_euler} from "../../common/quat.js";
 import {float, set_seed} from "../../common/random.js";
 import {blueprint_camera_follow} from "../blueprints/blu_camera_follow.js";
 import {blueprint_camera_minimap} from "../blueprints/blu_camera_minimap.js";
-import {blueprint_water} from "../blueprints/blu_water.js";
+import {blueprint_water} from "../blueprints/blu_water_bg.js";
 import {light_directional} from "../components/com_light.js";
 import {instantiate} from "../core.js";
 import {Game} from "../game.js";

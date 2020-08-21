@@ -10,7 +10,14 @@ export function blueprint_box(game: Game, textured = false): Blueprint {
 
     return {
         Using: [
-            collide(true, Layer.Movable, Layer.Terrain | Layer.Movable | Layer.Player),
+            collide(
+                true,
+                Layer.Movable,
+                Layer.Terrain |
+                    Layer.Movable |
+                    Layer.Player |
+                    Layer.TheThingyThatLetKratesNotToSinkInWater
+            ),
             rigid_body(true),
             render_textured_diffuse(
                 game.MaterialTexturedDiffuse,

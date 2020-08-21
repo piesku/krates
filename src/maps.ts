@@ -7,10 +7,12 @@ import {blueprint_player} from "./blueprints/blu_player.js";
 import {blueprint_portal} from "./blueprints/blu_portal.js";
 import {blueprint_stone} from "./blueprints/blu_stone.js";
 import {blueprint_texture} from "./blueprints/blu_texture.js";
+import {collide} from "./components/com_collide.js";
 import {named} from "./components/com_named.js";
+import {rigid_body} from "./components/com_rigid_body.js";
 import {walk} from "./components/com_walk.js";
 import {instantiate} from "./core.js";
-import {Game} from "./game.js";
+import {Game, Layer} from "./game.js";
 
 export const enum TileKind {
     Empty,
@@ -79,6 +81,25 @@ export let maps: Array<MapData> = [
         // prettier-ignore
         props: [0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 0, 0, 6, 6, 6, 9, 6, 6, 6, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 4, 0, 0, 0]
     },
+    {
+        texture: "key",
+        // prettier-ignore
+        terrain: [2, 2, 2, 2, 2, 2, 2,
+            2, 2, 2, 2, 2, 2, 1,
+            2, 2, 2, 2, 2, 2, 2,
+            2, 2, 2, 2, 2, 2, 2,
+            2, 2, 2, 0, 2, 2, 2,
+            2, 2, 2, 2, 2, 2, 2,
+            2, 2, 2, 2, 2, 2, 2],
+        // prettier-ignore
+        props: [0, 0, 0, 0, 0, 0, 0,
+            0, 5, 0, 0, 0, 0, 10,
+            0, 0, 0, 0, 0, 0, 0,
+            0, 0, 6, 6, 6, 0, 0,
+            6, 6, 6, 9, 6, 6, 6,
+            0, 0, 0, 0, 3, 0, 0,
+            0, 0, 0, 4, 0, 0, 0]
+    },
 ];
 
 export function create_tile(game: Game, tile: TileKind, translation: Vec3, x?: number, z?: number) {
@@ -143,6 +164,20 @@ export function create_tile(game: Game, tile: TileKind, translation: Vec3, x?: n
             instantiate(game, {
                 Translation: translation,
                 Using: [named("destination"), walk(x!, z!)],
+            });
+            break;
+        case TileKind.Water:
+            translation[1] = -1;
+            instantiate(game, {
+                Translation: translation,
+                Using: [
+                    collide(false, Layer.TheThingyThatLetKratesNotToSinkInWater, Layer.Movable, [
+                        1,
+                        1,
+                        1,
+                    ]),
+                    rigid_body(false),
+                ],
             });
             break;
     }
