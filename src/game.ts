@@ -12,6 +12,7 @@ import {mat1_textured_unlit} from "../materials/mat1_textured_unlit.js";
 import {mesh_cube} from "../meshes/cube.js";
 import {mesh_plane} from "../meshes/plane.js";
 import {mesh_quad} from "../meshes/quad.js";
+import {mesh_sphere} from "../meshes/sphere.js";
 import {Camera} from "./components/com_camera.js";
 import {loop_start, loop_stop} from "./core.js";
 import {sys_camera} from "./systems/sys_camera.js";
@@ -58,6 +59,7 @@ export class Game {
     MeshCube = mesh_cube(this.Gl);
     MeshPlane = mesh_plane(this.Gl);
     MeshQuad = mesh_quad(this.Gl);
+    MeshSphere = mesh_sphere(this.Gl);
 
     Cameras: Array<Camera> = [];
     // The rendering pipeline supports 8 lights.
