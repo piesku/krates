@@ -21,11 +21,11 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
         Children: [
             {
                 // Body.
-                Scale: [1, 1.5, 0.5],
+                Scale: [4, 4, 4],
                 Using: [
                     render_textured_diffuse(
                         game.MaterialTexturedDiffuse,
-                        game.MeshCube,
+                        game.MeshSphere,
                         game.Textures["checker1"]
                     ),
                 ],
