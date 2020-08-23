@@ -9,10 +9,8 @@ import {
 } from "../../common/webgl.js";
 import {Entity, Game} from "../game.js";
 import {Has} from "../world.js";
-import {CameraKind} from "./com_camera.js";
 
 export interface CameraFramebuffer {
-    Kind: CameraKind.Framebuffer;
     Target: WebGLFramebuffer;
     RenderTexture: WebGLTexture;
     DepthBuffer: WebGLRenderbuffer;
@@ -57,7 +55,6 @@ export function camera_framebuffer_perspective(
         );
         game.World.Signature[entity] |= Has.Camera;
         game.World.Camera[entity] = {
-            Kind: CameraKind.Framebuffer,
             Target: target,
             RenderTexture: render_texture,
             DepthBuffer: depth_buffer,
@@ -104,7 +101,6 @@ export function camera_framebuffer_ortho(
         );
         game.World.Signature[entity] |= Has.Camera;
         game.World.Camera[entity] = {
-            Kind: CameraKind.Framebuffer,
             Target: target,
             RenderTexture: render_texture,
             DepthBuffer: depth_buffer,

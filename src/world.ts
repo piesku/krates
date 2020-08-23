@@ -1,4 +1,4 @@
-import {Camera} from "./components/com_camera.js";
+import {CameraFramebuffer} from "./components/com_camera_framebuffer.js";
 import {Collide} from "./components/com_collide.js";
 import {Light} from "./components/com_light.js";
 import {Mimic} from "./components/com_mimic.js";
@@ -46,7 +46,7 @@ export class World {
     // Component flags
     Signature: Array<number> = [];
     // Component data
-    Camera: Array<Camera> = [];
+    Camera: Array<CameraFramebuffer> = [];
     Collide: Array<Collide> = [];
     Light: Array<Light> = [];
     Mimic: Array<Mimic> = [];
