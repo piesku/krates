@@ -2,10 +2,10 @@ import {render_textured_diffuse} from "../components/com_render_textured_diffuse
 import {Blueprint} from "../core.js";
 import {Game} from "../game.js";
 
-export function blueprint_water(game: Game): Blueprint {
-    let texture = "water";
-    let textured = game.UnlockedTextures.includes(texture);
-
+export function blueprint_water(
+    game: Game,
+    textured = game.UnlockedTextures.includes("water")
+): Blueprint {
     return {
         Children: [
             {
@@ -15,7 +15,7 @@ export function blueprint_water(game: Game): Blueprint {
                     render_textured_diffuse(
                         game.MaterialTexturedDiffuse,
                         game.MeshPlane,
-                        game.Textures[textured ? texture : "404"],
+                        game.Textures[textured ? "water" : "404"],
                         game.MapSize,
                         "water",
                         () => Math.sin(Date.now() / 200) / 10
@@ -30,7 +30,7 @@ export function blueprint_water(game: Game): Blueprint {
                     render_textured_diffuse(
                         game.MaterialTexturedDiffuse,
                         game.MeshPlane,
-                        game.Textures[textured ? texture : "404"],
+                        game.Textures[textured ? "water" : "404"],
                         game.MapSize + 5,
                         "water",
                         () => Math.sin(Date.now() / 320) / 10
@@ -38,16 +38,16 @@ export function blueprint_water(game: Game): Blueprint {
                 ],
             },
             {
-                Scale: [game.MapSize * 10, 1, game.MapSize * 10],
+                Scale: [game.MapSize * 20, 1, game.MapSize * 20],
                 Translation: [0, 0.097, 0],
                 Using: [
                     render_textured_diffuse(
                         game.MaterialTexturedDiffuse,
                         game.MeshPlane,
-                        game.Textures[textured ? texture : "404"],
-                        game.MapSize * 10,
+                        game.Textures[textured ? "water" : "404"],
+                        game.MapSize * 20,
                         "water",
-                        () => Math.sin(Date.now() / 500) / 100
+                        () => Math.sin(Date.now() / 500) / 20
                     ),
                 ],
             },

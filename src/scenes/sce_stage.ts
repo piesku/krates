@@ -21,9 +21,7 @@ export function scene_stage(game: Game, stage_index: number) {
     let map = maps[game.CurrentStage];
     game.MapSize = Math.sqrt(map.terrain.length);
 
-    instantiate(game, {
-        ...blueprint_water(game),
-    });
+    instantiate(game, blueprint_water(game));
 
     for (let z = 0; z < game.MapSize; z++) {
         for (let x = 0; x < game.MapSize; x++) {

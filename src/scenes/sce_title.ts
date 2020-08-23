@@ -1,6 +1,7 @@
 import {from_euler} from "../../common/quat.js";
 import {float, set_seed} from "../../common/random.js";
 import {blueprint_camera_follow} from "../blueprints/blu_camera_follow.js";
+import {blueprint_water} from "../blueprints/blu_water_bg.js";
 import {control_rotate} from "../components/com_control_rotate.js";
 import {light_directional} from "../components/com_light.js";
 import {move} from "../components/com_move.js";
@@ -20,6 +21,8 @@ export function scene_title(game: Game) {
 
     let map = maps[0];
     game.MapSize = Math.sqrt(map.terrain.length);
+
+    instantiate(game, blueprint_water(game, true));
 
     for (let z = 0; z < game.MapSize; z++) {
         for (let x = 0; x < game.MapSize; x++) {
