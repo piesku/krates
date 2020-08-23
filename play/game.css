@@ -7,19 +7,18 @@ body {
 main {
     width: 512px;
     margin: 0 auto;
-    padding: 20px;
+}
+canvas {
+    width: 512px;
+    height: 788px;
+}
+#ui {
+    position: absolute;
+    top: 0;
     display: flex;
     flex-flow: column nowrap;
 }
-.screen,
-canvas {
-    position: relative;
-    width: 512px;
-    height: 384px;
-}
-.screen > div {
-    position: absolute;
-    top: 0;
+.screen {
     width: 512px;
     height: 384px;
     font: 36px Arial;

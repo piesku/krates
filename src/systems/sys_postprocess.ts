@@ -13,7 +13,6 @@ import {Game} from "../game.js";
 
 export function sys_postprocess(game: Game, delta: number) {
     game.Gl.bindFramebuffer(GL_FRAMEBUFFER, null);
-    game.Gl.viewport(0, 0, game.ViewportWidth, game.ViewportHeight);
     game.Gl.clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     let material = game.MaterialPostprocess;
@@ -22,7 +21,6 @@ export function sys_postprocess(game: Game, delta: number) {
     game.Gl.useProgram(material.Program);
 
     game.Gl.activeTexture(GL_TEXTURE0);
-    game.Gl.bindTexture(GL_TEXTURE_2D, game.Textures.Postprocess);
     game.Gl.uniform1i(material.Locations.Sampler, 0);
 
     game.Gl.bindBuffer(GL_ARRAY_BUFFER, mesh.VertexBuffer);
@@ -35,5 +33,13 @@ export function sys_postprocess(game: Game, delta: number) {
 
     game.Gl.bindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.IndexBuffer);
 
+    // Top screen.
+    game.Gl.bindTexture(GL_TEXTURE_2D, game.Textures.Postprocess);
+    game.Gl.viewport(0, 404, 512, 384);
+    game.Gl.drawElements(material.Mode, mesh.IndexCount, GL_UNSIGNED_SHORT, 0);
+
+    // Bottom screen.
+    game.Gl.bindTexture(GL_TEXTURE_2D, game.Textures.Minimap);
+    game.Gl.viewport(0, 0, 512, 384);
     game.Gl.drawElements(material.Mode, mesh.IndexCount, GL_UNSIGNED_SHORT, 0);
 }

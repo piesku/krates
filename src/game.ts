@@ -22,7 +22,6 @@ import {sys_control_rotate} from "./systems/sys_control_rotate.js";
 import {sys_framerate} from "./systems/sys_framerate.js";
 import {sys_light} from "./systems/sys_light.js";
 import {sys_mimic} from "./systems/sys_mimic.js";
-import {sys_minimap} from "./systems/sys_minimap.js";
 import {sys_move} from "./systems/sys_move.js";
 import {sys_physics} from "./systems/sys_physics.js";
 import {sys_postprocess} from "./systems/sys_postprocess.js";
@@ -45,13 +44,11 @@ export class Game {
     InputState: Record<string, number> = {};
     InputDelta: Record<string, number> = {};
 
-    Ui1 = document.querySelector("#scene div")! as HTMLElement;
-    Ui2 = document.querySelector("#minimap div")! as HTMLElement;
-    CanvasScene = document.querySelector("#scene canvas")! as HTMLCanvasElement;
+    Ui1 = document.querySelector("#scene")! as HTMLElement;
+    Ui2 = document.querySelector("#minimap")! as HTMLElement;
+    CanvasScene = document.querySelector("canvas")! as HTMLCanvasElement;
     Gl = this.CanvasScene.getContext("webgl")!;
     ExtVao = this.Gl.getExtension("OES_vertex_array_object")!;
-    CanvasMinimap = document.querySelector("#minimap canvas")! as HTMLCanvasElement;
-    ContextMinimap = this.CanvasMinimap.getContext("2d")!;
 
     MaterialTexturedDiffuse = mat1_textured_diffuse(this.Gl);
     MaterialTexturedUnlit = mat1_textured_unlit(this.Gl);
@@ -141,7 +138,6 @@ export class Game {
         sys_light(this, delta);
         sys_render(this, delta);
         sys_postprocess(this, delta);
-        sys_minimap(this, delta);
         sys_ui(this, delta);
         sys_framerate(this, delta, performance.now() - now);
     }
