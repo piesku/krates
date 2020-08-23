@@ -14,8 +14,6 @@ export interface CameraFramebuffer {
     Target: WebGLFramebuffer;
     RenderTexture: WebGLTexture;
     DepthBuffer: WebGLRenderbuffer;
-    ViewportWidth: number;
-    ViewportHeight: number;
     FovY: number;
     Near: number;
     Far: number;
@@ -30,8 +28,6 @@ export function camera_framebuffer_perspective(
     far: number,
     render_texture: WebGLTexture,
     depth_buffer: WebGLRenderbuffer,
-    width: number,
-    height: number,
     clear_color: Vec4
 ) {
     return (game: Game, entity: Entity) => {
@@ -58,8 +54,6 @@ export function camera_framebuffer_perspective(
             Target: target,
             RenderTexture: render_texture,
             DepthBuffer: depth_buffer,
-            ViewportWidth: width,
-            ViewportHeight: height,
             FovY: fovy,
             Near: near,
             Far: far,
@@ -76,8 +70,6 @@ export function camera_framebuffer_ortho(
     far: number,
     render_texture: WebGLTexture,
     depth_buffer: WebGLRenderbuffer,
-    width: number,
-    height: number,
     clear_color: Vec4
 ) {
     return (game: Game, entity: Entity) => {
@@ -104,8 +96,6 @@ export function camera_framebuffer_ortho(
             Target: target,
             RenderTexture: render_texture,
             DepthBuffer: depth_buffer,
-            ViewportWidth: width,
-            ViewportHeight: height,
             FovY: fovy,
             Near: near,
             Far: far,

@@ -22,8 +22,6 @@ export function blueprint_camera_follow(game: Game, y: number): Blueprint {
                                 1000,
                                 game.Textures.Postprocess,
                                 game.RenderBuffers.Postprocess,
-                                128,
-                                128,
                                 [0.2, 0.5, 0.9, 1]
                             ),
                             //camera_display(1, 0.1, 1000, [0.2, 0.5, 0.9, 1]),

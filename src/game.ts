@@ -25,7 +25,7 @@ import {sys_mimic} from "./systems/sys_mimic.js";
 import {sys_move} from "./systems/sys_move.js";
 import {sys_physics} from "./systems/sys_physics.js";
 import {sys_postprocess} from "./systems/sys_postprocess.js";
-import {sys_render} from "./systems/sys_render.js";
+import {RENDER_TEXTURE_SIZE, sys_render} from "./systems/sys_render.js";
 import {sys_snap} from "./systems/sys_snap.js";
 import {sys_transform} from "./systems/sys_transform.js";
 import {sys_trigger} from "./systems/sys_trigger.js";
@@ -37,9 +37,6 @@ export type Entity = number;
 
 export class Game {
     World = new World();
-
-    ViewportWidth = 512;
-    ViewportHeight = 384;
 
     InputState: Record<string, number> = {};
     InputDelta: Record<string, number> = {};
@@ -64,15 +61,15 @@ export class Game {
     LightDetails = new Float32Array(4 * 8);
 
     Textures: Record<string, WebGLTexture> = {
-        Minimap: create_texture_rgba(this.Gl, 512, 512),
-        Postprocess: create_texture_rgba(this.Gl, 128, 128),
+        Minimap: create_texture_rgba(this.Gl, RENDER_TEXTURE_SIZE, RENDER_TEXTURE_SIZE),
+        Postprocess: create_texture_rgba(this.Gl, RENDER_TEXTURE_SIZE, RENDER_TEXTURE_SIZE),
     };
 
     AllTextures: Record<string, string> = {};
 
     RenderBuffers: Record<string, WebGLRenderbuffer> = {
-        Minimap: create_render_buffer(this.Gl, 512, 512),
-        Postprocess: create_render_buffer(this.Gl, 128, 128),
+        Minimap: create_render_buffer(this.Gl, RENDER_TEXTURE_SIZE, RENDER_TEXTURE_SIZE),
+        Postprocess: create_render_buffer(this.Gl, RENDER_TEXTURE_SIZE, RENDER_TEXTURE_SIZE),
     };
 
     CurrentStage = 0;

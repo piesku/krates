@@ -19,6 +19,7 @@ import {Game} from "../game.js";
 import {Has} from "../world.js";
 
 const QUERY = Has.Transform | Has.Render;
+export const RENDER_TEXTURE_SIZE = 128;
 
 export function sys_render(game: Game, delta: number) {
     for (let camera of game.Cameras) {
@@ -28,7 +29,7 @@ export function sys_render(game: Game, delta: number) {
 
 function render_framebuffer(game: Game, camera: CameraFramebuffer) {
     game.Gl.bindFramebuffer(GL_FRAMEBUFFER, camera.Target);
-    game.Gl.viewport(0, 0, camera.ViewportWidth, camera.ViewportHeight);
+    game.Gl.viewport(0, 0, RENDER_TEXTURE_SIZE, RENDER_TEXTURE_SIZE);
     game.Gl.clearColor(...camera.ClearColor);
     game.Gl.clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     render(game, camera.Pv, camera.RenderTexture);
