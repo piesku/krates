@@ -5,8 +5,9 @@ body {
     background-color: #222;
 }
 main {
+    position: relative;
     width: 512px;
-    margin: 0 auto;
+    margin: 20px auto;
 }
 canvas {
     width: 512px;
