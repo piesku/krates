@@ -25,6 +25,9 @@ let fragment = `
     void main() {
         vec2 uv = vec2(vert_texcoord.x, vert_texcoord.y / aspect + (1.0 - 1.0 / aspect));
         gl_FragColor = texture2D(sampler, uv);
+        if (mod(gl_FragCoord.x, 3.0) < 1.0 || mod(gl_FragCoord.y, 3.0) < 1.0) {
+            gl_FragColor = vec4(gl_FragColor.rgb * 0.5, 1.0);
+        }
     }
 `;
 
