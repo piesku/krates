@@ -28,7 +28,14 @@ canvas {
 }
 div#hinge {
     height: 20px;
-    background: linear-gradient(0deg, #000 0%, #ccc 70%, #ccc 75%, #000 100%);
+    background: linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 1) 0%,
+        rgba(136, 136, 136, 1) 60%,
+        rgba(153, 153, 153, 1) 70%,
+        rgba(153, 153, 153, 1) 72%,
+        rgba(0, 0, 0, 1) 100%
+    );
 }
 div[onclick] {
     cursor: pointer;
