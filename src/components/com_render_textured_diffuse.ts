@@ -3,10 +3,8 @@ import {GL_ARRAY_BUFFER, GL_CW, GL_ELEMENT_ARRAY_BUFFER, GL_FLOAT} from "../../c
 import {TexturedDiffuseLayout} from "../../materials/layout_textured_diffuse.js";
 import {Entity, Game} from "../game.js";
 import {Has} from "../world.js";
-import {RenderKind} from "./com_render.js";
 
 export interface RenderTexturedDiffuse {
-    readonly Kind: RenderKind.TexturedDiffuse;
     readonly Material: Material<TexturedDiffuseLayout>;
     readonly Mesh: Mesh;
     readonly FrontFace: GLenum;
@@ -67,7 +65,6 @@ export function render_textured_diffuse(
 
         game.World.Signature[entity] |= Has.Render;
         game.World.Render[entity] = {
-            Kind: RenderKind.TexturedDiffuse,
             Material: material,
             Mesh: mesh,
             FrontFace: GL_CW,

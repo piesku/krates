@@ -1,7 +1,6 @@
 import {Vec3} from "../common/math.js";
 import {from_euler} from "../common/quat.js";
 import {find_first} from "./components/com_named.js";
-import {RenderKind} from "./components/com_render.js";
 import {destroy} from "./core.js";
 import {Entity, Game} from "./game.js";
 import {maps} from "./maps.js";
@@ -26,13 +25,11 @@ export function dispatch(game: Game, action: Action, payload: unknown) {
             for (let i = 0; i < game.World.Signature.length; i++) {
                 if ((game.World.Signature[i] & QUERY) === QUERY) {
                     let render = game.World.Render[i];
-                    if (render.Kind === RenderKind.TexturedDiffuse) {
-                        if (render.FinalTextureName === texture_name) {
-                            setTimeout(() => {
-                                render.Texture = game.Textures[texture_name];
-                                game.UnlockedTextures.push(texture_name);
-                            }, ~~(Math.random() * i * 10));
-                        }
+                    if (render.FinalTextureName === texture_name) {
+                        setTimeout(() => {
+                            render.Texture = game.Textures[texture_name];
+                            game.UnlockedTextures.push(texture_name);
+                        }, ~~(Math.random() * i * 10));
                     }
                 }
             }
@@ -60,14 +57,12 @@ export function dispatch(game: Game, action: Action, payload: unknown) {
                 if ((game.World.Signature[i] & QUERY) === QUERY) {
                     let render = game.World.Render[i];
                     let transform = game.World.Transform[i];
-                    if (render.Kind === RenderKind.TexturedDiffuse) {
-                        if (render.FinalTextureName === "door") {
-                            transform.Rotation = from_euler([0, 0, 0, 1], 0, 90, 0);
-                            transform.Translation[0] -= 0.5;
-                            transform.Dirty = true;
-                            game.World.Signature[i] &= ~Has.Collide;
-                            game.World.Signature[i] &= ~Has.RigidBody;
-                        }
+                    if (render.FinalTextureName === "door") {
+                        transform.Rotation = from_euler([0, 0, 0, 1], 0, 90, 0);
+                        transform.Translation[0] -= 0.5;
+                        transform.Dirty = true;
+                        game.World.Signature[i] &= ~Has.Collide;
+                        game.World.Signature[i] &= ~Has.RigidBody;
                     }
                 }
             }
