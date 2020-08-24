@@ -15,6 +15,7 @@ import {mesh_quad} from "../meshes/quad.js";
 import {mesh_sphere} from "../meshes/sphere.js";
 import {CameraFramebuffer} from "./components/com_camera_framebuffer.js";
 import {loop_start, loop_stop} from "./core.js";
+import {sys_audio} from "./systems/sys_audio.js";
 import {sys_camera} from "./systems/sys_camera.js";
 import {sys_collide} from "./systems/sys_collide.js";
 import {sys_control_keyboard} from "./systems/sys_control_keyboard.js";
@@ -46,6 +47,7 @@ export class Game {
     CanvasScene = document.querySelector("canvas")! as HTMLCanvasElement;
     Gl = this.CanvasScene.getContext("webgl")!;
     ExtVao = this.Gl.getExtension("OES_vertex_array_object")!;
+    Audio = new (window["AudioContext"] || window.webkitAudioContext)();
 
     MaterialTexturedDiffuse = mat1_textured_diffuse(this.Gl);
     MaterialTexturedUnlit = mat1_textured_unlit(this.Gl);
@@ -136,6 +138,7 @@ export class Game {
         sys_render(this, delta);
         sys_postprocess(this, delta);
         sys_ui(this, delta);
+        sys_audio(this, delta);
         sys_framerate(this, delta, performance.now() - now);
     }
 }

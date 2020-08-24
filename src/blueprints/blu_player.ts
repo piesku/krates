@@ -1,3 +1,4 @@
+import {audio_source} from "../components/com_audio_source.js";
 import {collide} from "../components/com_collide.js";
 import {control_player} from "../components/com_control_player.js";
 import {move} from "../components/com_move.js";
@@ -17,6 +18,7 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
             collide(true, Layer.Player, Layer.Terrain | Layer.Movable),
             rigid_body(true),
             named("camera anchor"),
+            audio_source(),
         ],
         Children: [
             {
