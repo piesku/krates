@@ -30,3 +30,6 @@ game.terser.js: game.sed.js
 
 index.html: game.html game.terser.js
 	@node posthtml.cjs $< > $@
+
+index.zip: index.html
+	@7z a index.zip -mx=9 -mfb=256 -mpass=15 $<
