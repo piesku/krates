@@ -3,7 +3,6 @@ import {float, set_seed} from "../../common/random.js";
 import {blueprint_camera_follow} from "../blueprints/blu_camera_follow.js";
 import {blueprint_water} from "../blueprints/blu_water_bg.js";
 import {control_rotate} from "../components/com_control_rotate.js";
-import {light_directional} from "../components/com_light.js";
 import {move} from "../components/com_move.js";
 import {named} from "../components/com_named.js";
 import {instantiate} from "../core.js";
@@ -34,16 +33,6 @@ export function scene_title(game: Game) {
             create_tile(game, map.props[index], [world_x, 1, world_z]);
         }
     }
-
-    // Directional light.
-    instantiate(game, {
-        Translation: [1, 1, -1],
-        Using: [light_directional([1, 1, 1], 0.8)],
-    });
-    instantiate(game, {
-        Translation: [1, 1, 1],
-        Using: [light_directional([1, 1, 1], 0.5)],
-    });
 
     // Camera Anchor
     instantiate(game, {

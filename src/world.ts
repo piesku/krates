@@ -1,7 +1,6 @@
 import {AudioSource} from "./components/com_audio_source.js";
 import {CameraFramebuffer} from "./components/com_camera_framebuffer.js";
 import {Collide} from "./components/com_collide.js";
-import {Light} from "./components/com_light.js";
 import {Mimic} from "./components/com_mimic.js";
 import {Move} from "./components/com_move.js";
 import {Named} from "./components/com_named.js";
@@ -17,7 +16,6 @@ const enum Component {
     Collide,
     ControlPlayer,
     ControlPowerup,
-    Light,
     Mimic,
     Move,
     Named,
@@ -34,7 +32,6 @@ export const enum Has {
     Collide = 1 << Component.Collide,
     ControlPlayer = 1 << Component.ControlPlayer,
     ControlPowerup = 1 << Component.ControlPowerup,
-    Light = 1 << Component.Light,
     Mimic = 1 << Component.Mimic,
     Move = 1 << Component.Move,
     Named = 1 << Component.Named,
@@ -52,7 +49,6 @@ export class World {
     AudioSource: Array<AudioSource> = [];
     Camera: Array<CameraFramebuffer> = [];
     Collide: Array<Collide> = [];
-    Light: Array<Light> = [];
     Mimic: Array<Mimic> = [];
     Move: Array<Move> = [];
     Named: Array<Named> = [];
