@@ -22,7 +22,7 @@ let vertex = `
         vec3 vert_normal = normalize((vec4(normal, 1.0) * self).xyz);
         gl_Position = pv * vert_pos;
         vert_texcoord = texcoord;
-        rgb = vec3(0.1, 0.1, 0.1);
+        rgb = vec3(0.3);
 
         for (int i = 0; i < MAX_LIGHTS; i++) {
             if (light_positions[i].w == 0.0) {
