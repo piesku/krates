@@ -7,6 +7,7 @@ body {
 main {
     position: relative;
     width: 512px;
+    height: 788px;
     margin: 20px auto;
 }
 canvas {
@@ -16,8 +17,10 @@ canvas {
 #ui {
     position: absolute;
     top: 0;
+    bottom: 0;
     display: flex;
     flex-flow: column nowrap;
+    justify-content: space-between;
 }
 .screen {
     width: 512px;
@@ -27,9 +30,8 @@ canvas {
     font-style: italic;
     color: #fff;
     filter: blur(1px);
-    margin-bottom: 20px;
 }
-.overlay {
+#overlay {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -37,7 +39,7 @@ canvas {
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAABmJLR0QA/wD/AP+gvaeTAAAAGUlEQVQI12NgQAWKTGgCDBgCjAwMDIrIAgAJYABIO2lURgAAAABJRU5ErkJggg==);
     pointer-events: none;
 }
-.hinge {
+#hinge {
     position: absolute;
     top: 384px;
     width: 512px;

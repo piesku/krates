@@ -1,18 +1,11 @@
 import {Game} from "../game.js";
-import {App1} from "../ui/App1.js";
-import {App2} from "../ui/App2.js";
+import {App} from "../ui/App.js";
 
-let prev1: string;
-let prev2: string;
+let prev: string;
 
 export function sys_ui(game: Game, delta: number) {
-    let next1 = App1(game);
-    if (next1 !== prev1) {
-        game.Ui1.innerHTML = prev1 = next1;
-    }
-
-    let next2 = App2(game);
-    if (next2 !== prev2) {
-        game.Ui2.innerHTML = prev2 = next2;
+    let next = App(game);
+    if (next !== prev) {
+        game.Ui.innerHTML = prev = next;
     }
 }

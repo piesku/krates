@@ -3,13 +3,14 @@ import {Action} from "../actions.js";
 import {Game} from "../game.js";
 import {maps} from "../maps.js";
 
-export function Stage2(game: Game) {
+export function Stage(game: Game) {
     return html`
+        <div class="screen"></div>
         <div
+            class="screen"
             style="
                 display: grid;
                 place-items: center;
-                height: 100%;
                 overflow: hidden;
             "
         >

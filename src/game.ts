@@ -41,8 +41,7 @@ export class Game {
     InputState: Record<string, number> = {};
     InputDelta: Record<string, number> = {};
 
-    Ui1 = document.querySelector("#scene")! as HTMLElement;
-    Ui2 = document.querySelector("#minimap")! as HTMLElement;
+    Ui = document.querySelector("#ui")! as HTMLElement;
     CanvasScene = document.querySelector("canvas")! as HTMLCanvasElement;
     Gl = this.CanvasScene.getContext("webgl")!;
     ExtVao = this.Gl.getExtension("OES_vertex_array_object")!;
