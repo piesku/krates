@@ -7,16 +7,17 @@ export function blueprint_water(
     textured = game.UnlockedTextures.includes("water")
 ): Blueprint {
     return {
+        Rotation: [-0.707, 0, 0, 0.707],
         Children: [
             {
-                Scale: [game.MapSize + 2, 1, game.MapSize + 2],
-                Translation: [0, 0.099, 0],
+                Scale: [game.MapSize / 2 + 1, game.MapSize / 2 + 1, 1],
+                Translation: [0, 0, 0.03],
                 Using: [
                     render_textured_diffuse(
                         game.MaterialTexturedDiffuse,
-                        game.MeshPlane,
+                        game.MeshQuad,
                         game.Textures[textured ? "water" : "404"],
-                        game.MapSize,
+                        game.MapSize / 2 + 1,
                         "water",
                         () => Math.sin(Date.now() / 200) / 10
                     ),
@@ -24,28 +25,28 @@ export function blueprint_water(
             },
 
             {
-                Scale: [game.MapSize + 5, 1, game.MapSize + 5],
-                Translation: [0, 0.098, 0],
+                Scale: [game.MapSize / 2 + 2, game.MapSize / 2 + 2, 1],
+                Translation: [0, 0, 0.02],
                 Using: [
                     render_textured_diffuse(
                         game.MaterialTexturedDiffuse,
-                        game.MeshPlane,
+                        game.MeshQuad,
                         game.Textures[textured ? "water" : "404"],
-                        game.MapSize + 5,
+                        game.MapSize / 2 + 2,
                         "water",
-                        () => Math.sin(Date.now() / 320) / 10
+                        () => Math.sin(Date.now() / 400) / 10
                     ),
                 ],
             },
             {
-                Scale: [game.MapSize * 20, 1, game.MapSize * 20],
-                Translation: [0, 0.097, 0],
+                Scale: [game.MapSize * 10, game.MapSize * 10, 1],
+                Translation: [0, 0, 0.01],
                 Using: [
                     render_textured_diffuse(
                         game.MaterialTexturedDiffuse,
-                        game.MeshPlane,
+                        game.MeshQuad,
                         game.Textures[textured ? "water" : "404"],
-                        game.MapSize * 20,
+                        game.MapSize * 10,
                         "water",
                         () => Math.sin(Date.now() / 500) / 20
                     ),

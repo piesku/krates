@@ -30,13 +30,13 @@ export function blueprint_texture(game: Game, texture_name: string): Blueprint {
                 ],
             },
             {
-                Rotation: from_euler([0, 0, 0, 0], 0, 45, 0),
-                Scale: [1.3, 1, 1.3],
+                Rotation: from_euler([0, 0, 0, 0], -90, 45, 0),
+                Scale: [0.7, 0.7, 1],
                 Translation: [0, -0.4, 0],
                 Using: [
                     render_textured_diffuse(
                         game.MaterialTexturedDiffuse,
-                        game.MeshPlane,
+                        game.MeshQuad,
                         game.Textures["shadow"]
                     ),
                 ],

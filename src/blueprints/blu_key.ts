@@ -35,10 +35,11 @@ export function blueprint_key(game: Game, textured = false): Blueprint {
             {
                 Scale: [1.3, 1, 1.3],
                 Translation: [0, -0.4, 0],
+                Rotation: [-0.707, 0, 0, 0.707],
                 Using: [
                     render_textured_diffuse(
                         game.MaterialTexturedDiffuse,
-                        game.MeshPlane,
+                        game.MeshQuad,
                         game.Textures["shadow"]
                     ),
                 ],

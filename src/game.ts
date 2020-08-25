@@ -10,7 +10,6 @@ import {mat1_postprocess} from "../materials/mat1_postprocess.js";
 import {mat1_textured_diffuse} from "../materials/mat1_textured_diffuse.js";
 import {mat1_textured_unlit} from "../materials/mat1_textured_unlit.js";
 import {mesh_cube} from "../meshes/cube.js";
-import {mesh_plane} from "../meshes/plane.js";
 import {mesh_quad} from "../meshes/quad.js";
 import {mesh_sphere} from "../meshes/sphere.js";
 import {CameraFramebuffer} from "./components/com_camera_framebuffer.js";
@@ -53,7 +52,6 @@ export class Game {
     MaterialTexturedUnlit = mat1_textured_unlit(this.Gl);
     MaterialPostprocess = mat1_postprocess(this.Gl);
     MeshCube = mesh_cube(this.Gl);
-    MeshPlane = mesh_plane(this.Gl);
     MeshQuad = mesh_quad(this.Gl);
     MeshSphere = mesh_sphere(this.Gl);
 
