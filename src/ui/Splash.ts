@@ -6,11 +6,11 @@ export function Splash() {
         <div
             class="screen"
             style="
-                display: grid;
-                place-items: center;
-                height: 100%;
-                background-color: #000;
-                overflow: hidden;
+                background-color: #eee;
+                color: #222;
+                font: 36px Arial;
+                font-weight: bold;
+                font-style: italic;
             "
         >
             <div
@@ -25,11 +25,11 @@ export function Splash() {
         <div
             class="screen"
             style="
-                display: grid;
-                place-items: center;
-                height: 100%;
-                background-color: #000;
-                overflow: hidden;
+                background-color: #eee;
+                color: #222;
+                font: 36px Arial;
+                font-weight: bold;
+                font-style: italic;
             "
         >
             <div
