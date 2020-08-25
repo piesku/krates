@@ -3,7 +3,7 @@ import {Entity, Game} from "../game.js";
 import {snd_walk} from "../sounds/snd_walk.js";
 import {Has} from "../world.js";
 
-const QUERY = Has.ControlPlayer | Has.Transform;
+const QUERY = Has.ControlPlayer;
 
 export function sys_control_keyboard(game: Game, delta: number) {
     for (let i = 0; i < game.World.Signature.length; i++) {
