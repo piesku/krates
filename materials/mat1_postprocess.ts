@@ -21,7 +21,9 @@ let fragment = `
     varying vec2 vert_texcoord;
 
     void main() {
-        gl_FragColor = texture2D(sampler, vert_texcoord);
+        // Adjust the UVs to account for the 256x192 screen.
+        vec2 uv = vec2(vert_texcoord.x, vert_texcoord.y * 0.75 + 0.125);
+        gl_FragColor = texture2D(sampler, uv);
         if (mod(gl_FragCoord.x, 3.0) < 1.0 || mod(gl_FragCoord.y, 3.0) < 1.0) {
             gl_FragColor = vec4(gl_FragColor.rgb * 0.5, 1.0);
         }

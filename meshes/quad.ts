@@ -47,10 +47,10 @@ let normal_arr = Float32Array.from([
 
 // prettier-ignore
 let texcoord_arr = Float32Array.from([
-    0, 0.125,
-    1, 0.125,
-    1, 0.875,
-    0, 0.875
+    0, 0,
+    1, 0,
+    1, 1,
+    0, 1
 ]);
 
 // prettier-ignore
