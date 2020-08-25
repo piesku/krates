@@ -29,7 +29,7 @@ export function Title() {
             </div>
             <div style="grid-area: 5/2/6/3; animation: 0.2s ease-in 1.9s both title;">Are</div>
             <div
-                style="font-size: 3em; grid-area: 5/3/7/6; animation: 1s ease-in 2s both gone;"
+                style="font-size: 4em; grid-area: 5/3/7/6; animation: 1s ease-in 2s both gone;"
                 onanimationend="$(${Action.TexturesAreGone})"
             >
                 404!
