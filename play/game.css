@@ -26,8 +26,21 @@ canvas {
     font-weight: bold;
     font-style: italic;
     color: #fff;
+    filter: blur(1px);
+    margin-bottom: 20px;
 }
-div#hinge {
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 512px;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAABmJLR0QA/wD/AP+gvaeTAAAAGUlEQVQI12NgQAWKTGgCDBgCjAwMDIrIAgAJYABIO2lURgAAAABJRU5ErkJggg==);
+    pointer-events: none;
+}
+.hinge {
+    position: absolute;
+    top: 384px;
+    width: 512px;
     height: 20px;
     background: linear-gradient(
         0deg,
