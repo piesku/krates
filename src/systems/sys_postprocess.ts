@@ -13,6 +13,7 @@ import {Game} from "../game.js";
 
 export function sys_postprocess(game: Game, delta: number) {
     game.Gl.bindFramebuffer(GL_FRAMEBUFFER, null);
+    game.Gl.clearColor(0.13, 0.13, 0.13, 1);
     game.Gl.clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     let material = game.MaterialPostprocess;

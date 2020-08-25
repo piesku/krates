@@ -36,12 +36,9 @@ export function Title() {
             </div>
         </div>
         <div
-            class="screen"
+            class="screen toast"
             style="
-                display: grid;
-                place-items: center;
-                background: #fc6;
-                border: 10px solid #c60;
+                max-width: 512px;
             "
         >
             <div

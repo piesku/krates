@@ -8,29 +8,29 @@ export function Stage(game: Game) {
         <div class="screen"></div>
         <div class="screen">
             ${game.StageCleared &&
-            (game.CurrentStage < maps.length - 1
-                ? `
-                    <div
-                        class="button"
-                        style="
-                            animation: 1s ease-in-out both slide-from-bottom;
-                        "
-                        onclick="$(${Action.GoToStage}, ${game.CurrentStage + 1})"
-                    >
-                        Advance to the Next Stage
-                    </div>
-                `
-                : `
-                    <div
-                        class="button"
-                        style="
-                            animation: 1s ease-in-out both slide-from-bottom;
-                        "
-                        onclick="$(${Action.GoToTitle})"
-                    >
-                        You Won!
-                    </div>
-                `)}
+            (game.CurrentStage < maps.length - 1 ? Continue(game.CurrentStage + 1) : Victory())}
+        </div>
+    `;
+}
+
+function Continue(next_stage: number) {
+    return html`
+        <div class="toast" style="animation: 1s ease-in-out both slide-from-bottom;">
+            <p>You found a missing texture!</p>
+            <div class="button" onclick="$(${Action.GoToStage}, ${next_stage})">
+                Continue
+            </div>
+        </div>
+    `;
+}
+
+function Victory() {
+    return html`
+        <div class="toast" style="animation: 1s ease-in-out both slide-from-bottom;">
+            You Won!
+            <div class="button" onclick="$(${Action.GoToTitle})">
+                Play Again
+            </div>
         </div>
     `;
 }

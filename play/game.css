@@ -35,8 +35,21 @@ canvas {
     font: 36px Arial, sans-serif;
     font-weight: bold;
 }
+.toast {
+    background: #fc6;
+    border: 10px solid #c60;
+    display: grid;
+    place-items: center;
+    max-width: 384px;
+    min-height: 128px;
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+}
+p {
+    margin: 0 0 20px;
+}
 .button {
-    min-width: 300px;
     background: #393;
     border: 5px solid #060;
     border-radius: 10px;
