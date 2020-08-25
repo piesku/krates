@@ -8,8 +8,7 @@ export function Splash() {
             style="
                 background-color: #eee;
                 color: #222;
-                font: 36px Arial;
-                font-weight: bold;
+                text-shadow: none;
                 font-style: italic;
             "
         >
@@ -27,8 +26,7 @@ export function Splash() {
             style="
                 background-color: #eee;
                 color: #222;
-                font: 36px Arial;
-                font-weight: bold;
+                text-shadow: none;
                 font-style: italic;
             "
         >

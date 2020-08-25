@@ -6,19 +6,7 @@ import {maps} from "../maps.js";
 export function Stage(game: Game) {
     return html`
         <div class="screen"></div>
-        <div
-            class="screen"
-            style="
-                color: #eee;
-                text-shadow:
-                    #222 -2px -2px 2px,
-                    #222 2px -2px 2px,
-                    #222 2px 2px 2px,
-                    #222 -2px 2px 2px;
-                font: 36px Arial, sans-serif;
-                font-weight: bold;
-            "
-        >
+        <div class="screen">
             ${game.StageCleared &&
             (game.CurrentStage < maps.length - 1
                 ? `

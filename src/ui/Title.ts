@@ -9,16 +9,6 @@ export function Title() {
                 display: grid;
                 grid-template-columns: repeat(5, 1fr);
                 grid-template-rows: repeat(6, 1fr);
-                grid-column-gap: 0px;
-                grid-row-gap: 0px;
-                color: #eee;
-                text-shadow:
-                    #222 -2px -2px 2px,
-                    #222 2px -2px 2px,
-                    #222 2px 2px 2px,
-                    #222 -2px 2px 2px;
-                font: 36px Arial, sans-serif;
-                font-weight: bold;
                 font-style: italic;
             "
         >
@@ -52,14 +42,6 @@ export function Title() {
                 place-items: center;
                 background: #fc6;
                 border: 10px solid #c60;
-                color: #eee;
-                text-shadow:
-                    #222 -2px -2px 2px,
-                    #222 2px -2px 2px,
-                    #222 2px 2px 2px,
-                    #222 -2px 2px 2px;
-                font: 36px Arial, sans-serif;
-                font-weight: bold;
             "
         >
             <div

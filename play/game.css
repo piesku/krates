@@ -30,6 +30,10 @@ canvas {
     place-items: center;
     overflow: hidden;
     filter: blur(1px);
+    color: #eee;
+    text-shadow: #222 -2px -2px 2px, #222 2px -2px 2px, #222 2px 2px 2px, #222 -2px 2px 2px;
+    font: 36px Arial, sans-serif;
+    font-weight: bold;
 }
 .button {
     min-width: 300px;
