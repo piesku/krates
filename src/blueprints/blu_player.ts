@@ -15,7 +15,7 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
             control_player(),
             walk(grid_x, grid_z),
             move(10, 3),
-            collide(true, Layer.Player, Layer.Terrain | Layer.Movable),
+            collide(true, Layer.Player, Layer.Terrain),
             rigid_body(true),
             named("camera anchor"),
             audio_source(),
@@ -23,7 +23,7 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
         Children: [
             {
                 // Body.
-                Scale: [4, 4, 4],
+                Scale: [1, 1, 0.5],
                 Using: [
                     render_textured_diffuse(
                         game.MaterialTexturedDiffuse,
