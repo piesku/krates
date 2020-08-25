@@ -7,19 +7,9 @@
         {
             "type": "chrome",
             "request": "launch",
-            "name": "App 720p",
+            "name": "App",
             "runtimeArgs": [
-                "--window-size=1280,720",
-                "--app=http://localhost:1234"
-            ],
-            "webRoot": "${workspaceFolder}"
-        },
-        {
-            "type": "chrome",
-            "request": "launch",
-            "name": "App 480p",
-            "runtimeArgs": [
-                "--window-size=854,480",
+                "--window-size=580,880",
                 "--app=http://localhost:1234"
             ],
             "webRoot": "${workspaceFolder}"
