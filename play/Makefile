@@ -33,3 +33,12 @@ index.html: game.html game.terser.js
 
 index.zip: index.html
 	@7z a index.zip -mx=9 -mfb=256 -mpass=15 $<
+
+.PHONY: validate
+validate: index.zip
+	@curl -s -X POST \
+		--form bundle=@$< \
+		--form category=desktop \
+		--form category=mobile \
+		https://iw8sii1h9b.execute-api.eu-west-1.amazonaws.com/stage/analyze-bundle \
+		| jq -S '.checks'
