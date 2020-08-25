@@ -39,6 +39,7 @@ export function Title() {
             class="screen toast"
             style="
                 max-width: 512px;
+                border-radius: 0;
             "
         >
             <div

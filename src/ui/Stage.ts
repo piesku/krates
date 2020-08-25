@@ -6,7 +6,15 @@ import {maps} from "../maps.js";
 export function Stage(game: Game) {
     return html`
         <div class="screen"></div>
-        <div class="screen">
+        <div class="screen" style="border: 10px solid #c60;">
+            <div
+                style="
+                    width: 256px;
+                    height: 192px;
+                    margin: 96px 0 0;
+                    border: 10px solid #c60;
+                "
+            ></div>
             ${game.StageCleared &&
             (game.CurrentStage < maps.length - 1 ? Continue(game.CurrentStage + 1) : Victory())}
         </div>

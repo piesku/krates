@@ -13,7 +13,7 @@ import {Game} from "../game.js";
 
 export function sys_postprocess(game: Game, delta: number) {
     game.Gl.bindFramebuffer(GL_FRAMEBUFFER, null);
-    game.Gl.clearColor(0.13, 0.13, 0.13, 1);
+    game.Gl.clearColor(1, 0.8, 0.4, 1);
     game.Gl.clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     let material = game.MaterialPostprocess;
@@ -41,6 +41,6 @@ export function sys_postprocess(game: Game, delta: number) {
 
     // Bottom screen.
     game.Gl.bindTexture(GL_TEXTURE_2D, game.Textures.Minimap);
-    game.Gl.viewport(0, 0, 512, 384);
+    game.Gl.viewport(128, 48, 256, 192);
     game.Gl.drawElements(material.Mode, mesh.IndexCount, GL_UNSIGNED_SHORT, 0);
 }
