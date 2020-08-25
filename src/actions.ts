@@ -9,7 +9,8 @@ import {scene_title} from "./scenes/sce_title.js";
 import {Has} from "./world.js";
 
 export const enum Action {
-    TextureCollected = 1,
+    TexturesAreGone = 1,
+    TextureCollected,
     GoToTitle,
     GoToStage,
     KeyCollected,
@@ -18,12 +19,20 @@ export const enum Action {
 
 export function dispatch(game: Game, action: Action, payload: unknown) {
     switch (action) {
+        case Action.TexturesAreGone: {
+            for (let i = 0; i < game.World.Signature.length; i++) {
+                if (game.World.Signature[i] & Has.Render) {
+                    let render = game.World.Render[i];
+                    render.Texture = game.Textures["404"];
+                }
+            }
+            break;
+        }
         case Action.TextureCollected: {
             let [entity] = payload as [Entity];
             let texture_name = game.AllTextures[entity];
-            const QUERY = Has.Render;
             for (let i = 0; i < game.World.Signature.length; i++) {
-                if ((game.World.Signature[i] & QUERY) === QUERY) {
+                if (game.World.Signature[i] & Has.Render) {
                     let render = game.World.Render[i];
                     if (render.FinalTextureName === texture_name) {
                         setTimeout(() => {

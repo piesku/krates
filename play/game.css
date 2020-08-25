@@ -23,16 +23,23 @@ canvas {
     justify-content: space-between;
 }
 .screen {
+    box-sizing: border-box;
     width: 512px;
     height: 384px;
     display: grid;
     place-items: center;
     overflow: hidden;
-    font: 36px Arial;
-    font-weight: bold;
-    font-style: italic;
-    color: #fff;
     filter: blur(1px);
+}
+.button {
+    min-width: 300px;
+    background: #393;
+    border: 5px solid #060;
+    border-radius: 10px;
+    padding: 10px;
+}
+.button:hover {
+    background: #6c0;
 }
 #overlay {
     position: absolute;
@@ -102,5 +109,23 @@ img {
     }
     100% {
         margin-bottom: 0;
+    }
+}
+
+@keyframes title {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes gone {
+    0% {
+        transform: rotate(1800deg) scale(0);
+    }
+    100% {
+        transform: rotate(0deg) scale(1);
     }
 }

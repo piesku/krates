@@ -9,15 +9,21 @@ export function Stage(game: Game) {
         <div
             class="screen"
             style="
-                display: grid;
-                place-items: center;
-                overflow: hidden;
+                color: #eee;
+                text-shadow:
+                    #222 -2px -2px 2px,
+                    #222 2px -2px 2px,
+                    #222 2px 2px 2px,
+                    #222 -2px 2px 2px;
+                font: 36px Arial, sans-serif;
+                font-weight: bold;
             "
         >
             ${game.StageCleared &&
             (game.CurrentStage < maps.length - 1
                 ? `
                     <div
+                        class="button"
                         style="
                             animation: 1s ease-in-out both slide-from-bottom;
                         "
@@ -28,6 +34,7 @@ export function Stage(game: Game) {
                 `
                 : `
                     <div
+                        class="button"
                         style="
                             animation: 1s ease-in-out both slide-from-bottom;
                         "
