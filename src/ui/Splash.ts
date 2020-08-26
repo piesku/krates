@@ -13,8 +13,8 @@ export function Splash() {
             "
         >
             <div
+                class="view"
                 style="
-                    width: 300px;
                     animation: 3s ease-in-out both slide-from-left;
                 "
             >
@@ -31,8 +31,8 @@ export function Splash() {
             "
         >
             <div
+                class="view"
                 style="
-                    width: 400px;
                     animation: 3s ease-in-out both slide-from-right;
                 "
                 onanimationend="$(${Action.GoToTitle})"

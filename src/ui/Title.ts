@@ -7,6 +7,7 @@ export function Title() {
             class="screen"
             style="
                 display: grid;
+                place-items: center;
                 grid-template-columns: repeat(5, 1fr);
                 grid-template-rows: repeat(6, 1fr);
                 font-style: italic;
@@ -35,21 +36,12 @@ export function Title() {
                 404!
             </div>
         </div>
-        <div
-            class="screen toast"
-            style="
-                max-width: 512px;
-                border-radius: 0;
-            "
-        >
-            <div
-                class="button"
-                onclick="$(${Action.GoToStage}, 1)"
-                style="
-                    animation: 1s ease-in-out 3.5s both slide-from-bottom;
-                "
-            >
-                Start a New Game
+        <div class="screen">
+            <div class="view" style="background: #fc6; border: 10px solid #c60;"></div>
+            <div class="view" style="animation: 1s ease-in-out 3s both slide-from-bottom;">
+                <div class="button" onclick="$(${Action.GoToStage}, 1)">
+                    Start a New Game
+                </div>
             </div>
         </div>
     `;
