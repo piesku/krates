@@ -76,6 +76,7 @@ export class Game {
     UnlockedTextures: string[] = ["portal", "key"]; //, "water", "grass", "stone", "krates"];
     HasKey: boolean = false;
     StageCleared = false;
+    StageFailed = false;
 
     constructor() {
         document.addEventListener("visibilitychange", () =>
@@ -181,5 +182,4 @@ export const enum Layer {
     Terrain = 2,
     Movable = 4,
     Collectable = 8,
-    TheThingyThatLetKratesNotToSinkInWater = 16,
 }

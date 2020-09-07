@@ -7,12 +7,10 @@ import {blueprint_player} from "./blueprints/blu_player.js";
 import {blueprint_portal} from "./blueprints/blu_portal.js";
 import {blueprint_stone} from "./blueprints/blu_stone.js";
 import {blueprint_texture} from "./blueprints/blu_texture.js";
-import {collide} from "./components/com_collide.js";
 import {named} from "./components/com_named.js";
-import {rigid_body} from "./components/com_rigid_body.js";
 import {walk} from "./components/com_walk.js";
 import {instantiate} from "./core.js";
-import {Game, Layer} from "./game.js";
+import {Game} from "./game.js";
 
 export const enum TileKind {
     Empty,
@@ -164,20 +162,6 @@ export function create_tile(game: Game, tile: TileKind, translation: Vec3, x?: n
             instantiate(game, {
                 Translation: translation,
                 Using: [named("destination"), walk(x!, z!)],
-            });
-            break;
-        case TileKind.Water:
-            translation[1] = -1;
-            instantiate(game, {
-                Translation: translation,
-                Using: [
-                    collide(false, Layer.TheThingyThatLetKratesNotToSinkInWater, Layer.Movable, [
-                        1,
-                        1,
-                        1,
-                    ]),
-                    rigid_body(false),
-                ],
             });
             break;
     }

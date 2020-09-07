@@ -8,7 +8,7 @@ export interface Animate {
     /** The clip played currently. Defaults to Anim.Idle. */
     Current: AnimationState;
     /** The clip to play next. */
-    Trigger?: "idle" | "move" | "jump";
+    Trigger?: "idle" | "move" | "jump" | "float";
 }
 
 export function animate(clips: {idle: AnimationClip; [k: string]: AnimationClip}) {

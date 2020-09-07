@@ -1,8 +1,9 @@
 import {Vec3} from "../common/math.js";
 import {from_euler} from "../common/quat.js";
 import {find_first} from "./components/com_named.js";
+import {query_all} from "./components/com_transform.js";
 import {destroy} from "./core.js";
-import {Entity, Game} from "./game.js";
+import {Entity, Game, Layer} from "./game.js";
 import {maps} from "./maps.js";
 import {scene_stage} from "./scenes/sce_stage.js";
 import {scene_title} from "./scenes/sce_title.js";
@@ -15,6 +16,7 @@ export const enum Action {
     GoToStage,
     KeyCollected,
     PortalUsed,
+    Drown,
 }
 
 export function dispatch(game: Game, action: Action, payload: unknown) {
@@ -100,6 +102,22 @@ export function dispatch(game: Game, action: Action, payload: unknown) {
                     walk.CurrentZ = walk.TargetZ = CurrentZ;
                 }
             }
+
+            break;
+        }
+
+        case Action.Drown: {
+            let [entity, other] = payload as [Entity, Entity];
+            let other_collide = game.World.Collide[other];
+            if (other_collide.Layers & Layer.Movable) {
+                for (let child_entity of query_all(game.World, other, Has.Animate)) {
+                    let child_animate = game.World.Animate[child_entity];
+                    child_animate.Trigger = "float";
+                }
+            } else if (!game.StageCleared) {
+                game.StageFailed = true;
+            }
+            break;
         }
     }
 }

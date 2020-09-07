@@ -17,8 +17,22 @@ export function Stage(game: Game) {
                 "
                 ></div>
             </div>
+            ${game.StageFailed && Failed(game.CurrentStage)}
             ${game.StageCleared &&
             (game.CurrentStage < maps.length - 1 ? Continue(game.CurrentStage + 1) : Victory())}
+        </div>
+    `;
+}
+
+function Failed(this_stage: number) {
+    return html`
+        <div class="view toast">
+            <div class="alert fill">
+                <p>You drowned!</p>
+                <div class="button" onclick="$(${Action.GoToStage}, ${this_stage})">
+                    Try again
+                </div>
+            </div>
         </div>
     `;
 }

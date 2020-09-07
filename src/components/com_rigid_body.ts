@@ -2,7 +2,7 @@ import {Entity, Game} from "../game.js";
 import {Has} from "../world.js";
 
 export interface RigidBody {
-    readonly Dynamic: boolean;
+    Dynamic: boolean;
     VelY: number;
     AccY: number;
 }
