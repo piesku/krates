@@ -181,5 +181,4 @@ export const enum Layer {
     Terrain = 2,
     Movable = 4,
     Collectable = 8,
-    TheThingyThatLetKratesNotToSinkInWater = 16,
 }

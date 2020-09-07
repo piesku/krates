@@ -45,9 +45,9 @@ export function blueprint_portal(game: Game, textured = false): Blueprint {
                 ],
             },
             {
-                Translation: [0, -1.5, 0],
+                Translation: [0, -1, 0],
                 Using: [
-                    collide(false, Layer.Collectable, Layer.Player | Layer.Movable, [1, 1, 1]),
+                    collide(false, Layer.None, Layer.Player | Layer.Movable, [1, 1, 1]),
                     rigid_body(false),
                     trigger(Action.PortalUsed),
                 ],

@@ -100,6 +100,8 @@ export function dispatch(game: Game, action: Action, payload: unknown) {
                     walk.CurrentZ = walk.TargetZ = CurrentZ;
                 }
             }
+
+            break;
         }
     }
 }

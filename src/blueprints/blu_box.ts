@@ -10,14 +10,7 @@ export function blueprint_box(game: Game, textured = false): Blueprint {
 
     return {
         Using: [
-            collide(
-                true,
-                Layer.Movable,
-                Layer.Terrain |
-                    Layer.Movable |
-                    Layer.Player |
-                    Layer.TheThingyThatLetKratesNotToSinkInWater
-            ),
+            collide(true, Layer.Movable, Layer.Terrain | Layer.Movable | Layer.Player),
             rigid_body(true),
             render_textured_diffuse(
                 game.MaterialTexturedDiffuse,
@@ -28,6 +21,10 @@ export function blueprint_box(game: Game, textured = false): Blueprint {
             ),
         ],
         Children: [
+            {
+                Scale: [0.1, 1, 0.1],
+                Using: [collide(true, Layer.Terrain, Layer.None), rigid_body(false)],
+            },
             // {
             //     Scale: [1.8, 1, 1.8],
             //     Translation: [0, -0.4, 0],
