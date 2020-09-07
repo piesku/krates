@@ -13,6 +13,7 @@ export function scene_stage(game: Game, stage_index: number) {
     game.CurrentScene = scene_stage;
     game.CurrentStage = stage_index;
     game.StageCleared = false;
+    game.StageFailed = false;
     game.World = new World();
     game.Cameras = [];
 

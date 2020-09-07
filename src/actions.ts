@@ -15,6 +15,7 @@ export const enum Action {
     GoToStage,
     KeyCollected,
     PortalUsed,
+    Drown,
 }
 
 export function dispatch(game: Game, action: Action, payload: unknown) {
@@ -101,6 +102,13 @@ export function dispatch(game: Game, action: Action, payload: unknown) {
                 }
             }
 
+            break;
+        }
+
+        case Action.Drown: {
+            if (!game.StageCleared) {
+                game.StageFailed = true;
+            }
             break;
         }
     }

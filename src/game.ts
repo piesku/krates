@@ -76,6 +76,7 @@ export class Game {
     UnlockedTextures: string[] = ["portal", "key"]; //, "water", "grass", "stone", "krates"];
     HasKey: boolean = false;
     StageCleared = false;
+    StageFailed = false;
 
     constructor() {
         document.addEventListener("visibilitychange", () =>
