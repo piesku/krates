@@ -2,7 +2,7 @@ import {Vec3} from "../common/math.js";
 import {from_euler} from "../common/quat.js";
 import {find_first} from "./components/com_named.js";
 import {destroy} from "./core.js";
-import {Entity, Game} from "./game.js";
+import {Entity, Game, Layer} from "./game.js";
 import {maps} from "./maps.js";
 import {scene_stage} from "./scenes/sce_stage.js";
 import {scene_title} from "./scenes/sce_title.js";
@@ -106,7 +106,14 @@ export function dispatch(game: Game, action: Action, payload: unknown) {
         }
 
         case Action.Drown: {
-            if (!game.StageCleared) {
+            let [entity, other] = payload as [Entity, Entity];
+            let other_collide = game.World.Collide[other];
+            if (other_collide.Layers & Layer.Movable) {
+                let other_transform = game.World.Transform[other];
+                let child_entity = other_transform.Children[0];
+                let child_animate = game.World.Animate[child_entity];
+                child_animate.Trigger = "float";
+            } else if (!game.StageCleared) {
                 game.StageFailed = true;
             }
             break;

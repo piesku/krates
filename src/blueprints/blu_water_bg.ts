@@ -17,7 +17,7 @@ export function blueprint_water(
                 Translation: [0, 0, -1.2],
                 Scale: [game.MapSize * 100, game.MapSize * 100, 1],
                 Using: [
-                    collide(false, Layer.Terrain, Layer.Player),
+                    collide(false, Layer.Terrain, Layer.Player | Layer.Movable),
                     rigid_body(false),
                     trigger(Action.Drown),
                 ],
