@@ -13,6 +13,7 @@ import {mesh_quad} from "../meshes/quad.js";
 import {mesh_sphere} from "../meshes/sphere.js";
 import {CameraFramebuffer} from "./components/com_camera_framebuffer.js";
 import {loop_start, loop_stop} from "./core.js";
+import {sys_animate} from "./systems/sys_animate.js";
 import {sys_audio} from "./systems/sys_audio.js";
 import {sys_camera} from "./systems/sys_camera.js";
 import {sys_collide} from "./systems/sys_collide.js";
@@ -151,6 +152,7 @@ export class Game {
         sys_control_rotate(this, delta);
 
         // Game logic.
+        sys_animate(this, delta);
         sys_walk(this, delta);
         sys_move(this, delta);
         sys_mimic(this, delta);

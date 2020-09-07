@@ -1,3 +1,6 @@
+import {ease_in_out_quad} from "../../common/easing.js";
+import {from_euler} from "../../common/quat.js";
+import {animate} from "../components/com_animate.js";
 import {audio_source} from "../components/com_audio_source.js";
 import {collide} from "../components/com_collide.js";
 import {control_player} from "../components/com_control_player.js";
@@ -30,6 +33,22 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                         game.MeshSphere,
                         game.Textures["checker1"]
                     ),
+                    animate({
+                        idle: {
+                            Keyframes: [
+                                {
+                                    Timestamp: 0,
+                                    Rotation: from_euler([0, 0, 0, 0], 0, -30, 0),
+                                    Ease: ease_in_out_quad,
+                                },
+                                {
+                                    Timestamp: 1,
+                                    Rotation: from_euler([0, 0, 0, 0], 0, 30, 0),
+                                    Ease: ease_in_out_quad,
+                                },
+                            ],
+                        },
+                    }),
                 ],
                 Children: [
                     // {

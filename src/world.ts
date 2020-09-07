@@ -1,3 +1,4 @@
+import {Animate} from "./components/com_animate.js";
 import {AudioSource} from "./components/com_audio_source.js";
 import {CameraFramebuffer} from "./components/com_camera_framebuffer.js";
 import {Collide} from "./components/com_collide.js";
@@ -12,6 +13,7 @@ import {Trigger} from "./components/com_trigger.js";
 import {Walk} from "./components/com_walk.js";
 
 const enum Component {
+    Animate,
     AudioSource,
     Camera,
     Collide,
@@ -29,6 +31,7 @@ const enum Component {
 }
 
 export const enum Has {
+    Animate = 1 << Component.Animate,
     AudioSource = 1 << Component.AudioSource,
     Camera = 1 << Component.Camera,
     Collide = 1 << Component.Collide,
@@ -49,6 +52,7 @@ export class World {
     // Component flags
     Signature: Array<number> = [];
     // Component data
+    Animate: Array<Animate> = [];
     AudioSource: Array<AudioSource> = [];
     Camera: Array<CameraFramebuffer> = [];
     Collide: Array<Collide> = [];
