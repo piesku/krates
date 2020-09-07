@@ -1,7 +1,6 @@
 import {Action} from "../actions.js";
+import {animate, AnimationFlag} from "../components/com_animate.js";
 import {collide} from "../components/com_collide.js";
-import {control_rotate} from "../components/com_control_rotate.js";
-import {move} from "../components/com_move.js";
 import {render_textured_diffuse} from "../components/com_render_textured_diffuse.js";
 import {rigid_body} from "../components/com_rigid_body.js";
 import {trigger} from "../components/com_trigger.js";
@@ -17,8 +16,6 @@ export function blueprint_portal(game: Game, textured = false): Blueprint {
                 Translation: [0, -0.3, 0],
                 Scale: [1.4, 1.4, 1.4],
                 Using: [
-                    move(0, 3),
-                    control_rotate(),
                     render_textured_diffuse(
                         game.MaterialTexturedDiffuse,
                         game.MeshCube,
@@ -26,6 +23,25 @@ export function blueprint_portal(game: Game, textured = false): Blueprint {
                         () => Math.sin(Date.now() / 2000),
                         texture
                     ),
+                    animate({
+                        idle: {
+                            Keyframes: [
+                                {
+                                    Timestamp: 0,
+                                    Rotation: [0, 0, 0, 1],
+                                },
+                                {
+                                    Timestamp: 1,
+                                    Rotation: [0, 1, 0, 0],
+                                },
+                                {
+                                    Timestamp: 2,
+                                    Rotation: [0, 0, 0, -1],
+                                },
+                            ],
+                            Flags: AnimationFlag.Loop,
+                        },
+                    }),
                 ],
             },
             {

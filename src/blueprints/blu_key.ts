@@ -1,8 +1,7 @@
 import {from_euler} from "../../common/quat.js";
 import {Action} from "../actions.js";
+import {animate, AnimationFlag} from "../components/com_animate.js";
 import {collide} from "../components/com_collide.js";
-import {control_rotate} from "../components/com_control_rotate.js";
-import {move} from "../components/com_move.js";
 import {render_textured_diffuse} from "../components/com_render_textured_diffuse.js";
 import {trigger} from "../components/com_trigger.js";
 import {Blueprint} from "../core.js";
@@ -16,9 +15,26 @@ export function blueprint_key(game: Game, textured = false): Blueprint {
         Scale: [0.7, 0.7, 0.7],
         Using: [
             collide(true, Layer.Collectable, Layer.Player, [0.5, 0.5, 0.5]),
-            move(0, 3),
-            control_rotate(),
             trigger(Action.KeyCollected),
+            animate({
+                idle: {
+                    Keyframes: [
+                        {
+                            Timestamp: 0,
+                            Rotation: [0, 0, 0, 1],
+                        },
+                        {
+                            Timestamp: 1,
+                            Rotation: [0, 1, 0, 0],
+                        },
+                        {
+                            Timestamp: 2,
+                            Rotation: [0, 0, 0, -1],
+                        },
+                    ],
+                    Flags: AnimationFlag.Loop,
+                },
+            }),
         ],
         Children: [
             {

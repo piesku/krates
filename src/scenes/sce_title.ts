@@ -2,9 +2,8 @@ import {from_euler} from "../../common/quat.js";
 import {float, set_seed} from "../../common/random.js";
 import {blueprint_camera_follow} from "../blueprints/blu_camera_follow.js";
 import {blueprint_water} from "../blueprints/blu_water_bg.js";
-import {control_rotate} from "../components/com_control_rotate.js";
+import {animate, AnimationFlag} from "../components/com_animate.js";
 import {light_directional} from "../components/com_light.js";
-import {move} from "../components/com_move.js";
 import {named} from "../components/com_named.js";
 import {instantiate} from "../core.js";
 import {Game} from "../game.js";
@@ -48,8 +47,28 @@ export function scene_title(game: Game) {
     // Camera Anchor
     instantiate(game, {
         Translation: [0, 2, 0],
-        Rotation: [0, 1, 0, 0],
-        Using: [named("camera anchor"), control_rotate(), move(0, 0.1)],
+        Using: [
+            named("camera anchor"),
+            animate({
+                idle: {
+                    Keyframes: [
+                        {
+                            Timestamp: 0,
+                            Rotation: [0, -1, 0, 0],
+                        },
+                        {
+                            Timestamp: 30,
+                            Rotation: [0, 0, 0, 1],
+                        },
+                        {
+                            Timestamp: 60,
+                            Rotation: [0, 1, 0, 0],
+                        },
+                    ],
+                    Flags: AnimationFlag.Loop,
+                },
+            }),
+        ],
     });
 
     // Main Camera.
