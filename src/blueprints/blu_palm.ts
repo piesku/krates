@@ -18,6 +18,7 @@ export function blueprint_palm(game: Game, textured = false): Blueprint {
                         game.MaterialTexturedDiffuse,
                         game.MeshQuad,
                         game.Textures[textured ? texture : "404"],
+                        [1, 1, 1, 1],
                         1,
                         texture
                     ),
