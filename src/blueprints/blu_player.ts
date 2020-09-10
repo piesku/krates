@@ -14,6 +14,7 @@ import {Game, Layer} from "../game.js";
 
 export function blueprint_player(game: Game, grid_x: number, grid_z: number): Blueprint {
     return {
+        Scale: [0.7, 1, 0.7],
         Using: [
             control_player(),
             walk(grid_x, grid_z),
@@ -28,22 +29,22 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                 Children: [
                     {
                         Translation: [0.8, 0.8, 0],
-                        Scale: [0.3, 0.3, 0.3],
+                        Scale: [0.6, 0.6, 0.6],
                         Using: [
                             render_textured_diffuse(
                                 game.MaterialTexturedDiffuse,
-                                game.MeshCube,
+                                game.MeshSphere,
                                 game.Textures["hair"]
                             ),
                         ],
                     },
                     {
                         Translation: [-0.8, 0.8, 0],
-                        Scale: [0.3, 0.3, 0.3],
+                        Scale: [0.6, 0.6, 0.6],
                         Using: [
                             render_textured_diffuse(
                                 game.MaterialTexturedDiffuse,
-                                game.MeshCube,
+                                game.MeshSphere,
                                 game.Textures["hair"]
                             ),
                         ],
@@ -103,8 +104,8 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                                 ],
                             },
                             {
-                                Translation: [-0.175, 0, -0.1],
-                                Scale: [0.25, 0.6, 1],
+                                Translation: [0, 0.2, -0.5],
+                                Scale: [1, 0.2, 0.5],
                                 Using: [
                                     render_textured_diffuse(
                                         game.MaterialTexturedDiffuse,
@@ -113,25 +114,30 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                                     ),
                                 ],
                             },
+                            // {
+                            //     Translation: [0.175, 0, -0.2],
+                            //     Scale: [0.25, 0.6, 1],
+                            //     Using: [
+                            //         render_textured_diffuse(
+                            //             game.MaterialTexturedDiffuse,
+                            //             game.MeshCube,
+                            //             game.Textures["eye"]
+                            //         ),
+                            //     ],
+                            // },
                             {
-                                Translation: [0.175, 0, -0.1],
-                                Scale: [0.25, 0.6, 1],
+                                Scale: [1.5, 1.5, 1.5],
                                 Using: [
                                     render_textured_diffuse(
                                         game.MaterialTexturedDiffuse,
-                                        game.MeshCube,
-                                        game.Textures["eye"]
+                                        game.MeshSphere,
+                                        game.Textures["player"]
                                     ),
                                 ],
                             },
                         ],
                         // Body
                         Using: [
-                            render_textured_diffuse(
-                                game.MaterialTexturedDiffuse,
-                                game.MeshCube,
-                                game.Textures["player"]
-                            ),
                             animate({
                                 // idle: {
                                 //     Keyframes: [{Timestamp: 0, Translation: [0, 0, 0]}],
