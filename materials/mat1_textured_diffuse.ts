@@ -51,13 +51,21 @@ let fragment = `
     varying vec2 vert_texcoord;
     varying vec3 rgb;
 
+    const vec4 transparent = vec4(1.0, 0.0, 1.0, 1.0);
+
     void main() {
+        vec4 color;
         if (texoffset == 0.0) {
-            gl_FragColor = vec4(rgb, 1.0) * texture2D(sampler, vert_texcoord * texscale);
+            color = texture2D(sampler, vert_texcoord * texscale);
         } else {
-            gl_FragColor = vec4(rgb, 1.0) * texture2D(sampler, vert_texcoord * texscale + vec2(texoffset, 0.0));
+            color = texture2D(sampler, vert_texcoord * texscale + vec2(texoffset, 0.0));
         }
 
+        if (color == transparent) {
+            discard;
+        }
+
+        gl_FragColor = vec4(rgb, 1.0) * color;
     }
 `;
 
