@@ -5,8 +5,6 @@ export interface TexturedDiffuseLayout {
     Self: WebGLUniformLocation;
     Color: WebGLUniformLocation;
     Sampler: WebGLUniformLocation;
-    LightPositions: WebGLUniformLocation;
-    LightDetails: WebGLUniformLocation;
     TexScale: WebGLUniformLocation;
     TexOffset: WebGLUniformLocation;
     // Attributes
