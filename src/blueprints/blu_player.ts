@@ -1,4 +1,5 @@
 import {ease_in_out_quad} from "../../common/easing.js";
+import {Vec4} from "../../common/math.js";
 import {from_euler} from "../../common/quat.js";
 import {animate} from "../components/com_animate.js";
 import {audio_source} from "../components/com_audio_source.js";
@@ -11,6 +12,10 @@ import {rigid_body} from "../components/com_rigid_body.js";
 import {walk} from "../components/com_walk.js";
 import {Blueprint} from "../core.js";
 import {Game, Layer} from "../game.js";
+
+let color_hair: Vec4 = [1, 0, 1, 1];
+let color_body: Vec4 = [1, 1, 0, 1];
+let color_eyes: Vec4 = [0.1, 0.1, 0.1, 1];
 
 export function blueprint_player(game: Game, grid_x: number, grid_z: number): Blueprint {
     return {
@@ -34,7 +39,8 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                             render_textured_diffuse(
                                 game.MaterialTexturedDiffuse,
                                 game.MeshSphere,
-                                game.Textures["hair"]
+                                game.Textures["plain"],
+                                color_hair
                             ),
                         ],
                     },
@@ -45,7 +51,8 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                             render_textured_diffuse(
                                 game.MaterialTexturedDiffuse,
                                 game.MeshSphere,
-                                game.Textures["hair"]
+                                game.Textures["plain"],
+                                color_hair
                             ),
                         ],
                     },
@@ -64,7 +71,8 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                                             render_textured_diffuse(
                                                 game.MaterialTexturedDiffuse,
                                                 game.MeshCube,
-                                                game.Textures["hair"]
+                                                game.Textures["plain"],
+                                                color_hair
                                             ),
                                         ],
                                     },
@@ -75,7 +83,8 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                                             render_textured_diffuse(
                                                 game.MaterialTexturedDiffuse,
                                                 game.MeshCube,
-                                                game.Textures["hair"]
+                                                game.Textures["plain"],
+                                                color_hair
                                             ),
                                         ],
                                     },
@@ -86,7 +95,8 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                                             render_textured_diffuse(
                                                 game.MaterialTexturedDiffuse,
                                                 game.MeshCube,
-                                                game.Textures["hair"]
+                                                game.Textures["plain"],
+                                                color_hair
                                             ),
                                         ],
                                     },
@@ -97,7 +107,8 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                                             render_textured_diffuse(
                                                 game.MaterialTexturedDiffuse,
                                                 game.MeshCube,
-                                                game.Textures["hair"]
+                                                game.Textures["plain"],
+                                                color_hair
                                             ),
                                         ],
                                     },
@@ -110,7 +121,8 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                                     render_textured_diffuse(
                                         game.MaterialTexturedDiffuse,
                                         game.MeshCube,
-                                        game.Textures["eye"]
+                                        game.Textures["plain"],
+                                        color_eyes
                                     ),
                                 ],
                             },
@@ -126,17 +138,18 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                             //     ],
                             // },
                             {
+                                // Body
                                 Scale: [1.5, 1.5, 1.5],
                                 Using: [
                                     render_textured_diffuse(
                                         game.MaterialTexturedDiffuse,
                                         game.MeshSphere,
-                                        game.Textures["player"]
+                                        game.Textures["plain"],
+                                        color_body
                                     ),
                                 ],
                             },
                         ],
-                        // Body
                         Using: [
                             animate({
                                 // idle: {

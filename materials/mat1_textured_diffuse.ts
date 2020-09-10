@@ -8,6 +8,8 @@ let vertex = `
     uniform mat4 pv;
     uniform mat4 world;
     uniform mat4 self;
+
+    uniform vec4 color;
     uniform vec4 light_positions[MAX_LIGHTS];
     uniform vec4 light_details[MAX_LIGHTS];
 
@@ -22,7 +24,9 @@ let vertex = `
         vec3 vert_normal = normalize((vec4(normal, 1.0) * self).xyz);
         gl_Position = pv * vert_pos;
         vert_texcoord = texcoord;
-        rgb = vec3(0.3);
+
+        // Ambient light.
+        rgb = color.rgb * 0.3;
 
         for (int i = 0; i < MAX_LIGHTS; i++) {
             if (light_positions[i].w == 0.0) {
@@ -37,7 +41,7 @@ let vertex = `
             float diffuse_factor = dot(vert_normal, light_normal);
             if (diffuse_factor > 0.0) {
                 // Diffuse color.
-                rgb += diffuse_factor * light_color * light_intensity;
+                rgb += color.rgb * diffuse_factor * light_color * light_intensity;
             }
         }
     }
@@ -45,6 +49,7 @@ let vertex = `
 
 let fragment = `
     precision mediump float;
+
     uniform sampler2D sampler;
     uniform float texscale;
     uniform float texoffset;
@@ -78,6 +83,7 @@ export function mat1_textured_diffuse(gl: WebGLRenderingContext): Material<Textu
             Pv: gl.getUniformLocation(program, "pv")!,
             World: gl.getUniformLocation(program, "world")!,
             Self: gl.getUniformLocation(program, "self")!,
+            Color: gl.getUniformLocation(program, "color")!,
             Sampler: gl.getUniformLocation(program, "sampler")!,
             VertexPosition: gl.getAttribLocation(program, "position")!,
             VertexTexCoord: gl.getAttribLocation(program, "texcoord")!,
