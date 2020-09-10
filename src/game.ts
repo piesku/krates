@@ -19,7 +19,6 @@ import {sys_camera} from "./systems/sys_camera.js";
 import {sys_collide} from "./systems/sys_collide.js";
 import {sys_control_keyboard} from "./systems/sys_control_keyboard.js";
 import {sys_control_touch} from "./systems/sys_control_touch.js";
-import {sys_framerate} from "./systems/sys_framerate.js";
 import {sys_light} from "./systems/sys_light.js";
 import {sys_mimic} from "./systems/sys_mimic.js";
 import {sys_move} from "./systems/sys_move.js";
@@ -144,8 +143,6 @@ export class Game {
     }
 
     FrameUpdate(delta: number) {
-        let now = performance.now();
-
         // Player input.
         sys_control_keyboard(this, delta);
         sys_control_touch(this, delta);
@@ -173,7 +170,6 @@ export class Game {
         sys_postprocess(this, delta);
         sys_ui(this, delta);
         sys_audio(this, delta);
-        sys_framerate(this, delta, performance.now() - now);
     }
 }
 export const enum Layer {
