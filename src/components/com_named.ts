@@ -1,3 +1,4 @@
+import {Err} from "../error.js";
 import {Entity, Game} from "../game.js";
 import {Has, World} from "../world.js";
 
@@ -18,5 +19,5 @@ export function find_first(world: World, name: string) {
             return i;
         }
     }
-    throw `No entity named ${name}.`;
+    return Err.NamedEntityNotFound;
 }
