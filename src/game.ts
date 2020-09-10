@@ -20,7 +20,6 @@ import {sys_collide} from "./systems/sys_collide.js";
 import {sys_control_keyboard} from "./systems/sys_control_keyboard.js";
 import {sys_control_touch} from "./systems/sys_control_touch.js";
 import {sys_framerate} from "./systems/sys_framerate.js";
-import {sys_light} from "./systems/sys_light.js";
 import {sys_mimic} from "./systems/sys_mimic.js";
 import {sys_move} from "./systems/sys_move.js";
 import {sys_physics} from "./systems/sys_physics.js";
@@ -54,9 +53,6 @@ export class Game {
     MeshSphere = mesh_sphere(this.Gl);
 
     Cameras: Array<CameraFramebuffer> = [];
-    // The rendering pipeline supports 8 lights.
-    LightPositions = new Float32Array(4 * 8);
-    LightDetails = new Float32Array(4 * 8);
 
     Textures: Record<string, WebGLTexture> = {
         Minimap: create_texture_rgba(this.Gl, RENDER_TEXTURE_SIZE, RENDER_TEXTURE_SIZE),
@@ -168,7 +164,6 @@ export class Game {
         sys_transform(this, delta);
 
         sys_camera(this, delta);
-        sys_light(this, delta);
         sys_render(this, delta);
         sys_postprocess(this, delta);
         sys_ui(this, delta);
