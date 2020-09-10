@@ -30,6 +30,7 @@ export function blueprint_water(
                         game.MaterialTexturedDiffuse,
                         game.MeshQuad,
                         game.Textures[textured ? "water" : "404"],
+                        [1, 1, 1, 1],
                         game.MapSize / 2 + 1,
                         "water",
                         () => Math.sin(Date.now() / 200) / 10
@@ -44,6 +45,7 @@ export function blueprint_water(
                         game.MaterialTexturedDiffuse,
                         game.MeshQuad,
                         game.Textures[textured ? "water" : "404"],
+                        [1, 1, 1, 1],
                         game.MapSize / 2 + 2,
                         "water",
                         () => Math.sin(Date.now() / 400) / 10
@@ -58,6 +60,7 @@ export function blueprint_water(
                         game.MaterialTexturedDiffuse,
                         game.MeshQuad,
                         game.Textures[textured ? "water" : "404"],
+                        [1, 1, 1, 1],
                         game.MapSize * 10,
                         "water",
                         () => Math.sin(Date.now() / 500) / 20

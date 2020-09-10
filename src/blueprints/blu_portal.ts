@@ -20,6 +20,7 @@ export function blueprint_portal(game: Game, textured = false): Blueprint {
                         game.MaterialTexturedDiffuse,
                         game.MeshCube,
                         game.Textures[textured ? texture : "404"],
+                        [1, 1, 1, 1],
                         () => Math.sin(Date.now() / 2000),
                         texture
                     ),

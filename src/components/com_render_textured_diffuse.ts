@@ -1,4 +1,5 @@
 import {Material, Mesh} from "../../common/material.js";
+import {Vec4} from "../../common/math.js";
 import {GL_ARRAY_BUFFER, GL_CW, GL_ELEMENT_ARRAY_BUFFER, GL_FLOAT} from "../../common/webgl.js";
 import {TexturedDiffuseLayout} from "../../materials/layout_textured_diffuse.js";
 import {Entity, Game} from "../game.js";
@@ -10,6 +11,7 @@ export interface RenderTexturedDiffuse {
     readonly FrontFace: GLenum;
     readonly Vao: WebGLVertexArrayObject;
     Texture: WebGLTexture;
+    Color: Vec4;
     FinalTextureName?: string;
     TexScale: number | Function;
     TexOffset?: () => number;
@@ -21,6 +23,7 @@ export function render_textured_diffuse(
     material: Material<TexturedDiffuseLayout>,
     mesh: Mesh,
     texture: WebGLTexture,
+    color: Vec4 = [1, 1, 1, 1],
     texture_scale: number | Function = 1,
     final_texture_name?: string,
     texture_offset?: () => number
@@ -70,6 +73,7 @@ export function render_textured_diffuse(
             FrontFace: GL_CW,
             Vao: vaos.get(mesh)!,
             Texture: texture,
+            Color: color,
             TexScale: texture_scale,
             TexOffset: texture_offset,
             FinalTextureName: final_texture_name,
