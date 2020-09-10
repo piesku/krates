@@ -11,7 +11,7 @@ export function blueprint_palm(game: Game, textured = false): Blueprint {
         Using: [collide(false, Layer.Terrain, Layer.None, [1, 1, 1]), rigid_body(false)],
         Children: [
             {
-                Translation: [0, 0.5, -0.5],
+                Translation: [0, 0.5, 0],
                 Scale: [0.5, 1, 0.5],
                 Using: [
                     render_textured_diffuse(
@@ -24,17 +24,6 @@ export function blueprint_palm(game: Game, textured = false): Blueprint {
                     ),
                 ],
             },
-            // {
-            //     Scale: [1.8, 1, 1.8],
-            //     Translation: [0, -0.4, 0],
-            //     Using: [
-            //         render_textured_diffuse(
-            //             game.MaterialTexturedDiffuse,
-            //             game.MeshPlane,
-            //             game.Textures["shadow"]
-            //         ),
-            //     ],
-            // },
         ],
     };
 }
