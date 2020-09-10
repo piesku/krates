@@ -3,6 +3,7 @@ import {blueprint_box} from "./blueprints/blu_box.js";
 import {blueprint_door} from "./blueprints/blu_door.js";
 import {blueprint_ground} from "./blueprints/blu_ground.js";
 import {blueprint_key} from "./blueprints/blu_key.js";
+import {blueprint_palm} from "./blueprints/blu_palm.js";
 import {blueprint_player} from "./blueprints/blu_player.js";
 import {blueprint_portal} from "./blueprints/blu_portal.js";
 import {blueprint_stone} from "./blueprints/blu_stone.js";
@@ -24,6 +25,7 @@ export const enum TileKind {
     Key,
     Portal,
     PortalDestination,
+    Palm,
 }
 
 export interface MapData {
@@ -50,6 +52,13 @@ export let maps: Array<MapData> = [
         terrain: [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
         // prettier-ignore
         props: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    },
+    {
+        texture: "palm",
+        // prettier-ignore
+        terrain: [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
+        // prettier-ignore
+        props: [0,0,0,5,0,0,0, 0,0,0,0,0,0,0, 0,0,0,0,0,0,0, 11,0,11,11,11,11,11, 0,0,0,0,0,0,0, 0,0,0,0,0,0,0, 0,0,0,4,0,0,0]
     },
     {
         texture: "stone",
@@ -170,6 +179,12 @@ export function create_tile(game: Game, tile: TileKind, translation: Vec3, x?: n
         case TileKind.Door:
             instantiate(game, {
                 ...blueprint_door(game, textured),
+                Translation: translation,
+            });
+            break;
+        case TileKind.Palm:
+            instantiate(game, {
+                ...blueprint_palm(game, textured),
                 Translation: translation,
             });
             break;
