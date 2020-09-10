@@ -3,6 +3,7 @@ import {blueprint_box} from "./blueprints/blu_box.js";
 import {blueprint_door} from "./blueprints/blu_door.js";
 import {blueprint_ground} from "./blueprints/blu_ground.js";
 import {blueprint_key} from "./blueprints/blu_key.js";
+import {blueprint_lava} from "./blueprints/blu_lava.js";
 import {blueprint_palm} from "./blueprints/blu_palm.js";
 import {blueprint_player} from "./blueprints/blu_player.js";
 import {blueprint_portal} from "./blueprints/blu_portal.js";
@@ -26,6 +27,7 @@ export const enum TileKind {
     Portal,
     PortalDestination,
     Palm,
+    Lava,
 }
 
 export interface MapData {
@@ -73,6 +75,13 @@ export let maps: Array<MapData> = [
         terrain: [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
         // prettier-ignore
         props: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 3, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    },
+    {
+        texture: "lava",
+        // prettier-ignore
+        terrain: [6,6,6,6,6,12,6, 6,6,6,6,6,12,6, 12,12,12,12,12,12,6, 6,6,6,12,6,6,6, 6,12,12,12,12,12,12, 6,12,6,6,6,6,6, 6,12,6,6,6,6,6],
+        // prettier-ignore
+        props: [4,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5]
     },
     {
         texture: "door",
@@ -139,6 +148,13 @@ export function create_tile(game: Game, tile: TileKind, translation: Vec3, x?: n
         case TileKind.Grass:
             instantiate(game, {
                 ...blueprint_ground(game, textured),
+                Translation: translation,
+            });
+            break;
+        case TileKind.Lava:
+            translation[1] = -0.3;
+            instantiate(game, {
+                ...blueprint_lava(game, textured),
                 Translation: translation,
             });
             break;
