@@ -110,6 +110,7 @@ export function dispatch(game: Game, action: Action, payload: unknown) {
             let [entity, other] = payload as [Entity, Entity];
             let other_collide = game.World.Collide[other];
             if (other_collide.Layers & Layer.Movable) {
+                game.World.RigidBody[other].Dynamic = false;
                 for (let child_entity of query_all(game.World, other, Has.Animate)) {
                     let child_animate = game.World.Animate[child_entity];
                     child_animate.Trigger = "float";
