@@ -33,6 +33,7 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
             {
                 Children: [
                     {
+                        // Hand
                         Translation: [0.8, 0.8, 0],
                         Scale: [0.6, 0.6, 0.6],
                         Using: [
@@ -45,6 +46,7 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                         ],
                     },
                     {
+                        // Hand
                         Translation: [-0.8, 0.8, 0],
                         Scale: [0.6, 0.6, 0.6],
                         Using: [
@@ -146,6 +148,19 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                                         game.MeshSphere,
                                         game.Textures["plain"],
                                         color_body
+                                    ),
+                                ],
+                            },
+                            {
+                                // Shadow
+                                Rotation: from_euler([0, 0, 0, 0], -90, 45, 0),
+                                Scale: [0.6, 0.6, 1],
+                                Translation: [0, -1, 0],
+                                Using: [
+                                    render_textured_diffuse(
+                                        game.MaterialTexturedDiffuse,
+                                        game.MeshQuad,
+                                        game.Textures["shadow"]
                                     ),
                                 ],
                             },

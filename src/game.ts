@@ -1,11 +1,5 @@
 import {create_render_buffer, create_texture_rgba} from "../common/texture.js";
-import {
-    GL_BLEND,
-    GL_CULL_FACE,
-    GL_DEPTH_TEST,
-    GL_ONE,
-    GL_ONE_MINUS_SRC_ALPHA,
-} from "../common/webgl.js";
+import {GL_CULL_FACE, GL_DEPTH_TEST} from "../common/webgl.js";
 import {mat1_postprocess} from "../materials/mat1_postprocess.js";
 import {mat1_textured_diffuse} from "../materials/mat1_textured_diffuse.js";
 import {mesh_cube} from "../meshes/cube.js";
@@ -128,8 +122,6 @@ export class Game {
 
         this.Gl.enable(GL_DEPTH_TEST);
         this.Gl.enable(GL_CULL_FACE);
-        this.Gl.blendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-        this.Gl.enable(GL_BLEND);
     }
 
     FrameReset() {
