@@ -16,10 +16,11 @@ import {Game, Layer} from "../game.js";
 let color_hair: Vec4 = [1, 0, 1, 1];
 let color_body: Vec4 = [1, 1, 0, 1];
 let color_eyes: Vec4 = [0.1, 0.1, 0.1, 1];
+let color_dziup: Vec4 = [1, 0.56, 0, 1];
 
 export function blueprint_player(game: Game, grid_x: number, grid_z: number): Blueprint {
     return {
-        Scale: [0.7, 1, 0.7],
+        // Scale: [0.7, 1, 0.7],
         Using: [
             control_player(),
             walk(grid_x, grid_z),
@@ -33,24 +34,26 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
             {
                 Children: [
                     {
+                        // Hand
                         Translation: [0.8, 0.8, 0],
-                        Scale: [0.6, 0.6, 0.6],
+                        Scale: [0.2, 0.2, 0.5],
                         Using: [
                             render_textured_diffuse(
                                 game.MaterialTexturedDiffuse,
-                                game.MeshSphere,
+                                game.MeshCube,
                                 game.Textures["plain"],
                                 color_hair
                             ),
                         ],
                     },
                     {
+                        // Hand
                         Translation: [-0.8, 0.8, 0],
-                        Scale: [0.6, 0.6, 0.6],
+                        Scale: [0.2, 0.2, 0.5],
                         Using: [
                             render_textured_diffuse(
                                 game.MaterialTexturedDiffuse,
-                                game.MeshSphere,
+                                game.MeshCube,
                                 game.Textures["plain"],
                                 color_hair
                             ),
@@ -115,8 +118,8 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                                 ],
                             },
                             {
-                                Translation: [0, 0.2, -0.5],
-                                Scale: [1, 0.2, 0.5],
+                                Translation: [-0.175, 0.3, -0.2],
+                                Scale: [0.25, 0.3, 1],
                                 Using: [
                                     render_textured_diffuse(
                                         game.MaterialTexturedDiffuse,
@@ -126,26 +129,53 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                                     ),
                                 ],
                             },
-                            // {
-                            //     Translation: [0.175, 0, -0.2],
-                            //     Scale: [0.25, 0.6, 1],
-                            //     Using: [
-                            //         render_textured_diffuse(
-                            //             game.MaterialTexturedDiffuse,
-                            //             game.MeshCube,
-                            //             game.Textures["eye"]
-                            //         ),
-                            //     ],
-                            // },
                             {
-                                // Body
-                                Scale: [1.5, 1.5, 1.5],
+                                Translation: [0.175, 0.3, -0.2],
+                                Scale: [0.25, 0.3, 1],
                                 Using: [
                                     render_textured_diffuse(
                                         game.MaterialTexturedDiffuse,
-                                        game.MeshSphere,
+                                        game.MeshCube,
+                                        game.Textures["plain"],
+                                        color_eyes
+                                    ),
+                                ],
+                            },
+                            {
+                                Translation: [0, -0.2, -0.5],
+                                Scale: [0.25, 0.5, 0.8],
+                                Rotation: from_euler([0, 0, 0, 0], 45, 0, 0),
+                                Using: [
+                                    render_textured_diffuse(
+                                        game.MaterialTexturedDiffuse,
+                                        game.MeshCube,
+                                        game.Textures["plain"],
+                                        color_dziup
+                                    ),
+                                ],
+                            },
+                            {
+                                // Body
+                                // Scale: [1.5, 1.5, 1.5],
+                                Using: [
+                                    render_textured_diffuse(
+                                        game.MaterialTexturedDiffuse,
+                                        game.MeshCube,
                                         game.Textures["plain"],
                                         color_body
+                                    ),
+                                ],
+                            },
+                            {
+                                // Shadow
+                                Rotation: from_euler([0, 0, 0, 0], -90, 45, 0),
+                                Scale: [0.6, 0.6, 1],
+                                Translation: [0, -1, 0],
+                                Using: [
+                                    render_textured_diffuse(
+                                        game.MaterialTexturedDiffuse,
+                                        game.MeshQuad,
+                                        game.Textures["shadow"]
                                     ),
                                 ],
                             },

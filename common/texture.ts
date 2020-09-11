@@ -3,7 +3,6 @@ import {
     GL_DATA_UNSIGNED_BYTE,
     GL_LINEAR,
     GL_NEAREST,
-    GL_NEAREST_MIPMAP_NEAREST,
     GL_PIXEL_UNSIGNED_BYTE,
     GL_RGBA,
     GL_TEXTURE_2D,
@@ -26,11 +25,10 @@ export function create_texture_from(gl: WebGLRenderingContext, image: HTMLImageE
 
     // WebGL1 can only mipmap images which are a power of 2 in both dimensions.
     // All our textures meet this criterion.
-    gl.generateMipmap(GL_TEXTURE_2D);
     gl.texParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    gl.texParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
     // These are the defaults.
-    gl.texParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
     // gl.texParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     // gl.texParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 

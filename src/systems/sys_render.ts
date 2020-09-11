@@ -66,8 +66,6 @@ function render(game: Game, pv: Mat4, current_target?: WebGLTexture) {
 function use_textured_diffuse(game: Game, material: Material<TexturedDiffuseLayout>, pv: Mat4) {
     game.Gl.useProgram(material.Program);
     game.Gl.uniformMatrix4fv(material.Locations.Pv, false, pv);
-    game.Gl.uniform4fv(material.Locations.LightPositions, game.LightPositions);
-    game.Gl.uniform4fv(material.Locations.LightDetails, game.LightDetails);
 }
 
 function draw_textured_diffuse(game: Game, transform: Transform, render: RenderTexturedDiffuse) {

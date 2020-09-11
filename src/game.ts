@@ -1,16 +1,9 @@
 import {create_render_buffer, create_texture_rgba} from "../common/texture.js";
-import {
-    GL_BLEND,
-    GL_CULL_FACE,
-    GL_DEPTH_TEST,
-    GL_ONE,
-    GL_ONE_MINUS_SRC_ALPHA,
-} from "../common/webgl.js";
+import {GL_CULL_FACE, GL_DEPTH_TEST} from "../common/webgl.js";
 import {mat1_postprocess} from "../materials/mat1_postprocess.js";
 import {mat1_textured_diffuse} from "../materials/mat1_textured_diffuse.js";
 import {mesh_cube} from "../meshes/cube.js";
 import {mesh_quad} from "../meshes/quad.js";
-import {mesh_sphere} from "../meshes/sphere.js";
 import {CameraFramebuffer} from "./components/com_camera_framebuffer.js";
 import {loop_start, loop_stop} from "./core.js";
 import {sys_animate} from "./systems/sys_animate.js";
@@ -19,7 +12,6 @@ import {sys_camera} from "./systems/sys_camera.js";
 import {sys_collide} from "./systems/sys_collide.js";
 import {sys_control_keyboard} from "./systems/sys_control_keyboard.js";
 import {sys_control_touch} from "./systems/sys_control_touch.js";
-import {sys_light} from "./systems/sys_light.js";
 import {sys_mimic} from "./systems/sys_mimic.js";
 import {sys_move} from "./systems/sys_move.js";
 import {sys_physics} from "./systems/sys_physics.js";
@@ -50,12 +42,8 @@ export class Game {
     MaterialPostprocess = mat1_postprocess(this.Gl);
     MeshCube = mesh_cube(this.Gl);
     MeshQuad = mesh_quad(this.Gl);
-    MeshSphere = mesh_sphere(this.Gl);
 
     Cameras: Array<CameraFramebuffer> = [];
-    // The rendering pipeline supports 8 lights.
-    LightPositions = new Float32Array(4 * 8);
-    LightDetails = new Float32Array(4 * 8);
 
     Textures: Record<string, WebGLTexture> = {
         Minimap: create_texture_rgba(this.Gl, RENDER_TEXTURE_SIZE, RENDER_TEXTURE_SIZE),
@@ -131,8 +119,6 @@ export class Game {
 
         this.Gl.enable(GL_DEPTH_TEST);
         this.Gl.enable(GL_CULL_FACE);
-        this.Gl.blendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-        this.Gl.enable(GL_BLEND);
     }
 
     FrameReset() {
@@ -165,7 +151,6 @@ export class Game {
         sys_transform(this, delta);
 
         sys_camera(this, delta);
-        sys_light(this, delta);
         sys_render(this, delta);
         sys_postprocess(this, delta);
         sys_ui(this, delta);

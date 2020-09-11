@@ -16,6 +16,7 @@ export const enum Action {
     GoToStage,
     KeyCollected,
     PortalUsed,
+    FallIntoHole,
     Drown,
 }
 
@@ -106,10 +107,24 @@ export function dispatch(game: Game, action: Action, payload: unknown) {
             break;
         }
 
+        case Action.FallIntoHole: {
+            let [entity, other] = payload as [Entity, Entity];
+            game.World.Signature[other] &= ~Has.ControlPlayer;
+            setTimeout(() => destroy(game.World, entity));
+            break;
+        }
+
         case Action.Drown: {
             let [entity, other] = payload as [Entity, Entity];
             let other_collide = game.World.Collide[other];
             if (other_collide.Layers & Layer.Movable) {
+                let other_transform = game.World.Transform[other];
+                other_transform.Translation[1] = -0.05;
+                other_transform.Dirty = true;
+
+                let other_rigid_body = game.World.RigidBody[other];
+                other_rigid_body.Dynamic = false;
+
                 for (let child_entity of query_all(game.World, other, Has.Animate)) {
                     let child_animate = game.World.Animate[child_entity];
                     child_animate.Trigger = "float";
