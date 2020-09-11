@@ -9,12 +9,26 @@ export function Stage(game: Game) {
         <div class="screen">
             <div class="view" style="border: 10px solid #c60;">
                 <div
+                    class="button"
+                    onclick="$(${Action.GoToStage}, ${game.CurrentStage})"
                     style="
-                    width: 256px;
-                    height: 192px;
-                    margin: 96px 0 0;
-                    border: 10px solid #c60;
-                "
+                        position: absolute;
+                        top: 15px;
+                        right: 15px;
+                        width: 40px;
+                        height: 45px;
+                        text-align: center;
+                    "
+                >
+                    ⭮
+                </div>
+                <div
+                    style="
+                        width: 256px;
+                        height: 192px;
+                        margin: 96px 0 0;
+                        border: 10px solid #c60;
+                    "
                 ></div>
             </div>
             ${game.StageFailed && Failed(game.CurrentStage)}
