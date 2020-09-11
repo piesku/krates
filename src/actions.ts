@@ -16,6 +16,7 @@ export const enum Action {
     GoToStage,
     KeyCollected,
     PortalUsed,
+    FallIntoHole,
     Drown,
 }
 
@@ -103,6 +104,13 @@ export function dispatch(game: Game, action: Action, payload: unknown) {
                 }
             }
 
+            break;
+        }
+
+        case Action.FallIntoHole: {
+            let [entity, other] = payload as [Entity, Entity];
+            game.World.Signature[other] &= ~Has.ControlPlayer;
+            setTimeout(() => destroy(game.World, entity));
             break;
         }
 
