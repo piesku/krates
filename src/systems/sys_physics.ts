@@ -3,7 +3,7 @@ import {Entity, Game} from "../game.js";
 import {Has} from "../world.js";
 
 const QUERY = Has.Transform | Has.Collide | Has.RigidBody;
-const GRAVITY = -9.81;
+const GRAVITY = -99;
 
 export function sys_physics(game: Game, delta: number) {
     for (let i = 0; i < game.World.Signature.length; i++) {

@@ -4,7 +4,6 @@ import {mat1_postprocess} from "../materials/mat1_postprocess.js";
 import {mat1_textured_diffuse} from "../materials/mat1_textured_diffuse.js";
 import {mesh_cube} from "../meshes/cube.js";
 import {mesh_quad} from "../meshes/quad.js";
-import {mesh_sphere} from "../meshes/sphere.js";
 import {CameraFramebuffer} from "./components/com_camera_framebuffer.js";
 import {loop_start, loop_stop} from "./core.js";
 import {sys_animate} from "./systems/sys_animate.js";
@@ -44,7 +43,6 @@ export class Game {
     MaterialPostprocess = mat1_postprocess(this.Gl);
     MeshCube = mesh_cube(this.Gl);
     MeshQuad = mesh_quad(this.Gl);
-    MeshSphere = mesh_sphere(this.Gl);
 
     Cameras: Array<CameraFramebuffer> = [];
 

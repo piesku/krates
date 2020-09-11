@@ -11,7 +11,7 @@ export function blueprint_texture(game: Game, texture_name: string): Blueprint {
     return {
         Scale: [0.5, 0.5, 0.5],
         Using: [
-            collide(true, Layer.Collectable, Layer.Player, [0.5, 0.5, 0.5]),
+            collide(true, Layer.Collectable, Layer.Player, [0.2, 0.2, 0.2]),
             trigger(Action.TextureCollected),
             animate({
                 idle: {
