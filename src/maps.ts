@@ -1,6 +1,7 @@
 import {Vec3} from "../common/math.js";
 import {blueprint_box} from "./blueprints/blu_box.js";
 import {blueprint_door} from "./blueprints/blu_door.js";
+import {blueprint_empty} from "./blueprints/blu_empty.js";
 import {blueprint_ground} from "./blueprints/blu_ground.js";
 import {blueprint_key} from "./blueprints/blu_key.js";
 import {blueprint_lava} from "./blueprints/blu_lava.js";
@@ -177,8 +178,8 @@ export let maps: Array<MapData> = [
         terrain: [
             2,2,2,2,2,2,2,
             2,2,2,2,2,2,2,
-            2,0,0,0,0,0,2,
-            2,0,0,0,0,0,2,
+            2,1,1,1,1,1,2,
+            2,1,1,1,1,1,2,
             2,2,2,2,2,2,2,
             2,2,2,2,2,2,2,
             2,2,2,2,2,2,2
@@ -200,16 +201,22 @@ export function create_tile(game: Game, tile: TileKind, translation: Vec3, x?: n
     let textured = game.CurrentStage === 0;
 
     switch (tile) {
-        case TileKind.Grass:
-            instantiate(game, {
-                ...blueprint_ground(game, textured),
-                Translation: translation,
-            });
-            break;
         case TileKind.Lava:
             translation[1] = -0.3;
             instantiate(game, {
                 ...blueprint_lava(game, textured),
+                Translation: translation,
+            });
+        // Fall through.
+        case TileKind.Water:
+            instantiate(game, {
+                ...blueprint_empty(),
+                Translation: translation,
+            });
+            break;
+        case TileKind.Grass:
+            instantiate(game, {
+                ...blueprint_ground(game, textured),
                 Translation: translation,
             });
             break;
