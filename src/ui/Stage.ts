@@ -15,12 +15,11 @@ export function Stage(game: Game) {
                         position: absolute;
                         top: 15px;
                         right: 15px;
-                        width: 40px;
                         height: 45px;
                         text-align: center;
                     "
                 >
-                    ⭮
+                    Restart
                 </div>
                 <div
                     style="
