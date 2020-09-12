@@ -23,8 +23,9 @@ function update(game: Game, entity: Entity, delta: number) {
         let interval = spb / 4;
         for (let track of audio_source.Trigger.Tracks) {
             for (let i = 0; i < track.Notes.length; i++) {
-                if (track.Notes[i]) {
-                    play_note(game.Audio, track.Instrument, track.Notes[i], i * interval);
+                let note = track.Notes[i];
+                if (note) {
+                    play_note(game.Audio, track.Instrument, note, i * interval);
                 }
             }
         }
@@ -38,5 +39,9 @@ function update(game: Game, entity: Entity, delta: number) {
     // up. Otherwise sound effects would go out of sync with the game logic.
     // Reset the trigger to the default or undefined, regardless of whether it
     // triggered a new clip to play.
-    audio_source.Trigger = audio_source.Idle;
+    if (audio_source.Idle?.Next) {
+        audio_source.Trigger = audio_source.Idle.Next();
+    } else {
+        audio_source.Trigger = audio_source.Idle;
+    }
 }
