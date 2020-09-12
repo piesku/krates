@@ -35,9 +35,10 @@ export interface AudioClip {
     Exit: number;
     /** Beats per minute (default 120). */
     BPM?: number;
+    Next?: () => AudioClip;
 }
 
 export interface AudioTrack {
     Instrument: Instrument;
-    Notes: Array<number>;
+    Notes: Array<number | undefined>;
 }

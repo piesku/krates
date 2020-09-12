@@ -3,10 +3,12 @@ import {float, set_seed} from "../../common/random.js";
 import {blueprint_camera_follow} from "../blueprints/blu_camera_follow.js";
 import {blueprint_water} from "../blueprints/blu_water_bg.js";
 import {animate, AnimationFlag} from "../components/com_animate.js";
+import {audio_source} from "../components/com_audio_source.js";
 import {named} from "../components/com_named.js";
 import {instantiate} from "../core.js";
 import {Game} from "../game.js";
 import {create_tile, maps} from "../maps.js";
+import {snd_title} from "../sounds/snd_title.js";
 import {World} from "../world.js";
 
 export function scene_title(game: Game) {
@@ -37,6 +39,7 @@ export function scene_title(game: Game) {
     instantiate(game, {
         Translation: [0, 2, 0],
         Using: [
+            audio_source(snd_title()),
             named("camera anchor"),
             animate({
                 idle: {
