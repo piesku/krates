@@ -237,21 +237,21 @@ export let maps: Array<MapData> = [
             0, 11, 11, 11, 11, 11]
     },
     {
-        texture: "door",
+        texture: "lava",
         // prettier-ignore
         terrain: [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
         // prettier-ignore
         props: [0, 0, 0, 0, 0, 0, 0, 7, 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 6, 5, 6, 6, 6, 6, 0, 6, 6, 0, 0, 0, 0, 0, 6, 8, 0, 6, 6, 6, 6, 6, 0, 0, 3, 0, 0, 0, 0, 4]
     },
     {
-        texture: "key",
+        texture: "lava",
         // prettier-ignore
         terrain: [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
         // prettier-ignore
         props: [0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 0, 0, 6, 6, 6, 9, 6, 6, 6, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 4, 0, 0, 0]
     },
     {
-        texture: "key",
+        texture: "lava",
         // prettier-ignore
         terrain: [2, 2, 2, 2, 2, 2, 2,
             2, 2, 2, 2, 2, 2, 1,
@@ -270,7 +270,7 @@ export let maps: Array<MapData> = [
             0, 0, 0, 4, 0, 0, 0]
     },
     {
-        texture: "key",
+        texture: "lava",
         // prettier-ignore
         terrain: [
             2,2,2,2,2,2,2,
