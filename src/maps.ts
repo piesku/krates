@@ -1,12 +1,12 @@
 import {Vec3} from "../common/math.js";
 import {blueprint_box} from "./blueprints/blu_box.js";
+import {blueprint_bush} from "./blueprints/blu_bush.js";
 import {blueprint_empty} from "./blueprints/blu_empty.js";
+import {blueprint_fence} from "./blueprints/blu_fence.js";
 import {blueprint_ground} from "./blueprints/blu_ground.js";
-import {blueprint_key} from "./blueprints/blu_key.js";
 import {blueprint_lava} from "./blueprints/blu_lava.js";
 import {blueprint_palm} from "./blueprints/blu_palm.js";
 import {blueprint_player} from "./blueprints/blu_player.js";
-import {blueprint_portal} from "./blueprints/blu_portal.js";
 import {blueprint_sand} from "./blueprints/blu_sand.js";
 import {blueprint_stone} from "./blueprints/blu_stone.js";
 import {blueprint_texture} from "./blueprints/blu_texture.js";
@@ -24,8 +24,8 @@ export const enum TileKind {
     Texture,
     Stone,
     Sand,
-    Key,
-    Portal,
+    Bush,
+    Fence,
     PortalDestination,
     Palm,
     Lava,
@@ -163,40 +163,44 @@ export let maps: Array<MapData> = [
             0, 0, 11, 0, 0, 0, 0, 0]
     },
     {
-        texture: "lava",
+        texture: "bush",
         // prettier-ignore
-        terrain: [2, 2, 2, 2, 2, 2, 1,
+        terrain: [2, 2, 2, 2, 7, 7, 1,
+            2, 2, 2, 2, 7, 7, 7,
             2, 2, 2, 2, 2, 2, 2,
-            2, 2, 2, 2, 2, 2, 2,
-            2, 2, 2, 2, 2, 2, 2,
-            2, 2, 2, 2, 2, 2, 2,
-            2, 2, 2, 1, 1, 1, 2,
-            2, 2, 2, 2, 2, 2, 2],
+            7, 2, 2, 2, 2, 2, 2,
+            7, 7, 2, 2, 2, 2, 2,
+            7, 7, 7, 1, 1, 1, 2,
+            7, 7, 7, 7, 7, 7, 1],
         // prettier-ignore
-        props: [0, 0, 0, 6, 6, 6, 0,
-            0, 3, 0, 6, 0, 0, 0,
-            0, 0, 0, 6, 3, 6, 0,
+        props: [0, 0, 0, 6, 11, 6, 0,
+            0, 3, 0, 8, 0, 0, 0,
+            0, 0, 0, 6, 3, 8, 0,
             11, 6, 3, 0, 0, 0, 0,
-            11, 0, 0, 0, 6, 6, 6,
-            11, 0, 4, 0, 0, 0, 5,
-            11, 11, 11, 11, 11, 11, 11]
+            6, 0, 0, 0, 11, 11, 6,
+            8, 0, 4, 0, 0, 0, 5,
+            0, 0, 8, 0, 0, 0, 0]
     },
     {
-        texture: "lava",
+        texture: "fence",
         // prettier-ignore
-        terrain: [2, 2, 2, 2, 2, 2, 1, 1,
-            2, 2, 2, 2, 2, 2, 1, 2,
-            2, 2, 2, 2, 2, 2, 1, 2,
-            2, 2, 2, 2, 2, 2, 1, 2,
+        terrain: [2, 2, 7, 7, 7, 7, 1, 1,
+            2, 2, 2, 7, 7, 7, 1, 2,
+            2, 2, 2, 2, 7, 7, 1, 7,
+            2, 2, 2, 2, 2, 7, 1, 7,
             2, 2, 2, 2, 2, 2, 1, 1,
-            2, 2, 2, 2, 2, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            2, 2, 2, 2, 2, 2, 1, 1,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0],
         // prettier-ignore
-        props: [0, 0, 0, 6, 0, 0, 0, 0,
+        props: [0, 0, 0, 8, 0, 0, 0, 0,
             0, 11, 0, 6, 0, 0, 0, 0,
             0, 0, 0, 0, 3, 0, 0, 5,
-            0, 6, 0, 11, 0, 0, 0, 0,
+            0, 6, 0, 11, 0, 0, 0, 11,
             0, 0, 0, 6, 0, 0, 0, 0,
-            6, 11, 6, 11, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            8, 9, 9, 9, 4, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0]
     },
     {
         texture: "lava",
@@ -236,39 +240,39 @@ export let maps: Array<MapData> = [
             11, 11, 0, 0, 0, 6,
             0, 11, 11, 11, 11, 11]
     },
-    {
-        texture: "door",
-        // prettier-ignore
-        terrain: [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
-        // prettier-ignore
-        props: [0, 0, 0, 0, 0, 0, 0, 7, 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 6, 5, 6, 6, 6, 6, 0, 6, 6, 0, 0, 0, 0, 0, 6, 8, 0, 6, 6, 6, 6, 6, 0, 0, 3, 0, 0, 0, 0, 4]
-    },
-    {
-        texture: "key",
-        // prettier-ignore
-        terrain: [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
-        // prettier-ignore
-        props: [0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 0, 0, 6, 6, 6, 9, 6, 6, 6, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 4, 0, 0, 0]
-    },
-    {
-        texture: "key",
-        // prettier-ignore
-        terrain: [2, 2, 2, 2, 2, 2, 2,
-            2, 2, 2, 2, 2, 2, 1,
-            2, 2, 2, 2, 2, 2, 2,
-            2, 2, 2, 2, 2, 2, 2,
-            2, 2, 2, 0, 2, 2, 2,
-            2, 2, 2, 2, 2, 2, 2,
-            2, 2, 2, 2, 2, 2, 2],
-        // prettier-ignore
-        props: [0, 0, 0, 0, 0, 0, 0,
-            0, 5, 0, 0, 0, 0, 10,
-            0, 0, 0, 0, 0, 0, 0,
-            0, 0, 6, 6, 6, 0, 0,
-            6, 6, 6, 9, 6, 6, 6,
-            0, 0, 0, 0, 3, 0, 0,
-            0, 0, 0, 4, 0, 0, 0]
-    },
+    // {
+    //     texture: "door",
+    //     // prettier-ignore
+    //     terrain: [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+    //     // prettier-ignore
+    //     props: [0, 0, 0, 0, 0, 0, 0, 7, 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 6, 5, 6, 6, 6, 6, 0, 6, 6, 0, 0, 0, 0, 0, 6, 8, 0, 6, 6, 6, 6, 6, 0, 0, 3, 0, 0, 0, 0, 4]
+    // },
+    // {
+    //     texture: "key",
+    //     // prettier-ignore
+    //     terrain: [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+    //     // prettier-ignore
+    //     props: [0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 0, 0, 6, 6, 6, 9, 6, 6, 6, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 4, 0, 0, 0]
+    // },
+    // {
+    //     texture: "key",
+    //     // prettier-ignore
+    //     terrain: [2, 2, 2, 2, 2, 2, 2,
+    //         2, 2, 2, 2, 2, 2, 1,
+    //         2, 2, 2, 2, 2, 2, 2,
+    //         2, 2, 2, 2, 2, 2, 2,
+    //         2, 2, 2, 0, 2, 2, 2,
+    //         2, 2, 2, 2, 2, 2, 2,
+    //         2, 2, 2, 2, 2, 2, 2],
+    //     // prettier-ignore
+    //     props: [0, 0, 0, 0, 0, 0, 0,
+    //         0, 5, 0, 0, 0, 0, 10,
+    //         0, 0, 0, 0, 0, 0, 0,
+    //         0, 0, 6, 6, 6, 0, 0,
+    //         6, 6, 6, 9, 6, 6, 6,
+    //         0, 0, 0, 0, 3, 0, 0,
+    //         0, 0, 0, 4, 0, 0, 0]
+    // },
     {
         texture: "key",
         // prettier-ignore
@@ -294,6 +298,7 @@ export let maps: Array<MapData> = [
     },
 ];
 
+console.log(maps.length);
 export function create_tile(game: Game, tile: TileKind, translation: Vec3, x?: number, z?: number) {
     let textured = game.CurrentStage === 0;
 
@@ -345,9 +350,9 @@ export function create_tile(game: Game, tile: TileKind, translation: Vec3, x?: n
 
             game.AllTextures[texture_id] = texture_name;
             break;
-        case TileKind.Key:
+        case TileKind.Bush:
             instantiate(game, {
-                ...blueprint_key(game, textured),
+                ...blueprint_bush(game, textured),
                 Translation: translation,
             });
             break;
@@ -363,10 +368,9 @@ export function create_tile(game: Game, tile: TileKind, translation: Vec3, x?: n
                 Translation: translation,
             });
             break;
-        case TileKind.Portal:
-            translation[1] = 0;
+        case TileKind.Fence:
             instantiate(game, {
-                ...blueprint_portal(game, textured),
+                ...blueprint_fence(game, textured),
                 Translation: translation,
             });
             break;
