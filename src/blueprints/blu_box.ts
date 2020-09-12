@@ -53,8 +53,7 @@ export function blueprint_box(game: Game, textured = false): Blueprint {
                 ],
             },
             {
-                Scale: [0.1, 1, 0.1],
-                Using: [collide(true, Layer.Terrain, Layer.None), rigid_body(false)],
+                Using: [collide(true, Layer.Terrain, Layer.None, [0.1, 1, 0.1]), rigid_body(false)],
             },
             // {
             //     Scale: [1.8, 1, 1.8],

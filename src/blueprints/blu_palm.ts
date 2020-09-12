@@ -9,7 +9,7 @@ export function blueprint_palm(game: Game, textured = false): Blueprint {
     let texture = "palm";
     textured = game.UnlockedTextures.includes(texture) ? true : textured;
     return {
-        Using: [collide(false, Layer.Terrain, Layer.None, [1, 1, 1]), rigid_body(false)],
+        Using: [collide(false, Layer.Terrain, Layer.None), rigid_body(false)],
         Children: [
             {
                 Translation: [0, 0.5, 0],
