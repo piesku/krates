@@ -8,7 +8,7 @@ import {Game, Layer} from "../game.js";
 
 export function blueprint_water(
     game: Game,
-    textured = game.UnlockedTextures.includes("water")
+    textured = game.UnlockedTextures.has("water")
 ): Blueprint {
     return {
         Rotation: [-0.707, 0, 0, 0.707],

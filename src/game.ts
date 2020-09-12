@@ -61,7 +61,7 @@ export class Game {
     CurrentStage = 0;
     CurrentScene?: Function;
     MapSize = 11;
-    UnlockedTextures: string[] = ["portal", "key"]; //, "water", "grass", "stone", "krates"];
+    UnlockedTextures = new Set(["portal", "key"]); //, "water", "grass", "stone", "krates"];
     HasKey: boolean = false;
     StageCleared = false;
     StageFailed = false;

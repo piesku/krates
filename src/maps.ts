@@ -8,10 +8,9 @@ import {blueprint_lava} from "./blueprints/blu_lava.js";
 import {blueprint_palm} from "./blueprints/blu_palm.js";
 import {blueprint_player} from "./blueprints/blu_player.js";
 import {blueprint_sand} from "./blueprints/blu_sand.js";
+import {blueprint_shell} from "./blueprints/blu_shell.js";
 import {blueprint_stone} from "./blueprints/blu_stone.js";
 import {blueprint_texture} from "./blueprints/blu_texture.js";
-import {named} from "./components/com_named.js";
-import {walk} from "./components/com_walk.js";
 import {instantiate} from "./core.js";
 import {Game} from "./game.js";
 
@@ -26,7 +25,7 @@ export const enum TileKind {
     Sand,
     Bush,
     Fence,
-    PortalDestination,
+    Shell,
     Palm,
     Lava,
 }
@@ -205,23 +204,29 @@ export let maps: Array<MapData> = [
     {
         texture: "lava",
         // prettier-ignore
-        terrain: [1, 2, 2, 2, 2, 2, 2, 1,
-            2, 2, 2, 2, 1, 2, 2, 2,
-            2, 2, 2, 2, 2, 2, 2, 2,
-            2, 2, 2, 2, 2, 2, 2, 2,
-            2, 2, 2, 2, 2, 2, 2, 2,
-            2, 2, 2, 2, 2, 2, 2, 2,
-            2, 2, 2, 2, 2, 2, 2, 2,
-            1, 2, 2, 2, 2, 2, 2, 1],
+        terrain: [1, 2, 2, 2, 2, 2, 2, 7, 7, 1, 1,
+            2, 2, 2, 2, 1, 2, 2, 2, 7, 7, 1,
+            2, 2, 2, 2, 2, 2, 2, 2, 2, 7, 7,
+            2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+            2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+            2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+            2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+            2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+            2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+            1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1,
+            1, 1, 2, 2, 2, 2, 2, 2, 2, 1, 1],
         // prettier-ignore
-        props: [0, 11, 11, 6, 0, 0, 11, 0,
-            11, 0, 0, 6, 0, 0, 0, 0,
-            0, 4, 0, 6, 5, 6, 0, 0,
-            0, 0, 0, 6, 6, 6, 0, 0,
-            0, 0, 0, 3, 0, 6, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0,
-            11, 0, 0, 0, 6, 0, 0, 11,
-            0, 11, 11, 11, 6, 11, 11, 0]
+        props: [0, 11, 11, 6, 0, 0, 10, 11, 10, 0, 0,
+            11, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 6, 5, 6, 0, 0, 0, 0, 10,
+            0, 0, 0, 6, 6, 6, 6, 6, 0, 0, 0,
+            0, 0, 0, 6, 12, 12, 12, 6, 0, 0, 0,
+            0, 4, 0, 6, 12, 12, 12, 6, 0, 0, 0,
+            0, 0, 0, 6, 12, 12, 12, 6, 0, 0, 0,
+            0, 0, 0, 6, 6, 6, 12, 6, 0, 0, 0,
+            0, 0, 0, 3, 0, 6, 6, 6, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0,
+            0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0]
     },
     {
         texture: "lava",
@@ -304,7 +309,7 @@ export function create_tile(game: Game, tile: TileKind, translation: Vec3, x?: n
 
     switch (tile) {
         case TileKind.Lava:
-            translation[1] = -0.3;
+            translation[1] -= 0.3;
             instantiate(game, {
                 ...blueprint_lava(game, textured),
                 Translation: translation,
@@ -374,11 +379,10 @@ export function create_tile(game: Game, tile: TileKind, translation: Vec3, x?: n
                 Translation: translation,
             });
             break;
-        case TileKind.PortalDestination:
-            translation[1] = 10;
+        case TileKind.Shell:
             instantiate(game, {
+                ...blueprint_shell(game, textured),
                 Translation: translation,
-                Using: [named("destination"), walk(x!, z!)],
             });
             break;
     }

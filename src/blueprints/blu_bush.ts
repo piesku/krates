@@ -7,7 +7,7 @@ import {Game, Layer} from "../game.js";
 
 export function blueprint_bush(game: Game, textured = false): Blueprint {
     let texture = "bush";
-    textured = game.UnlockedTextures.includes(texture) ? true : textured;
+    textured = game.UnlockedTextures.has(texture) ? true : textured;
     return {
         Using: [collide(false, Layer.Terrain, Layer.None, [1, 1, 1]), rigid_body(false)],
         Children: [

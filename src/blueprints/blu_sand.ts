@@ -6,7 +6,7 @@ import {Game, Layer} from "../game.js";
 
 export function blueprint_sand(game: Game, textured = false): Blueprint {
     let texture = "sand";
-    textured = game.UnlockedTextures.includes(texture) ? true : textured;
+    textured = game.UnlockedTextures.has(texture) ? true : textured;
 
     return {
         Using: [

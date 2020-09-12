@@ -7,7 +7,7 @@ import {Game, Layer} from "../game.js";
 
 export function blueprint_fence(game: Game, textured = false): Blueprint {
     let texture = "fence";
-    textured = game.UnlockedTextures.includes(texture) ? true : textured;
+    textured = game.UnlockedTextures.has(texture) ? true : textured;
     return {
         Using: [collide(false, Layer.Terrain, Layer.None, [1, 1, 1]), rigid_body(false)],
         Children: [
