@@ -8,7 +8,7 @@ import {Game, Layer} from "../game.js";
 
 export function blueprint_box(game: Game, textured = false): Blueprint {
     let texture = "krates";
-    textured = game.UnlockedTextures.includes(texture) ? true : textured;
+    textured = game.UnlockedTextures.has(texture) ? true : textured;
 
     return {
         Using: [

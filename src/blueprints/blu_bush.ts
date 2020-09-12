@@ -5,15 +5,14 @@ import {rigid_body} from "../components/com_rigid_body.js";
 import {Blueprint} from "../core.js";
 import {Game, Layer} from "../game.js";
 
-export function blueprint_palm(game: Game, textured = false): Blueprint {
-    let texture = "palm";
+export function blueprint_bush(game: Game, textured = false): Blueprint {
+    let texture = "bush";
     textured = game.UnlockedTextures.has(texture) ? true : textured;
     return {
-        Using: [collide(false, Layer.Terrain, Layer.None), rigid_body(false)],
+        Using: [collide(false, Layer.Terrain, Layer.None, [1, 1, 1]), rigid_body(false)],
         Children: [
             {
-                Translation: [0, 0.5, 0],
-                Scale: [0.5, 1, 0.5],
+                Scale: [0.5, 0.5, 0.5],
                 Rotation: from_euler([0, 0, 0, 0], -15, 0, 0),
                 Using: [
                     render_textured_diffuse(

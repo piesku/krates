@@ -6,7 +6,7 @@ import {Game, Layer} from "../game.js";
 
 export function blueprint_door(game: Game, textured = false): Blueprint {
     let texture = "door";
-    textured = game.UnlockedTextures.includes(texture) ? true : textured;
+    textured = game.UnlockedTextures.has(texture) ? true : textured;
 
     return {
         Scale: [1, 1.5, 0.2],

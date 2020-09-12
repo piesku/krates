@@ -9,7 +9,7 @@ import {Game, Layer} from "../game.js";
 
 export function blueprint_key(game: Game, textured = false): Blueprint {
     let texture = "key";
-    textured = game.UnlockedTextures.includes(texture) ? true : textured;
+    textured = game.UnlockedTextures.has(texture) ? true : textured;
 
     return {
         Scale: [0.7, 0.7, 0.7],

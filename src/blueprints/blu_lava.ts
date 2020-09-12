@@ -4,7 +4,7 @@ import {Game} from "../game.js";
 
 export function blueprint_lava(game: Game, textured = false): Blueprint {
     let texture = "lava";
-    textured = game.UnlockedTextures.includes(texture) ? true : textured;
+    textured = game.UnlockedTextures.has(texture) ? true : textured;
     return {
         Using: [
             render_textured_diffuse(

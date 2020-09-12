@@ -9,7 +9,7 @@ import {Game, Layer} from "../game.js";
 
 export function blueprint_portal(game: Game, textured = false): Blueprint {
     let texture = "portal";
-    textured = game.UnlockedTextures.includes(texture) ? true : textured;
+    textured = game.UnlockedTextures.has(texture) ? true : textured;
     return {
         Children: [
             {
