@@ -9,6 +9,7 @@ import {blueprint_palm} from "./blueprints/blu_palm.js";
 import {blueprint_player} from "./blueprints/blu_player.js";
 import {blueprint_sand} from "./blueprints/blu_sand.js";
 import {blueprint_shell} from "./blueprints/blu_shell.js";
+import {blueprint_small_stone} from "./blueprints/blu_small_stones.js";
 import {blueprint_stone} from "./blueprints/blu_stone.js";
 import {blueprint_texture} from "./blueprints/blu_texture.js";
 import {instantiate} from "./core.js";
@@ -82,12 +83,12 @@ export let maps: Array<MapData> = [
     {
         texture: "stone",
         // prettier-ignore
-        terrain: [2, 2, 2, 6, 6, 2, 2,
-            2, 2, 2, 6, 6, 2, 2,
-            2, 2, 6, 6, 6, 6, 2,
-            2, 6, 6, 6, 2, 2, 2,
-            2, 2, 2, 2, 6, 2, 2,
-            2, 2, 2, 2, 2, 6, 2,
+        terrain: [2, 2, 2, 7, 7, 2, 2,
+            2, 2, 2, 7, 7, 2, 2,
+            2, 2, 7, 7, 7, 7, 2,
+            2, 7, 7, 7, 2, 2, 2,
+            2, 2, 2, 2, 7, 2, 2,
+            2, 2, 2, 2, 2, 7, 2,
             2, 2, 2, 2, 2, 2, 2],
         // prettier-ignore
         props: [5, 0, 0, 0, 0, 11, 11,
@@ -334,12 +335,20 @@ export function create_tile(game: Game, tile: TileKind, translation: Vec3, x?: n
             });
             break;
         case TileKind.Stone:
-            instantiate(game, {
-                ...blueprint_stone(game, textured),
-                Translation: translation,
-            });
+            if (translation[1] === 1) {
+                instantiate(game, {
+                    ...blueprint_small_stone(game, textured),
+                    Translation: translation,
+                });
+            } else {
+                instantiate(game, {
+                    ...blueprint_stone(game, textured),
+                    Translation: translation,
+                });
+            }
             break;
         case TileKind.SpawnPoint:
+            translation[1] += 5;
             instantiate(game, {
                 ...blueprint_player(game, x!, z!),
                 Translation: translation,
