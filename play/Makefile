@@ -34,7 +34,6 @@ index.html: game.html game.terser.js
 index.zip: index.html
 	@7z a index.zip -mx=9 -mfb=256 -mpass=15 $<
 
-.PHONY: validate
 validate: index.zip
 	@curl -s -X POST \
 		--form bundle=@$< \
