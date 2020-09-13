@@ -23,7 +23,6 @@ function update(game: Game, entity: Entity, delta: number) {
     if (animate.Trigger) {
         let next = animate.States[animate.Trigger];
         if (next && next !== animate.Current) {
-            console.log(next, animate.Current);
             if (animate.Current.Time === 0) {
                 // If the current clip has completed last frame, switch to the trigger.
                 animate.Current = next;
