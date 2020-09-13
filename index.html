@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <meta charset="utf8" />
-<meta name="viewport" content="width=512, user-scalable=0" />
+<meta name="viewport" content="width=912, user-scalable=no" />
 <title>Oh No!</title>
 <link rel="stylesheet" href="play/game.css" />
 <style>
@@ -43,13 +43,104 @@
     <img src="../textures/plain.gif" id="plain" />
     <img src="../textures/shell.gif" id="shell" />
 
-    <main>
-        <canvas width="512" height="788"></canvas>
-        <div id="ui"></div>
-        <div id="overlay"></div>
-        <div id="hinge"></div>
-    </main>
-
+    <div
+        style="
+            position: relative;
+            width: 912px;
+            height: 788px;
+            background: #222;
+            border-radius: 5px;
+            transform: rotateX(5deg);
+        "
+    >
+        <div
+            style="
+                position: absolute;
+                top: 600px;
+                left: 25px;
+                width: 150px;
+                height: 30px;
+                background: #000;
+            "
+        ></div>
+        <div
+            style="
+                position: absolute;
+                top: 600px;
+                left: 25px;
+                width: 150px;
+                height: 30px;
+                background: #000;
+                transform: rotate(90deg);
+            "
+        ></div>
+        <main>
+            <canvas width="512" height="788"></canvas>
+            <div id="ui"></div>
+            <div id="overlay"></div>
+            <div id="hinge"></div>
+        </main>
+        <div
+            style="
+                position: absolute;
+                top: 525px;
+                right: 75px;
+                width: 50px;
+                height: 50px;
+                border-radius: 40px;
+                background: #000;
+                color: #fff;
+                font: 24px Arial;
+            "
+        >
+            <span style="position: relative; top: 11px; left: 17px;">Y</span>
+        </div>
+        <div
+            style="
+                position: absolute;
+                top: 575px;
+                right: 125px;
+                width: 50px;
+                height: 50px;
+                border-radius: 40px;
+                background: #000;
+                color: #fff;
+                font: 24px Arial;
+            "
+        >
+            <span style="position: relative; top: 11px; left: 17px;">X</span>
+        </div>
+        <div
+            style="
+                position: absolute;
+                top: 625px;
+                right: 75px;
+                width: 50px;
+                height: 50px;
+                border-radius: 40px;
+                background: #000;
+                color: #fff;
+                font: 24px Arial;
+            "
+        >
+            <span style="position: relative; top: 11px; left: 17px;">B</span>
+        </div>
+        <div
+            style="
+                position: absolute;
+                top: 575px;
+                right: 25px;
+                width: 50px;
+                height: 50px;
+                border-radius: 40px;
+                background: #000;
+                color: #fff;
+                font: 24px Arial;
+            "
+        >
+            <span style="position: relative; top: 11px; left: 17px;">A</span>
+        </div>
+    </div>
     <div id="debug">
         <div>update: <span id="update"></span></div>
         <div>delta: <span id="delta"></span></div>

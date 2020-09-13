@@ -18,6 +18,10 @@ let color_body: Vec4 = [1, 1, 0, 1];
 let color_eyes: Vec4 = [0.1, 0.1, 0.1, 1];
 let color_dziup: Vec4 = [1, 0.56, 0, 1];
 
+const WALK = "walk";
+const IDLE = "idle";
+const FLOAT = "float";
+
 export function blueprint_player(game: Game, grid_x: number, grid_z: number): Blueprint {
     return {
         // Scale: [0.7, 1, 0.7],
@@ -35,8 +39,8 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                 Children: [
                     {
                         // Hand
-                        Translation: [0.8, 0.8, 0],
-                        Scale: [0.2, 0.2, 0.5],
+                        Translation: [0.7, 0.6, 0],
+                        Scale: [0.2, 0.6, 0.5],
                         Using: [
                             render_textured_diffuse(
                                 game.MaterialTexturedDiffuse,
@@ -44,12 +48,52 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                                 game.Textures["plain"],
                                 color_hair
                             ),
+                            animate({
+                                [IDLE]: {
+                                    Keyframes: [
+                                        {
+                                            Timestamp: 0,
+                                            Rotation: from_euler([0, 0, 0, 0], 0, 0, 0),
+                                        },
+                                        {
+                                            Timestamp: 1,
+                                            Rotation: from_euler([0, 0, 0, 0], 0, 0, 45),
+                                        },
+                                    ],
+                                },
+                                [WALK]: {
+                                    Keyframes: [
+                                        {
+                                            Timestamp: 0,
+                                            Rotation: from_euler([0, 0, 0, 0], 45, 0, 0),
+                                        },
+                                        {
+                                            Timestamp: 0.2,
+                                            Rotation: from_euler([0, 0, 0, 0], -45, 0, 0),
+                                        },
+                                    ],
+                                },
+                                [FLOAT]: {
+                                    Keyframes: [
+                                        {
+                                            Timestamp: 0,
+                                            Translation: [0.7, 0.8, 0],
+                                            Rotation: from_euler([0, 0, 0, 0], 0, 0, 180),
+                                        },
+                                        {
+                                            Timestamp: 0.2,
+                                            Translation: [0.7, 0.8, 0],
+                                            Rotation: from_euler([0, 0, 0, 0], 0, 0, 45),
+                                        },
+                                    ],
+                                },
+                            }),
                         ],
                     },
                     {
                         // Hand
-                        Translation: [-0.8, 0.8, 0],
-                        Scale: [0.2, 0.2, 0.5],
+                        Translation: [-0.7, 0.6, 0],
+                        Scale: [0.2, 0.6, 0.5],
                         Using: [
                             render_textured_diffuse(
                                 game.MaterialTexturedDiffuse,
@@ -57,6 +101,46 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                                 game.Textures["plain"],
                                 color_hair
                             ),
+                            animate({
+                                [IDLE]: {
+                                    Keyframes: [
+                                        {
+                                            Timestamp: 0,
+                                            Rotation: from_euler([0, 0, 0, 0], 0, 0, -45),
+                                        },
+                                        {
+                                            Timestamp: 1,
+                                            Rotation: from_euler([0, 0, 0, 0], 0, 0, 0),
+                                        },
+                                    ],
+                                },
+                                [WALK]: {
+                                    Keyframes: [
+                                        {
+                                            Timestamp: 0,
+                                            Rotation: from_euler([0, 0, 0, 0], -45, 0, 0),
+                                        },
+                                        {
+                                            Timestamp: 0.2,
+                                            Rotation: from_euler([0, 0, 0, 0], 45, 0, 0),
+                                        },
+                                    ],
+                                },
+                                [FLOAT]: {
+                                    Keyframes: [
+                                        {
+                                            Timestamp: 0,
+                                            Translation: [-0.7, 0.8, 0],
+                                            Rotation: from_euler([0, 0, 0, 0], 0, 0, -180),
+                                        },
+                                        {
+                                            Timestamp: 0.2,
+                                            Translation: [-0.7, 0.7, 0],
+                                            Rotation: from_euler([0, 0, 0, 0], 0, 0, -45),
+                                        },
+                                    ],
+                                },
+                            }),
                         ],
                     },
                     {
@@ -166,42 +250,82 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                                     ),
                                 ],
                             },
-                            {
-                                // Shadow
-                                Rotation: from_euler([0, 0, 0, 0], -90, 45, 0),
-                                Scale: [0.6, 0.6, 1],
-                                Translation: [0, -1, 0],
-                                Using: [
-                                    render_textured_diffuse(
-                                        game.MaterialTexturedDiffuse,
-                                        game.MeshQuad,
-                                        game.Textures["shadow"]
-                                    ),
-                                ],
-                            },
                         ],
                         Using: [
                             animate({
                                 // idle: {
                                 //     Keyframes: [{Timestamp: 0, Translation: [0, 0, 0]}],
                                 // },
-                                idle: {
+                                [IDLE]: {
                                     Keyframes: [
                                         {
                                             Timestamp: 0,
-                                            Rotation: from_euler([0, 0, 0, 0], 0, -15, 0),
+                                            Rotation: from_euler([0, 0, 0, 0], 0, 0, -10),
                                             Ease: ease_in_out_quad,
                                         },
                                         {
                                             Timestamp: 1,
-                                            Rotation: from_euler([0, 0, 0, 0], 0, 15, 0),
+                                            Rotation: from_euler([0, 0, 0, 0], 0, 0, 10),
                                             Ease: ease_in_out_quad,
+                                        },
+                                    ],
+                                },
+                                [WALK]: {
+                                    Keyframes: [
+                                        {
+                                            Timestamp: 0,
+                                            Rotation: from_euler([0, 0, 0, 0], 0, -15, 0),
+                                        },
+                                        {
+                                            Timestamp: 0.2,
+                                            Rotation: from_euler([0, 0, 0, 0], 0, 15, 0),
+                                        },
+                                    ],
+                                },
+                                [FLOAT]: {
+                                    Keyframes: [
+                                        {
+                                            Timestamp: 0,
+                                            Rotation: from_euler([0, 0, 0, 0], -15, 0, 0),
+                                        },
+                                        {
+                                            Timestamp: 0.2,
+                                            Rotation: from_euler([0, 0, 0, 0], 15, 0, 0),
                                         },
                                     ],
                                 },
                             }),
                         ],
                     },
+                ],
+            },
+            {
+                // Shadow
+                Rotation: from_euler([0, 0, 0, 0], -90, 0, 0),
+                Scale: [0.6, 0.6, 1],
+                Translation: [0, -0.49, 0],
+                Using: [
+                    render_textured_diffuse(
+                        game.MaterialTexturedDiffuse,
+                        game.MeshQuad,
+                        game.Textures["shadow"]
+                    ),
+                    animate({
+                        [IDLE]: {Keyframes: [{Timestamp: 0, Translation: [0, 0, 0]}]},
+                        [FLOAT]: {Keyframes: [{Timestamp: 0, Translation: [0, 0, 0]}]},
+                        [WALK]: {
+                            Keyframes: [
+                                {
+                                    Timestamp: 0,
+                                    Rotation: from_euler([0, 0, 0, 0], -90, -15, 0),
+                                },
+                                {
+                                    Timestamp: 0.2,
+                                    Rotation: from_euler([0, 0, 0, 0], -90, 15, 0),
+                                },
+                            ],
+                        },
+                    }),
                 ],
             },
         ],

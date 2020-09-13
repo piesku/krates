@@ -11,7 +11,6 @@ import {sys_audio} from "./systems/sys_audio.js";
 import {sys_camera} from "./systems/sys_camera.js";
 import {sys_collide} from "./systems/sys_collide.js";
 import {sys_control_keyboard} from "./systems/sys_control_keyboard.js";
-import {sys_control_touch} from "./systems/sys_control_touch.js";
 import {sys_mimic} from "./systems/sys_mimic.js";
 import {sys_move} from "./systems/sys_move.js";
 import {sys_physics} from "./systems/sys_physics.js";
@@ -80,42 +79,6 @@ export class Game {
             this.InputState[evt.code] = 0;
             this.InputDelta[evt.code] = -1;
         });
-        this.Ui.addEventListener("touchstart", (evt) => {
-            for (let i = 0; i < evt.changedTouches.length; i++) {
-                let touch = evt.changedTouches[i];
-                this.InputState[`Touch${touch.identifier}`] = 1;
-                this.InputState[`Touch${touch.identifier}X`] = touch.screenX;
-                this.InputState[`Touch${touch.identifier}Y`] = touch.screenY;
-                this.InputDelta[`Touch${touch.identifier}`] = 1;
-                this.InputDelta[`Touch${touch.identifier}X`] = 0;
-                this.InputDelta[`Touch${touch.identifier}Y`] = 0;
-            }
-        });
-        this.Ui.addEventListener("touchmove", (evt) => {
-            for (let i = 0; i < evt.changedTouches.length; i++) {
-                let touch = evt.changedTouches[i];
-                this.InputDelta[`Touch${touch.identifier}X`] =
-                    touch.screenX - this.InputState[`Touch${touch.identifier}X`];
-                this.InputDelta[`Touch${touch.identifier}Y`] =
-                    touch.screenY - this.InputState[`Touch${touch.identifier}Y`];
-                this.InputState[`Touch${touch.identifier}X`] = touch.screenX;
-                this.InputState[`Touch${touch.identifier}Y`] = touch.screenY;
-            }
-        });
-        this.Ui.addEventListener("touchend", (evt) => {
-            for (let i = 0; i < evt.changedTouches.length; i++) {
-                let touch = evt.changedTouches[i];
-                this.InputState[`Touch${touch.identifier}`] = 0;
-                this.InputDelta[`Touch${touch.identifier}`] = -1;
-            }
-        });
-        this.Ui.addEventListener("touchcancel", (evt) => {
-            for (let i = 0; i < evt.changedTouches.length; i++) {
-                let touch = evt.changedTouches[i];
-                this.InputState[`Touch${touch.identifier}`] = 0;
-                this.InputDelta[`Touch${touch.identifier}`] = -1;
-            }
-        });
 
         this.Gl.enable(GL_DEPTH_TEST);
         this.Gl.enable(GL_CULL_FACE);
@@ -131,12 +94,11 @@ export class Game {
     FrameUpdate(delta: number) {
         // Player input.
         sys_control_keyboard(this, delta);
-        sys_control_touch(this, delta);
 
         // Game logic.
-        sys_animate(this, delta);
         sys_walk(this, delta);
         sys_move(this, delta);
+        sys_animate(this, delta);
         sys_mimic(this, delta);
         sys_transform(this, delta);
 

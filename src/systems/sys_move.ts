@@ -1,6 +1,7 @@
 import {Quat, Vec3} from "../../common/math.js";
 import {multiply, slerp} from "../../common/quat.js";
 import {add, length, normalize, scale, transform_direction} from "../../common/vec3.js";
+import {query_all} from "../components/com_transform.js";
 import {Entity, Game} from "../game.js";
 import {Has} from "../world.js";
 
@@ -18,6 +19,13 @@ export function sys_move(game: Game, delta: number) {
 function update(game: Game, entity: Entity, delta: number) {
     let transform = game.World.Transform[entity];
     let move = game.World.Move[entity];
+
+    for (let child_entity of query_all(game.World, entity, Has.Animate)) {
+        let child_animate = game.World.Animate[child_entity];
+        if (!child_animate.Trigger) {
+            child_animate.Trigger = move.Directions.length ? "walk" : "idle";
+        }
+    }
 
     if (move.Directions.length) {
         let direction = move.Directions.reduce(add_directions);
