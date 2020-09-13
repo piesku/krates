@@ -35,8 +35,8 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                 Children: [
                     {
                         // Hand
-                        Translation: [0.8, 0.8, 0],
-                        Scale: [0.2, 0.2, 0.5],
+                        Translation: [0.6, 0.8, 0],
+                        Scale: [0.2, 0.6, 0.5],
                         Using: [
                             render_textured_diffuse(
                                 game.MaterialTexturedDiffuse,
@@ -48,8 +48,8 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                     },
                     {
                         // Hand
-                        Translation: [-0.8, 0.8, 0],
-                        Scale: [0.2, 0.2, 0.5],
+                        Translation: [-0.6, 0.8, 0],
+                        Scale: [0.2, 0.6, 0.5],
                         Using: [
                             render_textured_diffuse(
                                 game.MaterialTexturedDiffuse,
@@ -166,19 +166,6 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                                     ),
                                 ],
                             },
-                            {
-                                // Shadow
-                                Rotation: from_euler([0, 0, 0, 0], -90, 45, 0),
-                                Scale: [0.6, 0.6, 1],
-                                Translation: [0, -1, 0],
-                                Using: [
-                                    render_textured_diffuse(
-                                        game.MaterialTexturedDiffuse,
-                                        game.MeshQuad,
-                                        game.Textures["shadow"]
-                                    ),
-                                ],
-                            },
                         ],
                         Using: [
                             animate({
@@ -189,12 +176,12 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                                     Keyframes: [
                                         {
                                             Timestamp: 0,
-                                            Rotation: from_euler([0, 0, 0, 0], 0, -15, 0),
+                                            Rotation: from_euler([0, 0, 0, 0], 0, 0, -15),
                                             Ease: ease_in_out_quad,
                                         },
                                         {
                                             Timestamp: 1,
-                                            Rotation: from_euler([0, 0, 0, 0], 0, 15, 0),
+                                            Rotation: from_euler([0, 0, 0, 0], 0, 0, 15),
                                             Ease: ease_in_out_quad,
                                         },
                                     ],
@@ -202,6 +189,19 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                             }),
                         ],
                     },
+                ],
+            },
+            {
+                // Shadow
+                Rotation: from_euler([0, 0, 0, 0], -90, 45, 0),
+                Scale: [0.6, 0.6, 1],
+                Translation: [0, -0.49, 0],
+                Using: [
+                    render_textured_diffuse(
+                        game.MaterialTexturedDiffuse,
+                        game.MeshQuad,
+                        game.Textures["shadow"]
+                    ),
                 ],
             },
         ],

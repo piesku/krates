@@ -2,7 +2,7 @@ import {create_texture_from} from "../common/texture.js";
 import {dispatch} from "./actions.js";
 import {loop_start} from "./core.js";
 import {Game} from "./game.js";
-import {scene_title} from "./scenes/sce_title.js";
+import {scene_stage} from "./scenes/sce_stage.js";
 
 let game = new Game();
 
@@ -18,7 +18,7 @@ for (let texture of document.querySelectorAll("img")) {
 }
 
 // Skip splash for faster dev feedback.
-// scene_stage(game, 1);
-scene_title(game);
+scene_stage(game, 10);
+// scene_title(game);
 
 loop_start(game);
