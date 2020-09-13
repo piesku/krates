@@ -9,6 +9,15 @@ export function Stage(game: Game) {
         <div class="screen">
             <div class="view" style="border: 10px solid #c60;">
                 <div
+                    style="
+                        position: absolute;
+                        top: 15px;
+                        left: 15px;
+                    "
+                >
+                    World 1 - ${game.CurrentStage}
+                </div>
+                <div
                     class="button"
                     onclick="$(${Action.GoToStage}, ${game.CurrentStage})"
                     style="
