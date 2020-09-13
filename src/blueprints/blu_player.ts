@@ -176,13 +176,27 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                                     Keyframes: [
                                         {
                                             Timestamp: 0,
-                                            Rotation: from_euler([0, 0, 0, 0], 0, 0, -15),
+                                            Rotation: from_euler([0, 0, 0, 0], 0, 0, -10),
                                             Ease: ease_in_out_quad,
                                         },
                                         {
                                             Timestamp: 1,
-                                            Rotation: from_euler([0, 0, 0, 0], 0, 0, 15),
+                                            Rotation: from_euler([0, 0, 0, 0], 0, 0, 10),
                                             Ease: ease_in_out_quad,
+                                        },
+                                    ],
+                                },
+                                walk: {
+                                    Keyframes: [
+                                        {
+                                            Timestamp: 0,
+                                            Rotation: from_euler([0, 0, 0, 0], 0, -15, 0),
+                                            // Ease: ease_in_out_quad,
+                                        },
+                                        {
+                                            Timestamp: 2,
+                                            Rotation: from_euler([0, 0, 0, 0], 0, 15, 0),
+                                            // Ease: ease_in_out_quad,
                                         },
                                     ],
                                 },

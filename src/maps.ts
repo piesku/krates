@@ -317,7 +317,6 @@ export function create_tile(game: Game, tile: TileKind, translation: Vec3, x?: n
             }
             break;
         case TileKind.SpawnPoint:
-            translation[1] += 5;
             instantiate(game, {
                 ...blueprint_player(game, x!, z!),
                 Translation: translation,
