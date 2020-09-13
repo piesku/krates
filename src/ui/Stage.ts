@@ -11,7 +11,7 @@ export function Stage(game: Game) {
                 <div
                     style="
                         position: absolute;
-                        top: 15px;
+                        top: 30px;
                         left: 15px;
                     "
                 >
