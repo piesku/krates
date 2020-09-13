@@ -99,9 +99,9 @@ export class Game {
         sys_control_keyboard(this, delta);
 
         // Game logic.
-        sys_animate(this, delta);
         sys_walk(this, delta);
         sys_move(this, delta);
+        sys_animate(this, delta);
         sys_mimic(this, delta);
         sys_transform(this, delta);
 

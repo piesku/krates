@@ -20,6 +20,13 @@ function update(game: Game, entity: Entity, delta: number) {
     let transform = game.World.Transform[entity];
     let move = game.World.Move[entity];
 
+    for (let child_entity of query_all(game.World, entity, Has.Animate)) {
+        let child_animate = game.World.Animate[child_entity];
+        if (!child_animate.Trigger) {
+            child_animate.Trigger = move.Directions.length ? "walk" : "idle";
+        }
+    }
+
     if (move.Directions.length) {
         let direction = move.Directions.reduce(add_directions);
         // Directions are not normalized to allow them to express slower
@@ -37,16 +44,6 @@ function update(game: Game, entity: Entity, delta: number) {
         add(transform.Translation, transform.Translation, direction);
         transform.Dirty = true;
         move.Directions = [];
-
-        for (let child_entity of query_all(game.World, entity, Has.Animate)) {
-            let child_animate = game.World.Animate[child_entity];
-            child_animate.Trigger = "walk";
-        }
-    } else {
-        for (let child_entity of query_all(game.World, entity, Has.Animate)) {
-            let child_animate = game.World.Animate[child_entity];
-            child_animate.Trigger = "idle";
-        }
     }
 
     // Rotations applied relative to the local space (parent's or world).
