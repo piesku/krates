@@ -3,27 +3,26 @@ import {GL_TRIANGLES} from "../common/webgl.js";
 import {PostprocessLayout} from "./layout_postprocess.js";
 
 let vertex = `
-    attribute vec3 position;
-    attribute vec2 texcoord;
-    varying vec2 vert_texcoord;
+    attribute vec3 B;
+    attribute vec2 C;
+    varying vec2 D;
 
-    void main() {
-        gl_Position = vec4(position, 1.0);
-        vert_texcoord = texcoord;
+    void main(){
+        gl_Position=vec4(B,1.);
+        D=C;
     }
 `;
 
 let fragment = `
     precision mediump float;
 
-    uniform sampler2D sampler;
+    uniform sampler2D A;
 
-    varying vec2 vert_texcoord;
+    varying vec2 D;
 
-    void main() {
+    void main(){
         // Adjust the UVs to account for the 256x192 screen.
-        vec2 uv = vec2(vert_texcoord.x, vert_texcoord.y * 0.75 + 0.125);
-        gl_FragColor = texture2D(sampler, uv);
+        gl_FragColor=texture2D(A,vec2(D.x,D.y*.75+.125));
     }
 `;
 
@@ -33,9 +32,9 @@ export function mat1_postprocess(gl: WebGLRenderingContext): Material<Postproces
         Mode: GL_TRIANGLES,
         Program: program,
         Locations: {
-            Sampler: gl.getUniformLocation(program, "sampler")!,
-            VertexPosition: gl.getAttribLocation(program, "position")!,
-            VertexTexCoord: gl.getAttribLocation(program, "texcoord")!,
+            Sampler: gl.getUniformLocation(program, "A")!,
+            VertexPosition: gl.getAttribLocation(program, "B")!,
+            VertexTexCoord: gl.getAttribLocation(program, "C")!,
         },
     };
 }

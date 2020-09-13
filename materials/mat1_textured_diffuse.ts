@@ -3,48 +3,33 @@ import {GL_TRIANGLES} from "../common/webgl.js";
 import {TexturedDiffuseLayout} from "./layout_textured_diffuse.js";
 
 let vertex = `
-    uniform mat4 pv;
-    uniform mat4 world;
-    uniform mat4 self;
-    uniform vec4 color;
+    uniform mat4 K,L,M;
+    uniform vec4 N;
 
-    attribute vec3 position;
-    attribute vec2 texcoord;
-    attribute vec3 normal;
-    varying vec2 vert_texcoord;
-    varying vec3 vert_color;
+    attribute vec3 P,R;
+    attribute vec2 Q;
+    varying vec2 a;
+    varying vec3 b;
 
-    void main() {
-        vec4 vert_pos = world * vec4(position, 1.0);
-        vec3 vert_normal = normalize((vec4(normal, 1.0) * self).xyz);
-        gl_Position = pv * vert_pos;
+    void main(){
+        vec3 n=normalize((vec4(R, 1.0)*M).xyz);
+        gl_Position=K*L*vec4(P,1.);
 
-        vert_texcoord = texcoord;
+        a=Q;
 
         // Ambient light.
-        vert_color = color.rgb * 0.3;
+        b=N.rgb*.3;
 
         {
             // Main light.
-            vec3 light_normal = normalize(vec3(1.0, 1.0, -1.0));
-            float light_intensity = 0.8;
-
-            float diffuse_factor = dot(vert_normal, light_normal);
-            if (diffuse_factor > 0.0) {
-                vert_color += color.rgb * diffuse_factor * light_intensity;
-            }
+            float f=dot(n,normalize(vec3(1.,1.,-1.)));
+            if(f>0.)b+=N.rgb*f*.8;
         }
 
         {
             // Secondary light.
-            vec3 light_normal = normalize(vec3(1.0, 1.0, 1.0));
-            float light_intensity = 0.5;
-
-            float diffuse_factor = dot(vert_normal, light_normal);
-            if (diffuse_factor > 0.0) {
-                // Diffuse color.
-                vert_color += color.rgb * diffuse_factor * light_intensity;
-            }
+            float f=dot(n,normalize(vec3(1.,1.,1.)));
+            if(f > 0.0)b += N.rgb*f*.5;
         }
     }
 `;
@@ -52,27 +37,22 @@ let vertex = `
 let fragment = `
     precision mediump float;
 
-    uniform sampler2D sampler;
-    uniform float texscale;
-    uniform float texoffset;
-    varying vec2 vert_texcoord;
-    varying vec3 vert_color;
-
-    const vec4 transparent = vec4(1.0, 0.0, 1.0, 1.0);
+    uniform sampler2D O;
+    uniform float S,T;
+    varying vec2 a;
+    varying vec3 b;
 
     void main() {
-        vec4 color;
-        if (texoffset == 0.0) {
-            color = texture2D(sampler, vert_texcoord * texscale);
+        vec4 c;
+        if (T==0.) {
+            c=texture2D(O,a*S);
         } else {
-            color = texture2D(sampler, vert_texcoord * texscale + vec2(texoffset, 0.0));
+            c=texture2D(O,a*S+vec2(T,0.));
         }
 
-        if (color == transparent) {
-            discard;
-        }
+        if(c==vec4(1.,0.,1.,1.))discard;
 
-        gl_FragColor = vec4(vert_color, 1.0) * color;
+        gl_FragColor=vec4(b,1.)*c;
     }
 `;
 
@@ -82,16 +62,16 @@ export function mat1_textured_diffuse(gl: WebGLRenderingContext): Material<Textu
         Mode: GL_TRIANGLES,
         Program: program,
         Locations: {
-            Pv: gl.getUniformLocation(program, "pv")!,
-            World: gl.getUniformLocation(program, "world")!,
-            Self: gl.getUniformLocation(program, "self")!,
-            Color: gl.getUniformLocation(program, "color")!,
-            Sampler: gl.getUniformLocation(program, "sampler")!,
-            VertexPosition: gl.getAttribLocation(program, "position")!,
-            VertexTexCoord: gl.getAttribLocation(program, "texcoord")!,
-            VertexNormal: gl.getAttribLocation(program, "normal")!,
-            TexScale: gl.getUniformLocation(program, "texscale")!,
-            TexOffset: gl.getUniformLocation(program, "texoffset")!,
+            Pv: gl.getUniformLocation(program, "K")!,
+            World: gl.getUniformLocation(program, "L")!,
+            Self: gl.getUniformLocation(program, "M")!,
+            Color: gl.getUniformLocation(program, "N")!,
+            Sampler: gl.getUniformLocation(program, "O")!,
+            VertexPosition: gl.getAttribLocation(program, "P")!,
+            VertexTexCoord: gl.getAttribLocation(program, "Q")!,
+            VertexNormal: gl.getAttribLocation(program, "R")!,
+            TexScale: gl.getUniformLocation(program, "S")!,
+            TexOffset: gl.getUniformLocation(program, "T")!,
         },
     };
 }
