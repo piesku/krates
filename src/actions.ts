@@ -118,6 +118,7 @@ export function dispatch(game: Game, action: Action, payload: unknown) {
             let [entity, other] = payload as [Entity, Entity];
 
             let other_collide = game.World.Collide[other];
+
             if (other_collide.Layers & Layer.Movable) {
                 let other_transform = game.World.Transform[other];
                 other_transform.Translation[1] = -0.05;
@@ -128,6 +129,13 @@ export function dispatch(game: Game, action: Action, payload: unknown) {
             } else if (!game.StageCleared) {
                 game.StageFailed = true;
             }
+
+            // XXX: last minute fix for floating animation
+            // let move = game.World.Move[other];
+            // if (move) {
+            //     console.log("elo?");
+            //     move.Directions.push([0, 0, 0]);
+            // }
 
             for (let child_entity of query_all(game.World, other, Has.Animate)) {
                 let child_animate = game.World.Animate[child_entity];

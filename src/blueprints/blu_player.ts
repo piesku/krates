@@ -1,7 +1,7 @@
 import {ease_in_out_quad} from "../../common/easing.js";
 import {Vec4} from "../../common/math.js";
 import {from_euler} from "../../common/quat.js";
-import {animate} from "../components/com_animate.js";
+import {animate, AnimationFlag} from "../components/com_animate.js";
 import {audio_source} from "../components/com_audio_source.js";
 import {collide} from "../components/com_collide.js";
 import {control_player} from "../components/com_control_player.js";
@@ -17,10 +17,6 @@ let color_hair: Vec4 = [1, 0, 1, 1];
 let color_body: Vec4 = [1, 1, 0, 1];
 let color_eyes: Vec4 = [0.1, 0.1, 0.1, 1];
 let color_dziup: Vec4 = [1, 0.56, 0, 1];
-
-const WALK = "walk";
-const IDLE = "idle";
-const FLOAT = "float";
 
 export function blueprint_player(game: Game, grid_x: number, grid_z: number): Blueprint {
     return {
@@ -49,7 +45,7 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                                 color_hair
                             ),
                             animate({
-                                [IDLE]: {
+                                idle: {
                                     Keyframes: [
                                         {
                                             Timestamp: 0,
@@ -61,7 +57,7 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                                         },
                                     ],
                                 },
-                                [WALK]: {
+                                walk: {
                                     Keyframes: [
                                         {
                                             Timestamp: 0,
@@ -73,7 +69,7 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                                         },
                                     ],
                                 },
-                                [FLOAT]: {
+                                float: {
                                     Keyframes: [
                                         {
                                             Timestamp: 0,
@@ -86,6 +82,7 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                                             Rotation: from_euler([0, 0, 0, 0], 0, 0, 45),
                                         },
                                     ],
+                                    Flags: AnimationFlag.Loop,
                                 },
                             }),
                         ],
@@ -102,7 +99,7 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                                 color_hair
                             ),
                             animate({
-                                [IDLE]: {
+                                idle: {
                                     Keyframes: [
                                         {
                                             Timestamp: 0,
@@ -114,7 +111,7 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                                         },
                                     ],
                                 },
-                                [WALK]: {
+                                walk: {
                                     Keyframes: [
                                         {
                                             Timestamp: 0,
@@ -126,7 +123,8 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                                         },
                                     ],
                                 },
-                                [FLOAT]: {
+                                float: {
+                                    Flags: AnimationFlag.Loop,
                                     Keyframes: [
                                         {
                                             Timestamp: 0,
@@ -256,7 +254,7 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                                 // idle: {
                                 //     Keyframes: [{Timestamp: 0, Translation: [0, 0, 0]}],
                                 // },
-                                [IDLE]: {
+                                idle: {
                                     Keyframes: [
                                         {
                                             Timestamp: 0,
@@ -270,7 +268,7 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                                         },
                                     ],
                                 },
-                                [WALK]: {
+                                walk: {
                                     Keyframes: [
                                         {
                                             Timestamp: 0,
@@ -282,7 +280,8 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                                         },
                                     ],
                                 },
-                                [FLOAT]: {
+                                float: {
+                                    Flags: AnimationFlag.Loop,
                                     Keyframes: [
                                         {
                                             Timestamp: 0,
@@ -311,9 +310,8 @@ export function blueprint_player(game: Game, grid_x: number, grid_z: number): Bl
                         game.Textures["shadow"]
                     ),
                     animate({
-                        [IDLE]: {Keyframes: [{Timestamp: 0, Translation: [0, 0, 0]}]},
-                        [FLOAT]: {Keyframes: [{Timestamp: 0, Translation: [0, 0, 0]}]},
-                        [WALK]: {
+                        idle: {Keyframes: [{Timestamp: 0, Translation: [0, 0, 0]}]},
+                        walk: {
                             Keyframes: [
                                 {
                                     Timestamp: 0,

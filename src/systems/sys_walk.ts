@@ -42,6 +42,7 @@ function update(game: Game, entity: Entity, delta: number) {
         walk.CurrentZ = walk.TargetZ;
         transform.Translation[0] = target_world_x;
         transform.Translation[2] = target_world_z;
+        move.Directions.push([0, 0, 0]);
     } else if (walk.TimeElapsed > 1 / move.MoveSpeed) {
         game.World.Signature[entity] &= ~Has.Walk;
         walk.TimeElapsed = 0;
@@ -51,6 +52,7 @@ function update(game: Game, entity: Entity, delta: number) {
         let prev_world_z = walk.CurrentZ - game.MapSize / 2 + 0.5;
         transform.Translation[0] = prev_world_x;
         transform.Translation[2] = prev_world_z;
+        move.Directions.push([0, 0, 0]);
     } else {
         walk.TimeElapsed += delta;
         normalize(diff, diff);
